@@ -20,7 +20,7 @@ public class Player {
         this.password=password;
         this.level=1;
         this.backPack=new ArrayList<>();
-        this.diamonds=0;
+        this.diamonds=1000;
     }
 
     public String getUserName() {

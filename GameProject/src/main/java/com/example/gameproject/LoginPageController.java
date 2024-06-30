@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class EnterPageController implements Initializable {
+public class LoginPageController implements Initializable {
 
     public TextField usernameTF;
     public TextField passwordTF;

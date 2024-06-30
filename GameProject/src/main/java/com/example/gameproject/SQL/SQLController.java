@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class SQLController {
     public static int getMaxID() throws SQLException {
-        String sqlCmd="Select MAX(ID) from programmers";
+        String sqlCmd="Select MAX(ID) from player";
         SQLConnection sql=new SQLConnection();
         ResultSet rs=sql.executeQuery(sqlCmd);
         if(rs.next()){
@@ -20,12 +20,15 @@ public class SQLController {
     }
     public static void insertPlayer(Player player) throws Exception {
         SQLConnection sql = new SQLConnection();
-        String SQLcom = String.format("INSERT INTO players (ID, UserName, Password, Level, Diamonds) VALUES (%s, '%s','%s','%s', %s)", player.getID(),player.getUserName(),player.getPassword(),player.getLevel(),player.getDiamonds());
+        String SQLcom = String.format("INSERT INTO player (ID, UserName, Password, Level, Diamonds) VALUES (%s, '%s','%s',%s, %s)", player.getID(),player.getUserName(),player.getPassword(),player.getLevel(),player.getDiamonds());
 //        for(Spell spell:player.getBackPack()){
 //        String SQLcom2 = String.format("INSERT INTO backpacks (ID,SpellName) VALUES (%s,'%s')",player.getID(),spell.toString());
 //            sql.executeSQL(SQLcom2);
 //        }
         sql.executeSQL(SQLcom);
+
+    }
+    public static void insertSpell(Spell spell){
 
     }
 }

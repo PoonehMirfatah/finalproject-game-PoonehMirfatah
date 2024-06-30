@@ -26,7 +26,7 @@ public class FirstPageController implements Initializable {
     }
 
     public void signIn(ActionEvent event) throws IOException {
-        PageController.setstage(event,"EnterPage.fxml");
+        PageController.setstage(event,"LoginPage.fxml");
     }
 
     public void signUp(ActionEvent event) throws IOException {
