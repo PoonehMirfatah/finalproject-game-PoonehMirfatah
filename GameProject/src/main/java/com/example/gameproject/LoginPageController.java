@@ -27,5 +27,8 @@ public class LoginPageController implements Initializable {
     }
 
     public void signIn(ActionEvent event) {
+        String username=usernameTF.getText();
+        String password=passwordTF.getText();
+
     }
 }
