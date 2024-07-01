@@ -44,10 +44,45 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <ImageView fitHeight="77.0" fitWidth="85.0" layoutX="115.0" layoutY="219.0" onMouseClicked="#showMap1" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="map1" fitHeight="77.0" fitWidth="85.0" layoutX="115.0" layoutY="219.0" onMouseClicked="#showMap" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../Photos/location2.png" />
          </image>
       </ImageView>
+      <Label layoutX="123.0" layoutY="293.0" prefHeight="34.0" prefWidth="85.0" text="Stage1">
+         <font>
+            <Font name="Britannic Bold" size="22.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="map2" fitHeight="77.0" fitWidth="85.0" layoutX="232.0" layoutY="95.0" onMouseClicked="#showMap" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Photos/location2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="map3" fitHeight="77.0" fitWidth="85.0" layoutX="353.0" layoutY="242.0" onMouseClicked="#showMap" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Photos/location2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="map4" fitHeight="77.0" fitWidth="85.0" layoutX="506.0" layoutY="386.0" onMouseClicked="#showMap" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Photos/location2.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="241.0" layoutY="172.0" prefHeight="34.0" prefWidth="85.0" text="Stage2">
+         <font>
+            <Font name="Britannic Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="361.0" layoutY="320.0" prefHeight="34.0" prefWidth="85.0" text="Stage3">
+         <font>
+            <Font name="Britannic Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="506.0" layoutY="463.0" prefHeight="34.0" prefWidth="85.0" text="Stage4">
+         <font>
+            <Font name="Britannic Bold" size="22.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -28,4 +28,5 @@ public class SignUpPageController implements Initializable {
         SQLController.insertPlayer(player);
 
     }
+
 }
