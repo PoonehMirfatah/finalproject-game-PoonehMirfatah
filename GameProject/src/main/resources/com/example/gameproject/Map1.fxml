@@ -23,7 +23,7 @@
       </ImageView>
       <AnchorPane layoutX="9.0" layoutY="7.0" prefHeight="69.0" prefWidth="383.0" style="-fx-background-color: #5e863c;">
          <children>
-            <Label fx:id="coinsLB" layoutX="231.0" layoutY="6.0" prefHeight="57.0" prefWidth="152.0" text="Label" textFill="#e9b636f2">
+            <Label fx:id="coinsLB" layoutX="240.0" layoutY="6.0" prefHeight="57.0" prefWidth="145.0" text="Label" textFill="#e9b636f2">
                <font>
                   <Font name="Forte" size="30.0" />
                </font>
@@ -33,7 +33,7 @@
                   <Image url="@../../../Photos/heart(1).png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="64.0" fitWidth="73.0" layoutX="149.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="64.0" fitWidth="73.0" layoutX="165.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../Photos/coins.png" />
                </image>
@@ -59,7 +59,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <ImageView fx:id="towerPoint2" fitHeight="80.0" fitWidth="123.0" layoutX="142.0" layoutY="319.0" onMouseClicked="#showTowers" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="towerPoint2" fitHeight="80.0" fitWidth="123.0" layoutX="138.0" layoutY="310.0" onMouseClicked="#showTowers" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../Photos/Pointer%20(2).png" />
          </image>
@@ -97,7 +97,7 @@
             <RowConstraints maxHeight="105.33336385091147" minHeight="10.0" prefHeight="81.66664632161459" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fitHeight="93.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="99.0" fitWidth="111.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../Photos/ArcherTower.png" />
                </image>
@@ -112,7 +112,7 @@
                   <Image url="@../../../Photos/WizardTower.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="122.0" fitWidth="119.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <ImageView fitHeight="107.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <image>
                   <Image url="@../../../Photos/ArmyPlace.png" />
                </image>

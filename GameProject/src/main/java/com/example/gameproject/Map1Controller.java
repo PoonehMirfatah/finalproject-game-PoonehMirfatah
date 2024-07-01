@@ -1,7 +1,10 @@
 package com.example.gameproject;
 
+import Controllers.PlayerController;
 import Models.Map;
 import Models.Position;
+import Models.Towers.ArcherTower;
+import Models.Wave;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -56,26 +59,32 @@ public class Map1Controller implements Initializable {
     private QuadCurve ps5;
     @FXML
     private GridPane towersBox;
+
     String towerID;
     Position clickedPosition;
+    int coins;
+    int health;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         towersBox.setVisible(false);
-//        ArrayList<Position> towers=new ArrayList<>();
-//        Position p1=new Position(towerPoint1.getX(),towerPoint1.getY());
-//        Position p2=new Position(towerPoint2.getX(),towerPoint2.getY());
-//        Position p3=new Position(towerPoint3.getX(),towerPoint3.getY());
-//        Position end=new Position(409,634);
-//        towers.add(p1);
-//        towers.add(p2);
-//        towers.add(p3);
-//        Path path = new Path();
-//        path.getElements().add(new MoveTo(547, -2));
-//        path.getElements().add(new QuadCurveTo(ps1.getControlX(),ps1.getControlY(),ps1.getEndX(),ps1.getEndY()));
-//        Map map1=new Map(towers,path,end,);
-        heartLB.setText("25");
-        coinsLB.setText("1000");
+        ArrayList<Position> towers=new ArrayList<>();
+        Position p1=new Position(towerPoint1.getX(),towerPoint1.getY());
+        Position p2=new Position(towerPoint2.getX(),towerPoint2.getY());
+        Position p3=new Position(towerPoint3.getX(),towerPoint3.getY());
+        Position end=new Position(409,634);
+        towers.add(p1);
+        towers.add(p2);
+        towers.add(p3);
+        ArrayList<Wave> attackWaves=new ArrayList<>();
+        Path path = new Path();
+        path.getElements().add(new MoveTo(547, -2));
+        path.getElements().add(new QuadCurveTo(ps1.getControlX(),ps1.getControlY(),ps1.getEndX(),ps1.getEndY()));
+        Map map1=new Map(towers,path,end,attackWaves,300,20);
+        coins=300;
+        heartLB.setText(String.format("%s/25",health));
+        coinsLB.setText(String.valueOf(300));
     }
 
     @FXML
@@ -104,6 +113,9 @@ public class Map1Controller implements Initializable {
         switch (clickedButton.getId()){
             case "t1":
                setTowerOnPosition("/Photos/ArcherTower.png");
+               ArcherTower archerTower=new ArcherTower(100,70,20);
+               coins-=archerTower.getBulidCost();
+                coinsLB.setText(String.valueOf(coins));
                 break;
             case "t2":
                 setTowerOnPosition("/Photos/Artillery.png");

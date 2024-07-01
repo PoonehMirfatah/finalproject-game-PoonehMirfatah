@@ -2,11 +2,11 @@ package Models.Towers;
 
 public abstract class Tower  {
     private int destroyPower;
-    private long bulidCost;
+    private int bulidCost;
     private int range;
     private String image;
 
-    public Tower(int destroyPower, long bulidCost, int range, String image){
+    public Tower(int destroyPower, int bulidCost, int range, String image){
         this.bulidCost=bulidCost;
         this.destroyPower=destroyPower;
         this.range=range;
@@ -24,11 +24,11 @@ public abstract class Tower  {
         return range;
     }
 
-    public long getBulidCost() {
+    public int getBulidCost() {
         return bulidCost;
     }
 
-    public void setBulidCost(long bulidCost) {
+    public void setBulidCost(int bulidCost) {
         this.bulidCost = bulidCost;
     }
 
