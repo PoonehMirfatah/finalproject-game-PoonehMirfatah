@@ -6,8 +6,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.QuadCurve;
@@ -18,6 +21,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Map1Controller implements Initializable {
+    @FXML
+    private AnchorPane pane;
     @FXML
     private Label coinsLB;
 
@@ -49,10 +54,14 @@ public class Map1Controller implements Initializable {
 
     @FXML
     private QuadCurve ps5;
-
+    @FXML
+    private GridPane towersBox;
+    String towerID;
+    Position clickedPosition;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        towersBox.setVisible(false);
 //        ArrayList<Position> towers=new ArrayList<>();
 //        Position p1=new Position(towerPoint1.getX(),towerPoint1.getY());
 //        Position p2=new Position(towerPoint2.getX(),towerPoint2.getY());
@@ -70,8 +79,50 @@ public class Map1Controller implements Initializable {
     }
 
     @FXML
+    void showTowers(MouseEvent event){
+       ImageView clickedImage = (ImageView) event.getSource();
+        towerID=clickedImage.getId();
+        switch (towerID){
+            case "towerPoint1":
+                towerPoint1.setVisible(false);
+                clickedPosition=new Position(towerPoint1.getLayoutX(),towerPoint1.getLayoutY());
+                break;
+            case "towerPoint2":
+                towerPoint2.setVisible(false);
+                clickedPosition=new Position(towerPoint2.getLayoutX(),towerPoint2.getLayoutY());
+                break;
+            case "towerPoint3":
+                towerPoint3.setVisible(false);
+                clickedPosition=new Position(towerPoint3.getLayoutX(),towerPoint3.getLayoutY());
+                break;
+        }
+        towersBox.setVisible(true);
+    }
+    @FXML
     void buildTower(MouseEvent event) {
-
+        Button clickedButton = (Button) event.getSource();
+        switch (clickedButton.getId()){
+            case "t1":
+               setTowerOnPosition("/Photos/ArcherTower.png");
+                break;
+            case "t2":
+                setTowerOnPosition("/Photos/Artillery.png");
+                break;
+            case "t3":
+                setTowerOnPosition("/Photos/WizardTower.png");
+                break;
+            case "t4":
+                setTowerOnPosition("/Photos/ArmyPlace.png");
+                break;
+        }
+        towersBox.setVisible(false);
+    }
+    public void setTowerOnPosition(String towerPath){
+        Image image=new Image(getClass().getResource(towerPath).toExternalForm());
+        ImageView imageView=new ImageView(image);
+        imageView.setLayoutX(clickedPosition.getX());
+        imageView.setLayoutY(clickedPosition.getY());
+        pane.getChildren().add(imageView);
     }
     @FXML
     void startAttack(MouseEvent event) {

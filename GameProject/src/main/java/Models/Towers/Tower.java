@@ -4,11 +4,13 @@ public abstract class Tower  {
     private int destroyPower;
     private long bulidCost;
     private int range;
+    private String image;
 
-    public Tower(int destroyPower,long bulidCost,int range){
+    public Tower(int destroyPower, long bulidCost, int range, String image){
         this.bulidCost=bulidCost;
         this.destroyPower=destroyPower;
         this.range=range;
+        this.image = image;
     }
     public void setDestroyPower(int destroyPower) {
         this.destroyPower = destroyPower;
@@ -34,4 +36,11 @@ public abstract class Tower  {
         this.range = range;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 }
