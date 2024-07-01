@@ -1,5 +1,6 @@
 package com.example.gameproject.SQL;
 
+import Controllers.PlayerController;
 import Models.Player;
 import Models.Spell;
 
@@ -8,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SQLController {
-    static Player player;
+    static Player player= PlayerController.getInstance().player;
     public static int getMaxID() throws SQLException {
         String sqlCmd="Select MAX(ID) from player";
         SQLConnection sql=new SQLConnection();
