@@ -32,7 +32,8 @@ public class HomePageController {
         ImageView clickedImageView = (ImageView) event.getSource();
         switch (clickedImageView.getId()) {
             case "map1":
-
+                PageController.setstage(event, "map1.fxml");
+                break;
             case "map2":
 
             case "map3":
@@ -41,7 +42,7 @@ public class HomePageController {
 
 
         }
-        PageController.setstage(event, "GamePage");
+
     }
 }
 

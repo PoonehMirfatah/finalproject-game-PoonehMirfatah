@@ -1,5 +1,7 @@
 package com.example.gameproject.SQL;
 
+import com.example.gameproject.PageController;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,8 +9,8 @@ import java.sql.Statement;
 
 class SQLConnection {
     String URL = "jdbc:mysql://localhost/game";
-    String password = "1234";
-    String username = "UI";
+    String password = "123";
+    String username = "root";
 
     Boolean executeSQL(String SQLcmd) throws Exception {
         try {

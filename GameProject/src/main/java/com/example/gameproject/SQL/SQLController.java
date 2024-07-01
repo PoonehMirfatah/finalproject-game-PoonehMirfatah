@@ -34,7 +34,7 @@ public class SQLController {
 
     }
     public static void loadPlayer(String userName,String password) throws SQLException {
-        String sqlCmd = String.format("Select * from player WHERE UserName='%s'AND Password='%s'",userName,password);
+        String sqlCmd = String.format("Select * from player WHERE UserName='%s' AND Password='%s'",userName,password);
         SQLConnection sql = new SQLConnection();
         ResultSet rs = sql.executeQuery(sqlCmd);
         if (rs.next()) {
