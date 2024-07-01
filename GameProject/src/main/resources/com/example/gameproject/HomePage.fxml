@@ -1,8 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gameproject.HomePageController">
-
+<AnchorPane prefHeight="605.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gameproject.HomePageController">
+   <children>
+      <ImageView fitHeight="622.0" fitWidth="722.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Maps/homePage.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="61.0" fitWidth="61.0" layoutX="540.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Photos/diamond.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="61.0" fitWidth="54.0" layoutX="544.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Photos/star.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="diamondLB" layoutX="617.0" layoutY="40.0" prefHeight="43.0" prefWidth="85.0" text="Label" />
+      <Label fx:id="starLB" layoutX="612.0" layoutY="107.0" prefHeight="43.0" prefWidth="85.0" text="Label" />
+      <ImageView fitHeight="77.0" fitWidth="77.0" layoutX="14.0" layoutY="415.0" onMouseClicked="#goToShop" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Photos/shop.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="33.0" layoutY="492.0" text="shop" textFill="#f4dbdb">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="61.0" fitWidth="67.0" layoutX="22.0" layoutY="528.0" onMouseClicked="#goToSetting" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Photos/settings.png" />
+         </image></ImageView>
+      <Label layoutX="26.0" layoutY="589.0" text="Setting" textFill="#e6cece">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="77.0" fitWidth="85.0" layoutX="115.0" layoutY="219.0" onMouseClicked="#showMap1" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Photos/location2.png" />
+         </image>
+      </ImageView>
+   </children>
 </AnchorPane>
