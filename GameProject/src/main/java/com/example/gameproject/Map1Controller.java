@@ -83,6 +83,7 @@ public class Map1Controller implements Initializable {
         path.getElements().add(new QuadCurveTo(ps1.getControlX(),ps1.getControlY(),ps1.getEndX(),ps1.getEndY()));
         Map map1=new Map(towers,path,end,attackWaves,300,20);
         coins=300;
+        health=25;
         heartLB.setText(String.format("%s/25",health));
         coinsLB.setText(String.valueOf(300));
     }
