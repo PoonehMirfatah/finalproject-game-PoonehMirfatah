@@ -1,20 +1,30 @@
 package com.example.gameproject;
 
+import Controllers.PlayerController;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class HomePageController {
-
+public class HomePageController implements Initializable {
     @FXML
     private Label diamondLB;
 
     @FXML
     private Label starLB;
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        String diamonds=String.valueOf(PlayerController.getInstance().player.getDiamonds());
+        diamondLB.setText(diamonds);
+        String level=String.valueOf(PlayerController.getInstance().player.getLevel());
+        starLB.setText(level+" / 4 ");
+    }
 
     @FXML
     void goToSetting(MouseEvent event) {
@@ -44,5 +54,7 @@ public class HomePageController {
         }
 
     }
+
+
 }
 

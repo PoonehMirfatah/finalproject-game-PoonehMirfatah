@@ -13,18 +13,24 @@
             <Image url="@../../../Maps/homePage.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="61.0" fitWidth="61.0" layoutX="540.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="54.0" fitWidth="48.0" layoutX="540.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../Photos/diamond.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="61.0" fitWidth="54.0" layoutX="544.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="544.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../Photos/star.png" />
          </image>
       </ImageView>
-      <Label fx:id="diamondLB" layoutX="617.0" layoutY="40.0" prefHeight="43.0" prefWidth="85.0" text="Label" />
-      <Label fx:id="starLB" layoutX="612.0" layoutY="107.0" prefHeight="43.0" prefWidth="85.0" text="Label" />
+      <Label fx:id="diamondLB" layoutX="613.0" layoutY="29.0" prefHeight="43.0" prefWidth="85.0" text="Label" textFill="#97fff6">
+         <font>
+            <Font size="25.0" />
+         </font></Label>
+      <Label fx:id="starLB" layoutX="612.0" layoutY="107.0" prefHeight="43.0" prefWidth="85.0" text="Label" textFill="#ffb12b">
+         <font>
+            <Font size="25.0" />
+         </font></Label>
       <ImageView fitHeight="77.0" fitWidth="77.0" layoutX="14.0" layoutY="415.0" onMouseClicked="#goToShop" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../Photos/shop.png" />
