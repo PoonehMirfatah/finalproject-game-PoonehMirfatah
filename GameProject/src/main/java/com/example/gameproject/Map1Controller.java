@@ -1,10 +1,12 @@
 package com.example.gameproject;
 
-import Controllers.PlayerController;
 import Models.Map;
 import Models.Position;
 import Models.Towers.ArcherTower;
+import Models.Towers.Artillery;
+import Models.Towers.WizardTower;
 import Models.Wave;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -25,24 +27,20 @@ import java.util.ResourceBundle;
 
 public class Map1Controller implements Initializable {
     @FXML
-    private AnchorPane pane;
+    private GridPane UpgradeBox;
+
     @FXML
     private Label coinsLB;
+
+    @FXML
+    private Label destroyLootLB;
 
     @FXML
     private Label heartLB;
 
     @FXML
-    private Button startBT;
+    private AnchorPane pane;
 
-    @FXML
-    private ImageView towerPoint1;
-
-    @FXML
-    private ImageView towerPoint2;
-
-    @FXML
-    private ImageView towerPoint3;
     @FXML
     private QuadCurve ps1;
 
@@ -57,14 +55,53 @@ public class Map1Controller implements Initializable {
 
     @FXML
     private QuadCurve ps5;
+
+    @FXML
+    private Button startBT;
+
+    @FXML
+    private Button t1;
+
+    @FXML
+    private Button t2;
+
+    @FXML
+    private Button t21;
+
+    @FXML
+    private Button t211;
+
+    @FXML
+    private Button t3;
+
+    @FXML
+    private Button t4;
+
+    @FXML
+    private ImageView towerPoint1;
+
+    @FXML
+    private ImageView towerPoint2;
+
+    @FXML
+    private ImageView towerPoint3;
+
     @FXML
     private GridPane towersBox;
+
+    @FXML
+    private Label upgradedCostLB;
+
+    @FXML
+    private ImageView upgradedTower;
 
     String towerID;
     Position clickedPosition;
     int coins;
     int health;
-
+    ImageView towerToUpgrade;
+    ImageView point;
+    Image upgradedImage;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -94,16 +131,13 @@ public class Map1Controller implements Initializable {
         towerID=clickedImage.getId();
         switch (towerID){
             case "towerPoint1":
-                towerPoint1.setVisible(false);
-                clickedPosition=new Position(towerPoint1.getLayoutX(),towerPoint1.getLayoutY());
+                 point=towerPoint1;
                 break;
             case "towerPoint2":
-                towerPoint2.setVisible(false);
-                clickedPosition=new Position(towerPoint2.getLayoutX(),towerPoint2.getLayoutY());
+                point=towerPoint2;
                 break;
             case "towerPoint3":
-                towerPoint3.setVisible(false);
-                clickedPosition=new Position(towerPoint3.getLayoutX(),towerPoint3.getLayoutY());
+                point=towerPoint3;
                 break;
         }
         towersBox.setVisible(true);
@@ -113,34 +147,60 @@ public class Map1Controller implements Initializable {
         Button clickedButton = (Button) event.getSource();
         switch (clickedButton.getId()){
             case "t1":
-               setTowerOnPosition("/Photos/ArcherTower.png");
+               setTowerOnPosition("/Towers/1ArcherTower.png");
                ArcherTower archerTower=new ArcherTower(100,70,20);
                coins-=archerTower.getBulidCost();
                 coinsLB.setText(String.valueOf(coins));
                 break;
             case "t2":
-                setTowerOnPosition("/Photos/Artillery.png");
+                setTowerOnPosition("/Towers/Artillery.png");
+                Artillery artillery=new Artillery(200,125,30);
+                coins-=artillery.getBulidCost();
+                coinsLB.setText(String.valueOf(coins));
                 break;
             case "t3":
-                setTowerOnPosition("/Photos/WizardTower.png");
+                setTowerOnPosition("/Towers/WizardTower.png");
+                WizardTower wizardTower =new WizardTower(300,100,30);
+                coins-=wizardTower.getBulidCost();
+                coinsLB.setText(String.valueOf(coins));
                 break;
             case "t4":
-                setTowerOnPosition("/Photos/ArmyPlace.png");
+                setTowerOnPosition("/Towers/ArmyPlace.png");
                 break;
         }
         towersBox.setVisible(false);
     }
     public void setTowerOnPosition(String towerPath){
         Image image=new Image(getClass().getResource(towerPath).toExternalForm());
-        ImageView imageView=new ImageView(image);
-        imageView.setLayoutX(clickedPosition.getX());
-        imageView.setLayoutY(clickedPosition.getY());
-        pane.getChildren().add(imageView);
+        point.setImage(image);
+        point.setOnMouseClicked(event ->{
+            UpgradeBox.setVisible(true);
+            int level = 0;
+            char digitChar = 0;
+            for (Character chr:towerPath.toCharArray()){
+                if (Character.isDigit(chr)){
+                    digitChar= chr;
+                    level=Integer.parseInt(String.valueOf(digitChar));
+                }
+            }
+            level+=1;
+            String newLevel = String.valueOf(level);
+            String newPath = towerPath.replaceAll("\\d", newLevel);
+            upgradedImage=new Image(getClass().getResource(newPath).toExternalForm());
+            upgradedTower.setImage(upgradedImage);
+
+        });
     }
     @FXML
     void startAttack(MouseEvent event) {
 
     }
+    @FXML
+    void destroyTower(MouseEvent event) {
 
-
+    }
+    @FXML
+    void upgradeTower(ActionEvent event) {
+        point.setImage(upgradedImage);
+    }
 }
