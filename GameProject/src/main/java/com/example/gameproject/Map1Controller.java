@@ -99,9 +99,8 @@ public class Map1Controller implements Initializable {
     Position clickedPosition;
     int coins;
     int health;
-    ImageView towerToUpgrade;
     ImageView point;
-    Image upgradedImage;
+    String newPath;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -145,6 +144,9 @@ public class Map1Controller implements Initializable {
     @FXML
     void buildTower(MouseEvent event) {
         Button clickedButton = (Button) event.getSource();
+        if (clickedButton.getId()==null){
+            return;
+        }
         switch (clickedButton.getId()){
             case "t1":
                setTowerOnPosition("/Towers/1ArcherTower.png");
@@ -167,6 +169,8 @@ public class Map1Controller implements Initializable {
             case "t4":
                 setTowerOnPosition("/Towers/ArmyPlace.png");
                 break;
+            default:
+                break;
         }
         towersBox.setVisible(false);
     }
@@ -185,8 +189,9 @@ public class Map1Controller implements Initializable {
             }
             level+=1;
             String newLevel = String.valueOf(level);
-            String newPath = towerPath.replaceAll("\\d", newLevel);
-            upgradedImage=new Image(getClass().getResource(newPath).toExternalForm());
+            newPath = towerPath.replaceAll("\\d", newLevel);
+            System.out.println(newPath);
+            Image upgradedImage=new Image(getClass().getResource(newPath).toExternalForm());
             upgradedTower.setImage(upgradedImage);
 
         });
@@ -196,11 +201,18 @@ public class Map1Controller implements Initializable {
 
     }
     @FXML
-    void destroyTower(MouseEvent event) {
-
+    void destroyTower(ActionEvent event) {
+        Image image=new Image(getClass().getResource("/Towers/Pointer.png").toExternalForm());
+        point.setImage(image);
+        point.setOnMouseClicked(
+                this::showTowers
+        );
+        UpgradeBox.setVisible(false);
     }
     @FXML
     void upgradeTower(ActionEvent event) {
-        point.setImage(upgradedImage);
+        setTowerOnPosition(newPath);
+        UpgradeBox.setVisible(false);
+        //cost Money
     }
 }
