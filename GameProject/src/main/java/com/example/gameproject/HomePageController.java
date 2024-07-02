@@ -1,12 +1,15 @@
 package com.example.gameproject;
 
 import Controllers.PlayerController;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,6 +21,7 @@ public class HomePageController implements Initializable {
 
     @FXML
     private Label starLB;
+    Event event;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         String diamonds=String.valueOf(PlayerController.getInstance().player.getDiamonds());

@@ -61,17 +61,17 @@
       </AnchorPane>
       <ImageView fx:id="towerPoint2" fitHeight="80.0" fitWidth="123.0" layoutX="138.0" layoutY="310.0" onMouseClicked="#showTowers" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../Photos/Pointer%20(2).png" />
+            <Image url="@../../../Photos/Pointer.png" />
          </image>
       </ImageView>
       <ImageView fx:id="towerPoint1" fitHeight="89.0" fitWidth="134.0" layoutX="335.0" layoutY="184.0" onMouseClicked="#showTowers" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../Photos/Pointer%20(2).png" />
+            <Image url="@../../../Photos/Pointer.png" />
          </image>
       </ImageView>
       <ImageView fx:id="towerPoint3" fitHeight="73.0" fitWidth="123.0" layoutX="324.0" layoutY="343.0" onMouseClicked="#showTowers" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../Photos/Pointer%20(2).png" />
+            <Image url="@../../../Photos/Pointer.png" />
          </image>
       </ImageView>
       <Button fx:id="startBT" layoutX="639.0" layoutY="104.0" mnemonicParsing="false" onMouseClicked="#startAttack" prefHeight="57.0" prefWidth="107.0" style="-fx-background-color: #418228;" text="Start">

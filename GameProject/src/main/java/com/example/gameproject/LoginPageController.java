@@ -32,13 +32,17 @@ public class LoginPageController implements Initializable {
     }
 
     public void signIn(ActionEvent event) throws SQLException, IOException {
-        String username=usernameTF.getText();
-        String password=passwordTF.getText();
+        String username = usernameTF.getText();
+        String password = passwordTF.getText();
         try {
             SQLController.loadPlayer(username, password);
-        }catch (Exception e){
-            PageController.showAlert("Error","",e.getMessage(), Alert.AlertType.ERROR);
+        } catch (Exception e) {
+            PageController.showAlert("Error", e.getMessage(), "", Alert.AlertType.ERROR);
         }
-        PageController.setstage(event,"HomePage.fxml");
+        if (PlayerController.getInstance().player==null) {
+            PageController.showAlert("Error", "User Not Found!", "", Alert.AlertType.ERROR);
+            return;
+        }
+        PageController.setstage(event, "HomePage.fxml");
     }
 }

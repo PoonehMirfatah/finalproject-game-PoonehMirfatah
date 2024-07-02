@@ -43,6 +43,7 @@ public class SQLController {
             player.setLevel(Integer.parseInt(rs.getString("Level")));
             player.setDiamonds(Integer.parseInt(rs.getString("Diamonds")));
             PlayerController.getInstance().player=player;
+            System.out.println(PlayerController.getInstance().player.getUserName());
         }
     }
 }
