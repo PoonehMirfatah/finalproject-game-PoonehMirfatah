@@ -15,6 +15,8 @@ import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.net.IDN;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -53,6 +55,16 @@ public class ShopPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            SQLController.loadPlayerSpells(PlayerController.getInstance().player.getID());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        updateLabels();
+    }
+
+
+    public void updateLabels(){
         diamondsLB.setText(String.valueOf(PlayerController.getInstance().player.getDiamonds()));
         for (String spellName : PlayerController.getInstance().player.getBackPack().keySet()) {
             int count = PlayerController.getInstance().player.getBackPack().get(spellName);
@@ -72,7 +84,6 @@ public class ShopPageController implements Initializable {
             }
         }
     }
-
     @FXML
     void buy(MouseEvent event) throws IOException {
         AbstractSpell selectedSpell = null;
@@ -105,7 +116,7 @@ public class ShopPageController implements Initializable {
         }
         int primaryDiamonds = PlayerController.getInstance().player.getDiamonds();
         PlayerController.getInstance().player.setDiamonds(primaryDiamonds - selectedSpell.getPrice());
-        PageController.setstage(event, "ShopPage.fxml");
+        updateLabels();
     }
 
     @FXML
@@ -127,6 +138,7 @@ public class ShopPageController implements Initializable {
                 imagePath = "/Shop/littleBoy.jpg";
                 break;
         }
+        assert imagePath != null;
         Image image = new Image(getClass().getResource(imagePath).toExternalForm());
         spellBoard.setImage(image);
     }

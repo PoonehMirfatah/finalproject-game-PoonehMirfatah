@@ -54,4 +54,14 @@ public class SQLController {
         SQLConnection sql = new SQLConnection();
         sql.executeSQL(SQLcom);
     }
+    public static void loadPlayerSpells(int ID) throws SQLException {
+        String sqlCmd = String.format("Select * from spells WHERE PlayerID=%s", ID);
+        SQLConnection sql = new SQLConnection();
+        ResultSet rs = sql.executeQuery(sqlCmd);
+        while (rs.next()) {
+            String spellName = rs.getString("SpellName");
+            int count=Integer.parseInt(rs.getString("Count"));
+           PlayerController.getInstance().player.getBackPack().put(spellName,count);
+        }
+    }
 }
