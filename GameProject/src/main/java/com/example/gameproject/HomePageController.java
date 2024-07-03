@@ -36,8 +36,8 @@ public class HomePageController implements Initializable {
     }
 
     @FXML
-    void goToShop(MouseEvent event) {
-
+    void goToShop(MouseEvent event) throws IOException {
+        PageController.setstage(event,"ShopPage.fxml");
     }
 
 

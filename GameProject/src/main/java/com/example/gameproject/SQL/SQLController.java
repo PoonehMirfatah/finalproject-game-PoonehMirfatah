@@ -2,7 +2,7 @@ package com.example.gameproject.SQL;
 
 import Controllers.PlayerController;
 import Models.Player;
-import Models.Spell;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,9 +30,7 @@ public class SQLController {
         sql.executeSQL(SQLcom);
 
     }
-    public static void insertSpell(Spell spell){
 
-    }
     public static void loadPlayer(String userName,String password) throws SQLException {
         String sqlCmd = String.format("Select * from player WHERE UserName='%s' AND Password='%s'",userName,password);
         SQLConnection sql = new SQLConnection();
