@@ -22,10 +22,6 @@ public class SQLController {
     public static void insertPlayer(Player player) throws Exception {
         SQLConnection sql = new SQLConnection();
         String SQLcom = String.format("INSERT INTO player (ID, UserName, Password, Level, Diamonds) VALUES (%s, '%s','%s',%s, %s)", player.getID(),player.getUserName(),player.getPassword(),player.getLevel(),player.getDiamonds());
-//        for(Spell spell:player.getBackPack()){
-//        String SQLcom2 = String.format("INSERT INTO backpacks (ID,SpellName) VALUES (%s,'%s')",player.getID(),spell.toString());
-//            sql.executeSQL(SQLcom2);
-//        }
         sql.executeSQL(SQLcom);
 
     }
@@ -63,5 +59,10 @@ public class SQLController {
             int count=Integer.parseInt(rs.getString("Count"));
            PlayerController.getInstance().player.getBackPack().put(spellName,count);
         }
+    }
+    public static  void updatePlayer(int ID) throws Exception {
+        String SQLcom = String.format("UPDATE player SET Diamonds=%s WHERE ID=%s", PlayerController.getInstance().player.getDiamonds(),ID);
+        SQLConnection sql = new SQLConnection();
+         sql.executeSQL(SQLcom);
     }
 }

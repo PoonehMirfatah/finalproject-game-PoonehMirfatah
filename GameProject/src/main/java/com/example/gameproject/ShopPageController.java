@@ -137,6 +137,8 @@ public class ShopPageController implements Initializable {
             case "littleBoy":
                 imagePath = "/Shop/littleBoy.jpg";
                 break;
+            default:
+                break;
         }
         assert imagePath != null;
         Image image = new Image(getClass().getResource(imagePath).toExternalForm());
@@ -150,6 +152,7 @@ public class ShopPageController implements Initializable {
             int count = PlayerController.getInstance().player.getBackPack().get(spellName);
             SQLController.insertSpell(spellName, count);
         }
+        SQLController.updatePlayer(PlayerController.getInstance().player.getID());
         PageController.setstage(event,"HomePage.fxml");
     }
 }

@@ -6,11 +6,10 @@ public abstract class Tower  {
     private int range;
     private String image;
 
-    public Tower(int destroyPower, int bulidCost, int range, String image){
+    public Tower(int destroyPower, int bulidCost, int range){
         this.bulidCost=bulidCost;
         this.destroyPower=destroyPower;
         this.range=range;
-        this.image = image;
     }
     public void setDestroyPower(int destroyPower) {
         this.destroyPower = destroyPower;
