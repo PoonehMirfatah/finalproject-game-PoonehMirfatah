@@ -6,7 +6,6 @@ import Models.Player;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class SQLController {
 
@@ -43,5 +42,16 @@ public class SQLController {
             PlayerController.getInstance().player=player;
             System.out.println(PlayerController.getInstance().player.getUserName());
         }
+    }
+    public static void insertSpell(String spellName, int count) throws Exception {
+        int ID=PlayerController.getInstance().player.getID();
+        String SQLcom = String.format("INSERT INTO spells (PlayerID, SpellName,Count) VALUES (%s, '%s',%s)", ID, spellName, count);
+        SQLConnection sql = new SQLConnection();
+        sql.executeSQL(SQLcom);
+    }
+    public static void deletePlayerSpells(int ID) throws Exception {
+        String SQLcom = String.format("DELETE FROM spells WHERE PlayerID=%s", ID);
+        SQLConnection sql = new SQLConnection();
+        sql.executeSQL(SQLcom);
     }
 }

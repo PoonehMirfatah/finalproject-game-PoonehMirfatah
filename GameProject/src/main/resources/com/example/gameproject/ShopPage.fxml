@@ -56,7 +56,7 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label fx:id="littleBoyLB" alignment="CENTER" contentDisplay="CENTER" layoutX="70.0" layoutY="226.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #262222;" text="0" textFill="WHITE">
+            <Label fx:id="littleBoyCountLB" alignment="CENTER" contentDisplay="CENTER" layoutX="70.0" layoutY="226.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #262222;" text="0" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
