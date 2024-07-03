@@ -1,15 +1,6 @@
 package Models.Spells;
 
-public abstract class Spell implements spell{
-     String name;
-     int price;
-
-     public Spell(String name,int price){
-         this.name=name;
-         this.price=price;
-     }
-}
- interface spell {
+public interface Spell {
     int getPrice();
     void drop();
 }

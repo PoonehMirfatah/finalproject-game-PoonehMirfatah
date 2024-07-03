@@ -1,17 +1,19 @@
 package Models.Spells;
 
-public class FreezeSpell extends Spell{
-    public FreezeSpell(String name, int price) {
-        super(name, price);
-    }
+public class FreezeSpell extends AbstractSpell {
+    private int freezeDuration;
 
-    @Override
-    public int getPrice() {
-        return this.price;
+    public FreezeSpell(String name, int price, int freezeDuration) {
+        super(name, price);
+        this.freezeDuration = freezeDuration;
     }
 
     @Override
     public void drop() {
+        System.out.println("All attackers are frozen for " + freezeDuration + " seconds.");
+    }
 
+    public int getFreezeDuration() {
+        return freezeDuration;
     }
 }

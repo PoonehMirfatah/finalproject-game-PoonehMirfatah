@@ -1,5 +1,10 @@
 package com.example.gameproject;
 
+import Controllers.PlayerController;
+import Models.Spells.CoinSpell;
+import Models.Spells.FreezeSpell;
+import Models.Spells.HealthSpell;
+import Models.Spells.LittleBoySpell;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -14,7 +19,7 @@ import java.util.ResourceBundle;
 public class ShopPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        diamondsLB.setText(String.valueOf(PlayerController.getInstance().player.getDiamonds()));
     }
 
     @FXML
@@ -55,17 +60,20 @@ public class ShopPageController implements Initializable {
 
     @FXML
     void buy(MouseEvent event) {
+        System.out.println(spellID);
         switch (spellID){
             case "heart":
-                //new & add to player
+                HealthSpell healthSpell=new HealthSpell("health",350,5);
+
                 break;
             case "freeze":
-
+                FreezeSpell freezeSpell=new FreezeSpell("freeze",50,5);
+                break;
             case "coins":
-
+                CoinSpell coinsSpell=new CoinSpell("coins",850,200);
                 break;
             case "littleBoy":
-
+                LittleBoySpell littleBoySpell=new LittleBoySpell("littleBoy",999);
                 break;
         }
     }
@@ -73,7 +81,7 @@ public class ShopPageController implements Initializable {
     @FXML
     void showSpell(MouseEvent event) {
         String imagePath=null;
-        Button clickedButton = (Button) event.getSource();
+        Label clickedButton = (Label) event.getSource();
         spellID= clickedButton.getId();
         switch (spellID){
             case "heart":

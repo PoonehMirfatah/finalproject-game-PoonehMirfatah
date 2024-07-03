@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Player {
     private int ID;
@@ -14,13 +15,13 @@ public class Player {
     private String password;
     private int level;
     private int diamonds;
-    private ArrayList<Spell> backPack;
+    private HashMap<Spell,Integer> backPack;
     public Player(String userName,String password) throws SQLException {
         this.ID=SQLController.getMaxID()+1;
         this.userName=userName;
         this.password=password;
         this.level=1;
-        this.backPack=new ArrayList<>();
+        this.backPack=new HashMap<>();
         this.diamonds=1000;
     }
 
@@ -54,10 +55,6 @@ public class Player {
     }
 
 
-    public ArrayList<Spell> getBackPack() {
-        return backPack;
-    }
-
     public int getDiamonds() {
         return diamonds;
     }
@@ -66,11 +63,16 @@ public class Player {
         return level;
     }
 
-    public void setBackPack(ArrayList<Spell> backPack) {
-        this.backPack = backPack;
-    }
 
     public void setDiamonds(int diamonds) {
         this.diamonds = diamonds;
+    }
+
+    public void setBackPack(HashMap backPack) {
+        this.backPack = backPack;
+    }
+
+    public HashMap getBackPack() {
+        return backPack;
     }
 }

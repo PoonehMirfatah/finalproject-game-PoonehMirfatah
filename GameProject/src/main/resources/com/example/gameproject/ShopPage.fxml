@@ -26,7 +26,10 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Label fx:id="diamondsLB" layoutX="259.0" layoutY="124.0" prefHeight="43.0" prefWidth="105.0" style="-fx-background-color: #7d6018;" textFill="#7d6018" />
+            <Label fx:id="diamondsLB" alignment="CENTER" layoutX="249.0" layoutY="124.0" prefHeight="43.0" prefWidth="115.0" style="-fx-background-color: #7d6018;" textFill="#fff5dd">
+               <font>
+                  <Font name="Forte" size="30.0" />
+               </font></Label>
             <Label layoutX="436.0" layoutY="377.0" text="Label" textFill="#1b1818e3" />
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="69.0" layoutY="320.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #262222;" text="0" textFill="WHITE">
                <font>
