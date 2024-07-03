@@ -80,12 +80,7 @@
          </font>
       </Button>
       <Label layoutX="409.0" layoutY="634.0" text="Label" />
-      <QuadCurve fx:id="ps1" controlX="-22.333343505859375" controlY="-61.99999237060547" endX="44.99993896484375" endY="-174.0" fill="#bbcddd" layoutX="519.0" layoutY="186.0" opacity="0.0" startX="-8.333343505859375" startY="4.0000152587890625" stroke="BLACK" strokeType="INSIDE" />
-      <QuadCurve fx:id="ps2" controlX="18.33331298828125" controlY="-36.333343505859375" endX="-6.3333740234375" endY="-128.3333282470703" fill="DODGERBLUE" layoutX="519.0" layoutY="315.0" opacity="0.0" startX="-66.99996948242188" startY="-17.0" stroke="BLACK" strokeType="INSIDE" />
-      <QuadCurve fx:id="ps3" controlX="-21.666656494140625" controlY="-56.66668701171875" endX="87.66665649414062" endY="-36.66668701171875" fill="DODGERBLUE" layoutX="365.0" layoutY="336.0" opacity="0.0" startX="-49.999969482421875" startY="7.0" stroke="BLACK" strokeType="INSIDE" />
-      <QuadCurve fx:id="ps4" controlX="-27.666671752929688" controlY="-94.66665649414062" endX="36.000030517578125" endY="-137.0" fill="DODGERBLUE" layoutX="279.0" layoutY="480.0" opacity="0.0" startX="27.666656494140625" startY="-15.333343505859375" stroke="BLACK" strokeType="INSIDE" />
-      <QuadCurve fx:id="ps5" controlX="49.666656494140625" controlY="-84.66665649414062" endX="-76.33334350585938" endY="-128.00003051757812" fill="DODGERBLUE" layoutX="377.0" layoutY="586.0" opacity="0.0" startX="57.666656494140625" startY="64.0" stroke="BLACK" strokeType="INSIDE" />
-      <GridPane fx:id="towersBox" layoutX="24.0" layoutY="443.0" prefHeight="178.0" prefWidth="393.0" style="-fx-background-color: b8bc39; -fx-border-color: black;" styleClass="s">
+      <GridPane fx:id="towersBox" layoutX="24.0" layoutY="443.0" prefHeight="178.0" prefWidth="393.0" style="-fx-background-color: b8bc39; -fx-border-color: black;" styleClass="s" visible="false">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.3333740234375" minWidth="10.0" prefWidth="95.66665903727214" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.3333740234375" minWidth="10.0" prefWidth="93.33337402343749" />
@@ -235,7 +230,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="121.0" prefWidth="103.0" spacing="30.0" GridPane.columnIndex="1">
                <children>
-                  <Button lineSpacing="10.0" mnemonicParsing="false" onAction="#upgradeTower" onMouseClicked="#buildTower" prefHeight="23.0" prefWidth="112.0" style="-fx-background-color: e9b636; -fx-border-color: black;" styleClass="se" text="Upgrade">
+                  <Button fx:id="upgradBT" lineSpacing="10.0" mnemonicParsing="false" onAction="#upgradeTower" onMouseClicked="#buildTower" prefHeight="23.0" prefWidth="112.0" style="-fx-background-color: e9b636; -fx-border-color: black;" styleClass="se" text="Upgrade">
                      <font>
                         <Font name="System Bold" size="17.0" />
                      </font>
@@ -297,5 +292,9 @@
             </VBox>
          </children>
       </GridPane>
+      <QuadCurve fx:id="ps1" controlX="-49.333343505859375" controlY="-124.33333587646484" endX="-26.66668701171875" endY="-27.666671752929688" fill="DODGERBLUE" layoutX="544.0" layoutY="243.0" startX="25.33331298828125" startY="-243.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+      <QuadCurve fx:id="ps2" controlX="97.66668701171875" controlY="-112.0" endX="-62.999969482421875" endY="-135.33334350585938" fill="DODGERBLUE" layoutX="459.0" layoutY="438.0" startX="58.33331298828125" startY="-224.6666717529297" stroke="BLACK" strokeType="INSIDE" visible="false" />
+      <QuadCurve fx:id="ps3" controlX="-152.33335876464844" controlY="-124.66665649414062" endX="-12.333343505859375" endY="18.666656494140625" fill="DODGERBLUE" layoutX="353.0" layoutY="464.0" startX="45.000030517578125" startY="-162.66668701171875" stroke="BLACK" strokeType="INSIDE" visible="false" />
+      <QuadCurve fx:id="ps4" controlX="-3.333343505859375" controlY="-142.66665649414062" endX="-18.666656494140625" endY="14.0" fill="DODGERBLUE" layoutX="446.0" layoutY="642.0" startX="-107.33334350585938" startY="-164.66665649414062" stroke="BLACK" strokeType="INSIDE" visible="false" />
    </children>
 </AnchorPane>
