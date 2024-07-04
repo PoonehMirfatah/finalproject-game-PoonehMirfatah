@@ -79,7 +79,6 @@
             <Font name="Forte" size="30.0" />
          </font>
       </Button>
-      <Label layoutX="409.0" layoutY="634.0" text="Label" />
       <GridPane fx:id="towersBox" layoutX="24.0" layoutY="443.0" prefHeight="178.0" prefWidth="393.0" style="-fx-background-color: b8bc39; -fx-border-color: black;" styleClass="s" visible="false">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.3333740234375" minWidth="10.0" prefWidth="95.66665903727214" />
@@ -293,8 +292,8 @@
          </children>
       </GridPane>
       <QuadCurve fx:id="ps1" controlX="-49.333343505859375" controlY="-124.33333587646484" endX="-26.66668701171875" endY="-27.666671752929688" fill="DODGERBLUE" layoutX="544.0" layoutY="243.0" startX="25.33331298828125" startY="-243.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-      <QuadCurve fx:id="ps2" controlX="97.66668701171875" controlY="-112.0" endX="-62.999969482421875" endY="-135.33334350585938" fill="DODGERBLUE" layoutX="459.0" layoutY="438.0" startX="58.33331298828125" startY="-224.6666717529297" stroke="BLACK" strokeType="INSIDE" visible="false" />
-      <QuadCurve fx:id="ps3" controlX="-152.33335876464844" controlY="-124.66665649414062" endX="-12.333343505859375" endY="18.666656494140625" fill="DODGERBLUE" layoutX="353.0" layoutY="464.0" startX="45.000030517578125" startY="-162.66668701171875" stroke="BLACK" strokeType="INSIDE" visible="false" />
+      <QuadCurve fx:id="ps2" controlX="79.0" controlY="-135.33334350585938" endX="-60.333343505859375" endY="-135.33334350585938" fill="DODGERBLUE" layoutX="459.0" layoutY="438.0" startX="58.33331298828125" startY="-224.6666717529297" stroke="BLACK" strokeType="INSIDE" visible="false" />
+      <QuadCurve fx:id="ps3" controlX="-145.6666717529297" controlY="-124.66668701171875" endX="-12.333343505859375" endY="18.666656494140625" fill="DODGERBLUE" layoutX="353.0" layoutY="464.0" startX="45.000030517578125" startY="-162.66668701171875" stroke="BLACK" strokeType="INSIDE" visible="false" />
       <QuadCurve fx:id="ps4" controlX="-3.333343505859375" controlY="-142.66665649414062" endX="-18.666656494140625" endY="14.0" fill="DODGERBLUE" layoutX="446.0" layoutY="642.0" startX="-107.33334350585938" startY="-164.66665649414062" stroke="BLACK" strokeType="INSIDE" visible="false" />
    </children>
 </AnchorPane>

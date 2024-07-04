@@ -10,7 +10,9 @@ import Models.Towers.WizardTower;
 import Models.Wave;
 import javafx.animation.KeyFrame;
 import javafx.animation.PathTransition;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -112,9 +114,10 @@ public class Map1Controller implements Initializable {
     String newPath;
     Path path = new Path();
     List<Timeline> timelines = new ArrayList<>();
-
+    Map map1;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         towersBox.setVisible(false);
         ArrayList<Position> towersPosition=new ArrayList<>();
         Position p1=new Position(towerPoint1.getX(),towerPoint1.getY());
@@ -124,9 +127,12 @@ public class Map1Controller implements Initializable {
         towersPosition.add(p1);
         towersPosition.add(p2);
         towersPosition.add(p3);
-        ArrayList<Wave> attackWaves=new ArrayList<>();
 
-        Map map1=new Map(towersPosition,path,end,attackWaves,300,20);
+        ArrayList<Wave> attackWaves=new ArrayList<>();
+        ShieldRaider shieldRaider=new ShieldRaider();
+        Wave wave1=new Wave(shieldRaider,5);
+        attackWaves.add(wave1);
+        map1=new Map(towersPosition,path,end,attackWaves,300,20);
         coins=300;
         health=25;
         heartLB.setText(String.format("%s/25",health));
@@ -210,11 +216,9 @@ public class Map1Controller implements Initializable {
             //upgradBT.setId(newLevel);
         });
     }
-    private void timeline(VBox vBox, double X, double Y) {
-        ShieldRaider shieldRaider=new ShieldRaider();
-        ArrayList<Image>heroImages=shieldRaider.getHeroImages();
-        vBox.setTranslateX(X - 100);
-        vBox.setTranslateY(Y - 50);
+    private void timeline(VBox vBox, ArrayList<Image> heroImages) {
+        vBox.setTranslateX(vBox.getTranslateX() - 100);
+        vBox.setTranslateY(vBox.getTranslateY() - 50);
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), event -> {
             ImageView imageView = (ImageView) vBox.getChildren().get(0);
@@ -225,9 +229,8 @@ public class Map1Controller implements Initializable {
             }
 
             ImageView walkKnight = new ImageView(heroImages.get(index));
-            walkKnight.setFitHeight(70);
+            walkKnight.setFitHeight(50);
             walkKnight.setPreserveRatio(true);
-
             vBox.getChildren().setAll(walkKnight);
         }));
 
@@ -238,6 +241,7 @@ public class Map1Controller implements Initializable {
 
     @FXML
     void startAttack(MouseEvent event) {
+        map1.setWaveCounter(map1.getWaveCounter() + 1);
         double xStart = ps1.getStartX() + ps1.getLayoutX();
         double yStart = ps1.getStartY() + ps1.getLayoutY();
         path.getElements().add(new MoveTo(xStart, yStart));
@@ -263,23 +267,38 @@ public class Map1Controller implements Initializable {
         path.getElements().add(new QuadCurveTo(xControl3, yControl3, xEnd3, yEnd3));
         path.getElements().add(new QuadCurveTo(xControl4, yControl4, xEnd4, yEnd4));
 
-        VBox vBox = new VBox();
-        Image image1 = new Image(getClass().getResource("/Raiders/1.png").toExternalForm());
-        ImageView walkKnight = new ImageView(image1);
-        walkKnight.setFitHeight(70);
-        walkKnight.setPreserveRatio(true);
-        vBox.getChildren().add(walkKnight);
-        timeline(vBox, xStart, yStart);
+        int waveIndex = map1.getWaveCounter() - 1;
+        Wave currentWave = map1.getAttackWave().get(waveIndex);
+        for (int i = 0; i < currentWave.getRaiderCount(); i++) {
+            int delay = i * 1000;
 
-        PathTransition pathTransition = new PathTransition();
-        pathTransition.setDuration(Duration.seconds(20));
-        pathTransition.setPath(path);
-        pathTransition.setNode(vBox);
-        pathTransition.setAutoReverse(true);
-        pathTransition.play();
+                VBox vBox = new VBox();
+                ArrayList<Image> heroImages = currentWave.getRaiders().getHeroImages();
+                Image image1 = heroImages.get(0);
+                ImageView walkKnight = new ImageView(image1);
+                walkKnight.setFitHeight(50);
+                walkKnight.setPreserveRatio(true);
+                vBox.getChildren().add(walkKnight);
 
-        pane.getChildren().addAll(path, vBox);
+                timeline(vBox, heroImages);
+
+                PauseTransition pauseTransition = new PauseTransition(Duration.millis(delay));
+                pauseTransition.setOnFinished(e -> {
+                    pane.getChildren().add(vBox);
+                    PathTransition pathTransition = new PathTransition();
+                    pathTransition.setDuration(Duration.seconds(17));
+                    pathTransition.setPath(path);
+                    pathTransition.setNode(vBox);
+                    pathTransition.setAutoReverse(true);
+                    pathTransition.setOnFinished(event2 ->
+                            pane.getChildren().remove(vBox));
+                    pathTransition.play();
+                });
+                pauseTransition.play();
+
+        }
     }
+
 
     @FXML
     void destroyTower(ActionEvent event) {
