@@ -2,11 +2,15 @@ package Models;
 
 import Models.Raiders.Raider;
 
+import java.util.ArrayList;
+
 public class Wave {
-    private Raider raiders;
+    private ArrayList<Raider> raiders=new ArrayList<>();
     private int raiderCount;
-    public Wave(Raider raiders,int raiderCount){
-        this.raiders=raiders;
+    public Wave(Raider raider,int raiderCount){
+        for (int i = 0; i <raiderCount; i++) {
+            raiders.add(raider);
+        }
         this.raiderCount=raiderCount;
     }
 
@@ -14,7 +18,7 @@ public class Wave {
         return raiderCount;
     }
 
-    public Raider getRaiders() {
+    public ArrayList<Raider> getRaiders() {
         return raiders;
     }
 
@@ -22,7 +26,7 @@ public class Wave {
         this.raiderCount = raiderCount;
     }
 
-    public void setRaiders(Raider raiders) {
+    public void setRaiders(ArrayList<Raider> raiders) {
         this.raiders = raiders;
     }
 }

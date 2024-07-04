@@ -103,7 +103,7 @@
             </ImageView>
             <ImageView fitHeight="94.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                <image>
-                  <Image url="@../../../Towers/WizardTower.png" />
+                  <Image url="@../../../Towers/1WizardTower.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="107.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -217,7 +217,7 @@
             </VBox>
          </children>
       </GridPane>
-      <GridPane fx:id="UpgradeBox" alignment="CENTER" layoutX="435.0" layoutY="477.0" prefHeight="143.0" prefWidth="297.0" style="-fx-background-color: b8bc39; -fx-border-color: black;" styleClass="s">
+      <GridPane fx:id="UpgradeBox" alignment="CENTER" layoutX="435.0" layoutY="477.0" prefHeight="143.0" prefWidth="297.0" style="-fx-background-color: b8bc39; -fx-border-color: black;" styleClass="s" visible="false">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.3333740234375" minWidth="10.0" prefWidth="88.33333333333333" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.66668701171875" minWidth="10.0" prefWidth="95.66666666666669" />
@@ -267,7 +267,7 @@
                               <Image url="@../../../Photos/dollar.png" />
                            </image>
                         </ImageView>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="23.0" text="+">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="23.0" text="-">
                            <font>
                               <Font name="System Bold" size="19.0" />
                            </font>
@@ -286,7 +286,7 @@
                               <Image url="@../../../Photos/dollar.png" />
                            </image>
                         </ImageView>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="18.0" text="-">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="18.0" text="+">
                            <font>
                               <Font name="System Bold" size="19.0" />
                            </font>

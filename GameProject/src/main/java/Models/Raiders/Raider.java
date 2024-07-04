@@ -6,15 +6,15 @@ import java.util.ArrayList;
 
 public abstract class Raider {
     private int health;
-    private int speed;
+    private double speed;
     private int loot;
     private ArrayList<Image> heroImages = new ArrayList<>();
 
-    public int getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(double speed) {
         this.speed = speed;
     }
 
