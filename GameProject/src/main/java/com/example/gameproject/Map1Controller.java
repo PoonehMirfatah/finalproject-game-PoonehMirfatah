@@ -1,5 +1,6 @@
 package com.example.gameproject;
 
+import Controllers.PlayerController;
 import Models.Map;
 import Models.Position;
 import Models.Raiders.Raider;
@@ -28,6 +29,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -106,6 +108,9 @@ public class Map1Controller implements Initializable {
     @FXML
     private ImageView upgradedTower;
 
+    @FXML
+    private Label waveLB;
+
     String towerID;
     Position clickedPosition;
     int coins;
@@ -115,9 +120,9 @@ public class Map1Controller implements Initializable {
     Path path = new Path();
     List<Timeline> timelines = new ArrayList<>();
     Map map1;
+    private boolean firstAttack = true;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         towersBox.setVisible(false);
         ArrayList<Position> towersPosition=new ArrayList<>();
         Position p1=new Position(towerPoint1.getX(),towerPoint1.getY());
@@ -131,12 +136,22 @@ public class Map1Controller implements Initializable {
         ArrayList<Wave> attackWaves=new ArrayList<>();
         ShieldRaider shieldRaider=new ShieldRaider();
         Wave wave1=new Wave(shieldRaider,5);
+        Wave wave2=new Wave(shieldRaider,8);
+        Wave wave3=new Wave(shieldRaider,10);
+        Wave wave4=new Wave(shieldRaider,12);
+        Wave wave5=new Wave(shieldRaider,15);
+
         attackWaves.add(wave1);
+        attackWaves.add(wave2);
+        attackWaves.add(wave3);
+        attackWaves.add(wave4);
+        attackWaves.add(wave5);
         map1=new Map(towersPosition,path,end,attackWaves,300,20);
         coins=300;
         health=25;
         heartLB.setText(String.format("%s/25",health));
         coinsLB.setText(String.valueOf(300));
+        waveLB.setText(String.format("Wave %s/5",map1.getWaveCounter()));
     }
 
 
@@ -216,6 +231,7 @@ public class Map1Controller implements Initializable {
             //upgradBT.setId(newLevel);
         });
     }
+
     private void timeline(VBox vBox, ArrayList<Image> heroImages) {
         vBox.setTranslateX(vBox.getTranslateX() - 100);
         vBox.setTranslateY(vBox.getTranslateY() - 50);
@@ -240,11 +256,25 @@ public class Map1Controller implements Initializable {
     }
 
     @FXML
-    void startAttack(MouseEvent event) {
+    void startAttack(MouseEvent event) throws IOException {
+        if (firstAttack) {
+            firstAttack = false;
+            initiateAttack();
+        }else{
+            initiateAttack();
+            coinsLB.setText(String.valueOf(coins+70));
+        }
+    }
+
+    private void initiateAttack() throws IOException {
+        path.getElements().clear();
         map1.setWaveCounter(map1.getWaveCounter() + 1);
+        waveLB.setText(String.format("Wave %s/5", map1.getWaveCounter()));
+
         double xStart = ps1.getStartX() + ps1.getLayoutX();
         double yStart = ps1.getStartY() + ps1.getLayoutY();
         path.getElements().add(new MoveTo(xStart, yStart));
+
         double xControl1 = ps1.getControlX() + ps1.getLayoutX();
         double yControl1 = ps1.getControlY() + ps1.getLayoutY();
         double xEnd1 = ps1.getEndX() + ps1.getLayoutX();
@@ -269,35 +299,55 @@ public class Map1Controller implements Initializable {
 
         int waveIndex = map1.getWaveCounter() - 1;
         Wave currentWave = map1.getAttackWave().get(waveIndex);
+
+        List<PathTransition> pathTransitions = new ArrayList<>();
+
         for (int i = 0; i < currentWave.getRaiderCount(); i++) {
             int delay = i * 1000;
 
-                VBox vBox = new VBox();
-                ArrayList<Image> heroImages = currentWave.getRaiders().getHeroImages();
-                Image image1 = heroImages.get(0);
-                ImageView walkKnight = new ImageView(image1);
-                walkKnight.setFitHeight(50);
-                walkKnight.setPreserveRatio(true);
-                vBox.getChildren().add(walkKnight);
+            VBox vBox = new VBox();
+            ArrayList<Image> heroImages = currentWave.getRaiders().getHeroImages();
+            Image image1 = heroImages.get(0);
+            ImageView walkKnight = new ImageView(image1);
+            walkKnight.setFitHeight(50);
+            walkKnight.setPreserveRatio(true);
+            vBox.getChildren().add(walkKnight);
+            timeline(vBox, heroImages);
 
-                timeline(vBox, heroImages);
-
-                PauseTransition pauseTransition = new PauseTransition(Duration.millis(delay));
-                pauseTransition.setOnFinished(e -> {
-                    pane.getChildren().add(vBox);
-                    PathTransition pathTransition = new PathTransition();
-                    pathTransition.setDuration(Duration.seconds(17));
-                    pathTransition.setPath(path);
-                    pathTransition.setNode(vBox);
-                    pathTransition.setAutoReverse(true);
-                    pathTransition.setOnFinished(event2 ->
-                            pane.getChildren().remove(vBox));
-                    pathTransition.play();
+            PauseTransition pauseTransition = new PauseTransition(Duration.millis(delay));
+            pauseTransition.setOnFinished(e -> {
+                pane.getChildren().add(vBox);
+                PathTransition pathTransition = new PathTransition();
+                pathTransition.setDuration(Duration.seconds(17));
+                pathTransition.setPath(path);
+                pathTransition.setNode(vBox);
+                pathTransition.setAutoReverse(false);
+                pathTransition.setOnFinished(event2 -> {
+                    pane.getChildren().remove(vBox);
+                    pathTransitions.remove(pathTransition);
+                    if (pathTransitions.isEmpty()) {
+                        startNextAttack();
+                    }
                 });
-                pauseTransition.play();
-
+                pathTransition.play();
+                pathTransitions.add(pathTransition);
+            });
+            pauseTransition.play();
         }
     }
+
+    private void startNextAttack() {
+        PauseTransition nextWavePause = new PauseTransition(Duration.seconds(8));
+        nextWavePause.setOnFinished(e -> {
+            try {
+                initiateAttack();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        nextWavePause.play();
+    }
+
 
 
     @FXML

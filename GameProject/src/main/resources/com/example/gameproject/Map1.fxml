@@ -52,7 +52,7 @@
                   <Image url="@../../../Photos/skull.png" />
                </image>
             </ImageView>
-            <Label layoutX="68.0" layoutY="4.0" prefHeight="57.0" prefWidth="177.0" text="Wave" textFill="WHITE">
+            <Label fx:id="waveLB" layoutX="68.0" layoutY="4.0" prefHeight="57.0" prefWidth="177.0" text="Wave" textFill="WHITE">
                <font>
                   <Font name="Forte" size="30.0" />
                </font>
