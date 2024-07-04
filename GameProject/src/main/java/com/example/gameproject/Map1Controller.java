@@ -2,10 +2,13 @@ package com.example.gameproject;
 
 import Models.Map;
 import Models.Position;
+import Models.Raiders.Raider;
+import Models.Raiders.ShieldRaider;
 import Models.Towers.ArcherTower;
 import Models.Towers.Artillery;
 import Models.Towers.WizardTower;
 import Models.Wave;
+import javafx.animation.KeyFrame;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -18,12 +21,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Map1Controller implements Initializable {
@@ -105,6 +111,8 @@ public class Map1Controller implements Initializable {
     ImageView point;
     String newPath;
     Path path = new Path();
+    List<Timeline> timelines = new ArrayList<>();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         towersBox.setVisible(false);
@@ -202,48 +210,77 @@ public class Map1Controller implements Initializable {
             //upgradBT.setId(newLevel);
         });
     }
+    private void timeline(VBox vBox, double X, double Y) {
+        ShieldRaider shieldRaider=new ShieldRaider();
+        ArrayList<Image>heroImages=shieldRaider.getHeroImages();
+        vBox.setTranslateX(X - 100);
+        vBox.setTranslateY(Y - 50);
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), event -> {
+            ImageView imageView = (ImageView) vBox.getChildren().get(0);
+            int index = heroImages.indexOf(imageView.getImage()) + 1;
+
+            if (index >= heroImages.size()) {
+                index = 0;
+            }
+
+            ImageView walkKnight = new ImageView(heroImages.get(index));
+            walkKnight.setFitHeight(70);
+            walkKnight.setPreserveRatio(true);
+
+            vBox.getChildren().setAll(walkKnight);
+        }));
+
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+        timelines.add(timeline);
+    }
+
     @FXML
     void startAttack(MouseEvent event) {
-        //
-        double xStart= ps1.getStartX()+ps1.getLayoutX();
-        double yStart= ps1.getStartY()+ps1.getLayoutY();
+        double xStart = ps1.getStartX() + ps1.getLayoutX();
+        double yStart = ps1.getStartY() + ps1.getLayoutY();
         path.getElements().add(new MoveTo(xStart, yStart));
-        double xControl1=ps1.getControlX()+ps1.getLayoutX();
-        double yControl1=ps1.getControlY()+ps1.getLayoutY();
-        double xEnd1=ps1.getEndX()+ps1.getLayoutX();
-        double yEnd1=ps1.getEndY()+ps1.getLayoutY();
-        //
-        double xControl2=ps2.getControlX()+ps2.getLayoutX();
-        double yControl2=ps2.getControlY()+ps2.getLayoutY();
-        double xEnd2=ps2.getEndX()+ps2.getLayoutX();
-        double yEnd2=ps2.getEndY()+ps2.getLayoutY();
-        //
-        double xControl3=ps3.getControlX()+ps3.getLayoutX();
-        double yControl3=ps3.getControlY()+ps3.getLayoutY();
-        double xEnd3=ps3.getEndX()+ps3.getLayoutX();
-        double yEnd3=ps3.getEndY()+ps3.getLayoutY();
-        //
-        double xControl4=ps4.getControlX()+ps4.getLayoutX();
-        double yControl4=ps4.getControlY()+ps4.getLayoutY();
-        double xEnd4=ps4.getEndX()+ps4.getLayoutX();
-        double yEnd4=ps4.getEndY()+ps4.getLayoutY();
-        //
+        double xControl1 = ps1.getControlX() + ps1.getLayoutX();
+        double yControl1 = ps1.getControlY() + ps1.getLayoutY();
+        double xEnd1 = ps1.getEndX() + ps1.getLayoutX();
+        double yEnd1 = ps1.getEndY() + ps1.getLayoutY();
+        double xControl2 = ps2.getControlX() + ps2.getLayoutX();
+        double yControl2 = ps2.getControlY() + ps2.getLayoutY();
+        double xEnd2 = ps2.getEndX() + ps2.getLayoutX();
+        double yEnd2 = ps2.getEndY() + ps2.getLayoutY();
+        double xControl3 = ps3.getControlX() + ps3.getLayoutX();
+        double yControl3 = ps3.getControlY() + ps3.getLayoutY();
+        double xEnd3 = ps3.getEndX() + ps3.getLayoutX();
+        double yEnd3 = ps3.getEndY() + ps3.getLayoutY();
+        double xControl4 = ps4.getControlX() + ps4.getLayoutX();
+        double yControl4 = ps4.getControlY() + ps4.getLayoutY();
+        double xEnd4 = ps4.getEndX() + ps4.getLayoutX();
+        double yEnd4 = ps4.getEndY() + ps4.getLayoutY();
 
-        path.getElements().add(new QuadCurveTo(xControl1,yControl1,xEnd1,yEnd1));
-        path.getElements().add(new QuadCurveTo(xControl2,yControl2,xEnd2,yEnd2));
-        path.getElements().add(new QuadCurveTo(xControl3,yControl3,xEnd3,yEnd3));
-        path.getElements().add(new QuadCurveTo(xControl4,yControl4,xEnd4,yEnd4));
+        path.getElements().add(new QuadCurveTo(xControl1, yControl1, xEnd1, yEnd1));
+        path.getElements().add(new QuadCurveTo(xControl2, yControl2, xEnd2, yEnd2));
+        path.getElements().add(new QuadCurveTo(xControl3, yControl3, xEnd3, yEnd3));
+        path.getElements().add(new QuadCurveTo(xControl4, yControl4, xEnd4, yEnd4));
 
-        Circle hero = new Circle(10, Color.RED);
+        VBox vBox = new VBox();
+        Image image1 = new Image(getClass().getResource("/Raiders/1.png").toExternalForm());
+        ImageView walkKnight = new ImageView(image1);
+        walkKnight.setFitHeight(70);
+        walkKnight.setPreserveRatio(true);
+        vBox.getChildren().add(walkKnight);
+        timeline(vBox, xStart, yStart);
+
         PathTransition pathTransition = new PathTransition();
-        pathTransition.setDuration(Duration.seconds(10));
+        pathTransition.setDuration(Duration.seconds(20));
         pathTransition.setPath(path);
-        pathTransition.setNode(hero);
+        pathTransition.setNode(vBox);
         pathTransition.setAutoReverse(true);
         pathTransition.play();
 
-        pane.getChildren().addAll(path, hero);
+        pane.getChildren().addAll(path, vBox);
     }
+
     @FXML
     void destroyTower(ActionEvent event) {
         Image image=new Image(getClass().getResource("/Towers/Pointer.png").toExternalForm());

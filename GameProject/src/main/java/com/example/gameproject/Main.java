@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-       setRoot(stage,"FirstPage.fxml",700,700);
+       setRoot(stage,"FirstPage.fxml",800,500);
     }
 
     public static void setRoot(Stage stage,String fxml,int width,int height) throws IOException{
