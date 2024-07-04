@@ -11,6 +11,8 @@ public abstract class Tower  {
         this.destroyPower=destroyPower;
         this.range=range;
     }
+    public Tower(){
+    }
     public void setDestroyPower(int destroyPower) {
         this.destroyPower = destroyPower;
     }

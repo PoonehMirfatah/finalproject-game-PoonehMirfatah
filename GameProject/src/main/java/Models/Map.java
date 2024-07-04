@@ -1,8 +1,11 @@
 package Models;
 
+import Models.Towers.Tower;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Path;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Map {
     private final ArrayList<Position> towerPoints;
@@ -12,6 +15,7 @@ public class Map {
     private final int coins;
     private final int health;
     private int waveCounter = 0;
+    private HashMap<ImageView,Tower> towersList=new HashMap<>();
 
     public Map(ArrayList<Position> towerPoints, javafx.scene.shape.Path path, Position endPoint, ArrayList<Wave> attackWave, int coins, int health) {
         this.towerPoints = towerPoints;
@@ -57,6 +61,14 @@ public class Map {
 
     public void setWaveCounter(int waveCounter) {
         this.waveCounter = waveCounter;
+    }
+
+    public void setTowersList(HashMap<ImageView, Tower> towersList) {
+        this.towersList = towersList;
+    }
+
+    public HashMap<ImageView, Tower> getTowersList() {
+        return towersList;
     }
 }
 
