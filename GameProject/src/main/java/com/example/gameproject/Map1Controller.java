@@ -236,6 +236,9 @@ public class Map1Controller implements Initializable {
             String newLevel = String.valueOf(level);
             newPath = towerPath.replaceAll("\\d", newLevel);
             System.out.println(newPath);
+            Tower tower=getTower(newPath);
+            upgradedCostLB.setText(String.valueOf(tower.getBulidCost()));
+            destroyLootLB.setText(String.valueOf(tower.getBulidCost()/2));
             Image upgradedImage = new Image(getClass().getResource(newPath).toExternalForm());
             upgradedTower.setImage(upgradedImage);
         });
@@ -376,12 +379,29 @@ public class Map1Controller implements Initializable {
         );
         UpgradeBox.setVisible(false);
         map1.getTowersList().remove(point);
-        System.out.println(map1.getTowersList().keySet());
+        coins+=Integer.parseInt(destroyLootLB.getText());
+        coinsLB.setText(String.valueOf(coins));
     }
 
     @FXML
     void upgradeTower(ActionEvent event) {
         UpgradeBox.setVisible(false);
+        Tower selectedTower = getTower(newPath);
+       if(checkCoins(selectedTower)){
+           return;
+       }else {
+           coins-=selectedTower.getBulidCost();
+           coinsLB.setText(String.valueOf(coins));
+       }
+        setTowerOnPosition(newPath);
+        for (ImageView image : map1.getTowersList().keySet()) {
+            if (image == point) {
+                map1.getTowersList().replace(point, selectedTower);
+            }
+        }
+    }
+
+    public Tower getTower(String path){
         Tower selectedTower = null;
         switch (newPath) {
             case "/Towers/2ArcherTower.png":
@@ -403,22 +423,9 @@ public class Map1Controller implements Initializable {
                 selectedTower = new ArcherTower(280, 250, 45);
                 break;
             default:
-                return;
         }
-
-       if(checkCoins(selectedTower)){
-           return;
-       }
-        setTowerOnPosition(newPath);
-        for (ImageView image : map1.getTowersList().keySet()) {
-            if (image == point) {
-                map1.getTowersList().replace(point, selectedTower);
-            }
-        }
-        coins -= selectedTower.getBulidCost();
-        coinsLB.setText(String.valueOf(coins));
+        return selectedTower;
     }
-
     public boolean checkCoins(Tower tower) {
         if (coins < tower.getBulidCost()) {
             PageController.showAlert("Error", "You don't have enough coins to upgrade this tower!!", "", Alert.AlertType.ERROR);

@@ -217,19 +217,20 @@
             </VBox>
          </children>
       </GridPane>
-      <GridPane fx:id="UpgradeBox" alignment="CENTER" layoutX="435.0" layoutY="477.0" prefHeight="143.0" prefWidth="297.0" style="-fx-background-color: b8bc39; -fx-border-color: black;" styleClass="s" visible="false">
+      <GridPane fx:id="UpgradeBox" alignment="CENTER" layoutX="435.0" layoutY="477.0" prefHeight="143.0" prefWidth="297.0" style="-fx-background-color: b8bc39; -fx-border-color: black;" styleClass="s">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.3333740234375" minWidth="10.0" prefWidth="88.33333333333333" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.66668701171875" minWidth="10.0" prefWidth="95.66666666666669" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.66668701171875" minWidth="20.0" prefWidth="110.00004069010419" />
          </columnConstraints>
          <rowConstraints>
+            <RowConstraints />
             <RowConstraints maxHeight="144.66666666666666" minHeight="10.0" prefHeight="99.3333231608073" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <VBox alignment="CENTER" prefHeight="121.0" prefWidth="103.0" spacing="30.0" GridPane.columnIndex="1">
+            <VBox alignment="CENTER" prefHeight="121.0" prefWidth="103.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Button fx:id="upgradBT" lineSpacing="10.0" mnemonicParsing="false" onAction="#upgradeTower" onMouseClicked="#buildTower" prefHeight="23.0" prefWidth="112.0" style="-fx-background-color: e9b636; -fx-border-color: black;" styleClass="se" text="Upgrade">
+                  <Button fx:id="upgradBT" lineSpacing="10.0" mnemonicParsing="false" onAction="#upgradeTower" onMouseClicked="#buildTower" prefHeight="39.0" prefWidth="97.0" style="-fx-background-color: e9b636; -fx-border-color: black;" styleClass="se" text="Upgrade">
                      <font>
                         <Font name="System Bold" size="17.0" />
                      </font>
@@ -244,7 +245,7 @@
                   <Insets />
                </opaqueInsets>
             </VBox>
-            <AnchorPane prefHeight="141.0" prefWidth="96.0">
+            <AnchorPane prefHeight="141.0" prefWidth="96.0" GridPane.rowIndex="1">
                <children>
                   <ImageView fitHeight="57.0" fitWidth="66.0" layoutX="14.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -254,19 +255,24 @@
                   <ImageView fx:id="upgradedTower" fitHeight="73.0" fitWidth="79.0" layoutX="7.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </AnchorPane>
-            <VBox alignment="CENTER" prefHeight="131.0" prefWidth="72.0" spacing="30.0" GridPane.columnIndex="2">
+            <VBox alignment="CENTER" prefHeight="131.0" prefWidth="72.0" spacing="30.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
                <children>
                   <HBox alignment="CENTER" prefHeight="33.0" prefWidth="89.0">
                      <children>
-                        <ImageView fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../Photos/dollar.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="upgradedCostLB" prefHeight="33.0" prefWidth="65.0">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="23.0" text="+">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="upgradedCostLB" prefHeight="33.0" prefWidth="45.0">
                            <font>
                               <Font name="System Bold Italic" size="18.0" />
                            </font>
@@ -280,7 +286,12 @@
                               <Image url="@../../../Photos/dollar.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="destroyLootLB" prefHeight="33.0" prefWidth="65.0">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="18.0" text="-">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="destroyLootLB" prefHeight="33.0" prefWidth="49.0">
                            <font>
                               <Font name="System Bold Italic" size="18.0" />
                            </font>
