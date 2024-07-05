@@ -8,6 +8,7 @@ public abstract class Raider {
     private int health;
     private double speed;
     private int loot;
+    private boolean isDead;
     private ArrayList<Image> heroImages = new ArrayList<>();
 
     public double getSpeed() {
@@ -40,5 +41,13 @@ public abstract class Raider {
 
     public void setLoot(int loot) {
         this.loot = loot;
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void setDead(boolean dead) {
+        isDead = dead;
     }
 }
