@@ -3,7 +3,7 @@ package Models.Spells;
 import Models.Spells.AbstractSpell;
 
 public class CoinSpell extends AbstractSpell {
-    private int coinIncrease;
+    private final int coinIncrease;
 
     public CoinSpell(String name, int price, int coinIncrease) {
         super(name, price);
@@ -18,4 +18,5 @@ public class CoinSpell extends AbstractSpell {
     public int getCoinIncrease() {
         return coinIncrease;
     }
+
 }

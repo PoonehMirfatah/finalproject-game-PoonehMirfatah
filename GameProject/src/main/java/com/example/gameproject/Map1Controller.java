@@ -1,13 +1,17 @@
 package com.example.gameproject;
+import Controllers.PlayerController;
 import Models.Map;
 import Models.Position;
 import Models.Raiders.Raider;
 import Models.Raiders.ShieldRaider;
+import Models.Spells.LittleBoySpell;
+import Models.Spells.Spell;
 import Models.Towers.ArcherTower;
 import Models.Towers.Artillery;
 import Models.Towers.Tower;
 import Models.Towers.WizardTower;
 import Models.Wave;
+import com.example.gameproject.SQL.SQLController;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,6 +31,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.*;
 
 public class Map1Controller implements Initializable {
@@ -103,6 +108,17 @@ public class Map1Controller implements Initializable {
 
     @FXML
     private Label waveLB;
+    @FXML
+    private Label coinsCountLB;
+    @FXML
+    private Label freezeCountLB;
+    @FXML
+    private Label heartCountLB;
+    @FXML
+    private Label littleBoyCountLB;
+    @FXML
+    private AnchorPane spellsBox;
+
 
     String towerID;
     Position clickedPosition;
@@ -119,6 +135,12 @@ public class Map1Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            SQLController.loadPlayerSpells(PlayerController.getInstance().player.getID());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        setSpellCounts();
         towersBox.setVisible(false);
         ArrayList<Position> towersPosition = new ArrayList<>();
         Position p1 = new Position(towerPoint1.getX(), towerPoint1.getY());
@@ -155,8 +177,57 @@ public class Map1Controller implements Initializable {
     }
 
 
+    public void setSpellCounts(){
+            for (String spellName : PlayerController.getInstance().player.getBackPack().keySet()) {
+                int count = PlayerController.getInstance().player.getBackPack().get(spellName);
+                switch (spellName) {
+                    case "Health":
+                        heartCountLB.setText(String.valueOf(count));
+                        break;
+                    case "Freeze":
+                        freezeCountLB.setText(String.valueOf(count));
+                        break;
+                    case "Coins":
+                        coinsCountLB.setText(String.valueOf(count));
+                        break;
+                    case "LittleBoy":
+                        littleBoyCountLB.setText(String.valueOf(count));
+                        break;
+                }
+            }
+        }
+
+    @FXML
+    void dropBomb(MouseEvent event) {
+        for(String spellName:PlayerController.getInstance().player.getBackPack().keySet()){
+            if(spellName.equals("LittleBoy")){
+                int count = PlayerController.getInstance().player.getBackPack().get(spellName);
+                PlayerController.getInstance().player.getBackPack().put(spellName,count-1);
+                map1.getAttackWave().get(waveIndex).getRaiders().clear();
+                //remove from page
+            }
+        }
+    }
+    public void bombAttack(){
+
+    }
+    @FXML
+    void dropCoins(MouseEvent event) {
+
+    }
+
+    @FXML
+    void dropFreeze(MouseEvent event) {
+
+    }
+
+    @FXML
+    void dropHealth(MouseEvent event) {
+
+    }
     @FXML
     void showTowers(MouseEvent event) {
+        spellsBox.setVisible(false);
         ImageView clickedImage = (ImageView) event.getSource();
         towerID = clickedImage.getId();
         switch (towerID) {
@@ -175,6 +246,7 @@ public class Map1Controller implements Initializable {
 
     @FXML
     void buildTower(MouseEvent event) {
+        spellsBox.setVisible(true);
         Button clickedButton = (Button) event.getSource();
         if (clickedButton.getId() == null) {
             return;
@@ -638,8 +710,5 @@ public class Map1Controller implements Initializable {
             return true;
         }
         return false;
-    }
-    public void archerTowerAttack(Tower tower,ImageView point){
-        //if(point.getLayoutX()+tower.getRange()<)
     }
 }

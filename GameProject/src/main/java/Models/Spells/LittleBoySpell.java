@@ -8,6 +8,6 @@ public class LittleBoySpell extends AbstractSpell {
 
     @Override
     public void drop() {
-        System.out.println("All attackers in the path are destroyed.");
+        System.out.println("litleboy");
     }
 }

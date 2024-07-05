@@ -1,7 +1,7 @@
 package Models.Spells;
 
 public class FreezeSpell extends AbstractSpell {
-    private int freezeDuration;
+    private final int freezeDuration;
 
     public FreezeSpell(String name, int price, int freezeDuration) {
         super(name, price);

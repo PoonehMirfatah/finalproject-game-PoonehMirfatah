@@ -1,14 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.gameproject.SettingPageController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="329.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gameproject.SettingPageController">
+   <children>
+      <ImageView fitHeight="456.0" fitWidth="615.0" layoutX="1.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Maps/setting.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="245.0" layoutY="241.0" mnemonicParsing="false" onMouseClicked="#backToHome" prefHeight="42.0" prefWidth="121.0" style="-fx-background-color: #51442d;" text="Done" textFill="WHITE">
+         <font>
+            <Font name="Forte" size="25.0" />
+         </font>
+      </Button>
+      <AnchorPane layoutX="32.0" layoutY="75.0" prefHeight="155.0" prefWidth="551.0" style="-fx-background-color: #51442d;">
+         <children>
+            <Label alignment="CENTER" layoutX="-15.0" prefHeight="55.0" prefWidth="345.0" text="Edit your Profile" textFill="#d9d6cf">
+               <font>
+                  <Font name="Bell MT Bold" size="25.0" />
+               </font>
+            </Label>
+            <TextField fx:id="userNameTF" layoutX="140.0" layoutY="61.0" prefHeight="32.0" prefWidth="144.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="passwordTF" layoutX="140.0" layoutY="100.0" prefHeight="32.0" prefWidth="144.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label alignment="CENTER" layoutY="46.0" prefHeight="55.0" prefWidth="132.0" text="UserName" textFill="#d9d6cf">
+               <font>
+                  <Font name="Bell MT Bold" size="25.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="5.0" layoutY="85.0" prefHeight="55.0" prefWidth="121.0" text="Password" textFill="#d9d6cf">
+               <font>
+                  <Font name="Bell MT Bold" size="25.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="356.0" layoutY="5.0" prefHeight="55.0" prefWidth="188.0" text="Music" textFill="#d9d6cf">
+               <font>
+                  <Font name="Bell MT Bold" size="25.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="sound" fitHeight="62.0" fitWidth="63.0" layoutX="417.0" layoutY="72.0" onMouseClicked="#setMusic" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Photos/up.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>
