@@ -189,7 +189,7 @@ public class Map1Controller implements Initializable {
                 setTowerOnPosition("/Towers/1ArcherTower.png");
                 break;
             case "t2":
-                selectedTower1 = new Artillery(500, 125, 200);
+                selectedTower1 = new Artillery(400, 125, 200);
                 if(checkCoins(selectedTower1)){
                     return;
                 }
@@ -341,44 +341,58 @@ public class Map1Controller implements Initializable {
     }
 
 
-    public void attackTimeLine(Raider currentRaider,VBox vBox,PathTransition pathTransition,int health){
+    public void attackTimeLine(Raider currentRaider, VBox vBox, PathTransition pathTransition, int health) {
         Timeline attackTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             currentRaider.setHealth(health);
-//                    Image image = new Image(getClass().getResource("/Raiders/dyedSheildRaider.png").toExternalForm());
-//                    ImageView dyedRaider = new ImageView(image);
-//                    dyedRaider.setPreserveRatio(true);
-//                    dyedRaider.setFitWidth(30);
+
             for (ImageView point : map1.getTowersList().keySet()) {
                 Tower tower = map1.getTowersList().get(point);
                 double distance = Math.hypot(vBox.getTranslateX() - point.getLayoutX(), vBox.getTranslateY() - point.getLayoutY());
                 if (distance <= tower.getRange() && !activeTowers.contains(point)) {
-                    //System.out.println(currentRaider.getHealth());
                     if (tower instanceof ArcherTower) {
                         activeTowers.add(point);
                         archerTowerAttack(point, vBox);
-                        if(currentRaider instanceof ShieldRaider) {
-                            currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower()/2);
-                        }else{
+                        if (currentRaider instanceof ShieldRaider) {
+                            currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower() / 2);
+                        } else {
                             currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower());
                         }
-
                     } else if (tower instanceof Artillery) {
                         activeTowers.add(point);
                         artilleryTowerAttack(point, vBox);
+                        artilleryTowerAttack(point, vBox);
+                        artilleryTowerAttack(point, vBox);
+//                        List<Raider> nearRaiders = getNearbyRaiders(vBox, 50);
+//                        for (Raider raider : nearRaiders) {
+//                            raider.setHealth(raider.getHealth() - tower.getDestroyPower());
+//                            System.out.println(raider.getHealth());
+//                            if (raider.getHealth() <= 0) {
+//                                System.out.println(raider.getvBox().getTranslateX());
+//                                pane.getChildren().remove(raider.getvBox());
+//                                raider.setDead(true);
+//                                coins += raider.getLoot();
+//                                coinsLB.setText(String.valueOf(coins));
+//                                raider.getPathTransition().stop();
+//                                pathTransitions.remove(raider.getPathTransition());
+//                                if (pathTransitions.isEmpty()) {
+//                                    startNextAttack();
+//                                }
+//                            }
+//                        }
                         currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower());
-
                     } else if (tower instanceof WizardTower) {
                         activeTowers.add(point);
                         wizardTowerAttack(point, vBox);
                         currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower());
-                        if(currentRaider instanceof ShieldRaider &&(currentRaider.getHealth()<=100)){
+                        if (currentRaider instanceof ShieldRaider && currentRaider.getHealth() <= 100) {
                             vBox.getChildren().get(1).setVisible(true);
                         }
                     }
-                    if(currentRaider.getHealth()<=0){
+
+                    if (currentRaider.getHealth() <= 0) {
                         pane.getChildren().remove(vBox);
                         currentRaider.setDead(true);
-                        coins+=currentRaider.getLoot();
+                        coins += currentRaider.getLoot();
                         coinsLB.setText(String.valueOf(coins));
                         pathTransition.stop();
                         pathTransitions.remove(pathTransition);
