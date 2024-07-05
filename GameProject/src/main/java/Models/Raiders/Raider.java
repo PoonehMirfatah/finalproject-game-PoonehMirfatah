@@ -1,6 +1,8 @@
 package Models.Raiders;
 
+import javafx.animation.PathTransition;
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
@@ -9,7 +11,25 @@ public abstract class Raider {
     private double speed;
     private int loot;
     private boolean isDead;
+    private VBox vBox;
+    private PathTransition pathTransition;
     private ArrayList<Image> heroImages = new ArrayList<>();
+
+    public VBox getvBox() {
+        return vBox;
+    }
+
+    public PathTransition getPathTransition() {
+        return pathTransition;
+    }
+
+    public void setPathTransition(PathTransition pathTransition) {
+        this.pathTransition = pathTransition;
+    }
+
+    public void setvBox(VBox vBox) {
+        this.vBox = vBox;
+    }
 
     public double getSpeed() {
         return speed;

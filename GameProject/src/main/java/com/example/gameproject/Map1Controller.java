@@ -115,6 +115,7 @@ public class Map1Controller implements Initializable {
     Map map1;
     private boolean firstAttack = true;
     List<PathTransition> pathTransitions = new ArrayList<>();
+    int waveIndex;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -188,7 +189,7 @@ public class Map1Controller implements Initializable {
                 setTowerOnPosition("/Towers/1ArcherTower.png");
                 break;
             case "t2":
-                selectedTower1 = new Artillery(200, 125, 200);
+                selectedTower1 = new Artillery(500, 125, 200);
                 if(checkCoins(selectedTower1)){
                     return;
                 }
@@ -209,7 +210,6 @@ public class Map1Controller implements Initializable {
                 return;
         }
         assert selectedTower1 != null;
-        System.out.println(selectedTower1.getBulidCost());
         map1.getTowersList().put(point, selectedTower1);
         coins -= selectedTower1.getBulidCost();
         coinsLB.setText(String.valueOf(coins));
@@ -254,11 +254,17 @@ public class Map1Controller implements Initializable {
             if (index >= heroImages.size()) {
                 index = 0;
             }
-
+            //Sheild
+            Image image=new Image(getClass().getResource("/Weapon/Sheild.png").toExternalForm());
+            ImageView sheild=new ImageView(image);
+            sheild.setFitWidth(30);
+            sheild.setPreserveRatio(true);
+            sheild.setVisible(false);
+            //
             ImageView walkKnight = new ImageView(heroImages.get(index));
             walkKnight.setFitHeight(50);
             walkKnight.setPreserveRatio(true);
-            vBox.getChildren().setAll(walkKnight);
+            vBox.getChildren().setAll(walkKnight,sheild);
         }));
 
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -282,7 +288,7 @@ public class Map1Controller implements Initializable {
 
     private void initiateAttack() throws IOException {
         setPath();
-        int waveIndex = map1.getWaveCounter() - 1;
+         waveIndex = map1.getWaveCounter() - 1;
         Wave currentWave = map1.getAttackWave().get(waveIndex);
 
         int i = 0;
@@ -299,9 +305,14 @@ public class Map1Controller implements Initializable {
 
             PauseTransition pauseTransition = new PauseTransition(Duration.millis(delay));
             Raider currentRaider = currentWave.getRaiders().get(i);
+            currentRaider.setvBox(vBox);
+            //
+
+            //
             int raiderHealth=currentRaider.getHealth();
             pauseTransition.setOnFinished(e -> {
                 PathTransition pathTransition = new PathTransition();
+                currentRaider.setPathTransition(pathTransition);
                 attackTimeLine(currentRaider,vBox,pathTransition,raiderHealth);
                 pane.getChildren().add(vBox);
                 double duration = 1d / currentRaider.getSpeed();
@@ -312,14 +323,12 @@ public class Map1Controller implements Initializable {
 
                 pathTransition.setOnFinished(event2 -> {
                     pane.getChildren().remove(vBox);
-                    if (!currentRaider.isDead()) {
                         health -= 1;
                         heartLB.setText(String.format("%s/20", health));
                         if (health == 0) {
                             PageController.showAlert("Finished", "GAME OVER", " ", Alert.AlertType.INFORMATION);
                         }
                         pathTransitions.remove(pathTransition);
-                    }
                     if (pathTransitions.isEmpty()) {
                         startNextAttack();
                     }
@@ -343,20 +352,34 @@ public class Map1Controller implements Initializable {
                 Tower tower = map1.getTowersList().get(point);
                 double distance = Math.hypot(vBox.getTranslateX() - point.getLayoutX(), vBox.getTranslateY() - point.getLayoutY());
                 if (distance <= tower.getRange() && !activeTowers.contains(point)) {
-                    System.out.println(currentRaider.getHealth());
+                    //System.out.println(currentRaider.getHealth());
                     if (tower instanceof ArcherTower) {
                         activeTowers.add(point);
-                        shootArrowFromTower(point, vBox);
-                        currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower());
+                        archerTowerAttack(point, vBox);
+                        if(currentRaider instanceof ShieldRaider) {
+                            currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower()/2);
+                        }else{
+                            currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower());
+                        }
+
                     } else if (tower instanceof Artillery) {
-                        // ...
+                        activeTowers.add(point);
+                        artilleryTowerAttack(point, vBox);
+                        currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower());
 
                     } else if (tower instanceof WizardTower) {
-                        // ...
+                        activeTowers.add(point);
+                        wizardTowerAttack(point, vBox);
+                        currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower());
+                        if(currentRaider instanceof ShieldRaider &&(currentRaider.getHealth()<=100)){
+                            vBox.getChildren().get(1).setVisible(true);
+                        }
                     }
                     if(currentRaider.getHealth()<=0){
                         pane.getChildren().remove(vBox);
                         currentRaider.setDead(true);
+                        coins+=currentRaider.getLoot();
+                        coinsLB.setText(String.valueOf(coins));
                         pathTransition.stop();
                         pathTransitions.remove(pathTransition);
                         if (pathTransitions.isEmpty()) {
@@ -371,7 +394,83 @@ public class Map1Controller implements Initializable {
         attackTimeline.setCycleCount(Timeline.INDEFINITE);
         attackTimeline.play();
     }
-    public void shootArrowFromTower(ImageView point, VBox target) {
+    private List<Raider> getNearbyRaiders(VBox vBox, double radius) {
+        List<Raider> nearbyRaiders = new ArrayList<>();
+        for (Raider raider : map1.getAttackWave().get(waveIndex).getRaiders()) {
+            double distance = Math.hypot(vBox.getTranslateX() - raider.getvBox().getTranslateX(), vBox.getTranslateY() - raider.getvBox().getTranslateY());
+            if (distance <= radius) {
+                nearbyRaiders.add(raider);
+            }
+        }
+        return nearbyRaiders;
+    }
+    public void wizardTowerAttack(ImageView point, VBox target){
+        Path path1 = new Path();
+        Image image = new Image(getClass().getResource("/Weapon/fireball.png").toExternalForm());
+        ImageView ray = new ImageView(image);
+        ray.setFitWidth(30);
+        ray.setPreserveRatio(true);
+
+        pane.getChildren().add(ray);
+
+        double xStart = point.getLayoutX()+50;
+        double yStart = point.getLayoutY()+50;
+
+        path1.getElements().add(new MoveTo(xStart, yStart));
+
+
+        double xEnd = target.getTranslateX();
+        double yEnd = target.getTranslateY();
+        path1.getElements().add(new LineTo(xEnd, yEnd));
+
+        PathTransition pathTransition = new PathTransition();
+        pathTransition.setDuration(Duration.seconds(0.5));
+        pathTransition.setPath(path1);
+        pathTransition.setNode(ray);
+        pathTransition.setAutoReverse(false);
+        pathTransition.play();
+
+        pathTransition.setOnFinished(event -> {
+            pane.getChildren().remove(ray);
+            activeTowers.remove(point);
+        });
+    }
+    public void artilleryTowerAttack(ImageView point, VBox target){
+        Path path1 = new Path();
+        Image image = new Image(getClass().getResource("/Weapon/bomb.png").toExternalForm());
+        ImageView ray = new ImageView(image);
+        ray.setFitWidth(30);
+        ray.setPreserveRatio(true);
+
+        pane.getChildren().add(ray);
+
+        double xStart = point.getLayoutX()+50;
+        double yStart = point.getLayoutY()+20;
+
+        path1.getElements().add(new MoveTo(xStart, yStart));
+
+
+        double xEnd = target.getTranslateX();
+        double yEnd = target.getTranslateY();
+
+        double xControl = (xEnd+xStart)/2;
+        double yControl = 50;
+
+        path1.getElements().add(new QuadCurveTo(xControl,yControl,xEnd,yEnd));
+
+        PathTransition pathTransition = new PathTransition();
+        pathTransition.setDuration(Duration.seconds(1));
+        pathTransition.setPath(path1);
+        pathTransition.setNode(ray);
+        pathTransition.setAutoReverse(false);
+        pathTransition.play();
+
+        pathTransition.setOnFinished(event -> {
+            pane.getChildren().remove(ray);
+            activeTowers.remove(point);
+        });
+    }
+    public void archerTowerAttack(ImageView point, VBox target) {
         Path path1 = new Path();
         Image image = new Image(getClass().getResource("/Weapon/arrow.png").toExternalForm());
         ImageView arrow = new ImageView(image);
@@ -390,7 +489,7 @@ public class Map1Controller implements Initializable {
         double yEnd = target.getTranslateY();
         path1.getElements().add(new LineTo(xEnd, yEnd));
 
-        // ایجاد و تنظیم PathTransition برای پیکان
+
         PathTransition pathTransition = new PathTransition();
         pathTransition.setDuration(Duration.seconds(0.5));
         pathTransition.setPath(path1);
@@ -398,7 +497,6 @@ public class Map1Controller implements Initializable {
         pathTransition.setAutoReverse(false);
         pathTransition.play();
 
-        // حذف پیکان پس از رسیدن به هدف و آزاد کردن برج برای پرتاب تیر بعدی
         pathTransition.setOnFinished(event -> {
             pane.getChildren().remove(arrow);
             activeTowers.remove(point);
