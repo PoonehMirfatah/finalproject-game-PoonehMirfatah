@@ -14,22 +14,15 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class LoginPageController implements Initializable {
+public class LoginPageController  {
 
     public TextField usernameTF;
     public TextField passwordTF;
     public Button confirmBT;
     @FXML
     private Button exitBT;
-
     @FXML
     private Button startBT;
-
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
 
     public void signIn(ActionEvent event) throws SQLException, IOException {
         String username = usernameTF.getText();

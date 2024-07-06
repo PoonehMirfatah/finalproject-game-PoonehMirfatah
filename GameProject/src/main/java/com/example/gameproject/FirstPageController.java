@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FirstPageController implements Initializable {
+public class FirstPageController  {
 
     public Button signinBT;
     public Button signUpBT;
@@ -19,11 +19,6 @@ public class FirstPageController implements Initializable {
     @FXML
     private Button startBT;
 
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
 
     public void signIn(ActionEvent event) throws IOException {
         PageController.setstage(event,"LoginPage.fxml");

@@ -118,7 +118,18 @@ public class Map1Controller implements Initializable {
     private Label littleBoyCountLB;
     @FXML
     private AnchorPane spellsBox;
-    
+    @FXML
+    private ImageView damagePoint1;
+
+    @FXML
+    private ImageView damagePoint2;
+
+    @FXML
+    private ImageView damagePoint3;
+
+    @FXML
+    private ImageView damagePoint4;
+
     String towerID;
     int coins;
     int health;
@@ -129,6 +140,7 @@ public class Map1Controller implements Initializable {
     Map map1;
     private boolean firstAttack = true;
     List<PathTransition> pathTransitions = new ArrayList<>();
+    List<Position> damagePoints=new ArrayList<>();
     int waveIndex;
 
     @Override
@@ -166,6 +178,18 @@ public class Map1Controller implements Initializable {
         attackWaves.add(wave3);
         attackWaves.add(wave4);
         attackWaves.add(wave5);
+
+        Position DP1=new Position(damagePoint1.getLayoutX(),damagePoint1.getLayoutY());
+        Position DP2=new Position(damagePoint2.getLayoutX(),damagePoint2.getLayoutY());
+        Position DP3=new Position(damagePoint3.getLayoutX(),damagePoint3.getLayoutY());
+        Position DP4=new Position(damagePoint4.getLayoutX(),damagePoint4.getLayoutY());
+
+        damagePoints.add(DP1);
+        damagePoints.add(DP2);
+        damagePoints.add(DP3);
+        damagePoints.add(DP4);
+
+
         map1 = new Map(towersPosition, path, end, attackWaves, 300, 20);
         coins = 1000;
         health = 20;
@@ -197,11 +221,16 @@ public class Map1Controller implements Initializable {
 
     @FXML
     void dropBomb(MouseEvent event) {
-        SpellsController.spell= new LittleBoySpell();
+        LittleBoySpell bombSpell=new LittleBoySpell();
+        SpellsController.setSpell(bombSpell);
+
         if(SpellsController.getInstance().drop()){
-            //gUI
+            bombAttacks();
             setSpellCounts();
         }
+    }
+    public void bombAttacks(){
+        //
     }
     @FXML
     void dropCoins(MouseEvent event) throws Exception {
@@ -665,6 +694,7 @@ public class Map1Controller implements Initializable {
         path.getElements().add(new QuadCurveTo(xControl2, yControl2, xEnd2, yEnd2));
         path.getElements().add(new QuadCurveTo(xControl3, yControl3, xEnd3, yEnd3));
         path.getElements().add(new QuadCurveTo(xControl4, yControl4, xEnd4, yEnd4));
+
     }
     private void startNextAttack() {
         PauseTransition nextWavePause = new PauseTransition(Duration.seconds(5));

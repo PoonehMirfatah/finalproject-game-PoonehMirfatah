@@ -350,5 +350,9 @@
             </Label>
          </children>
       </AnchorPane>
+      <ImageView fx:id="damagePoint1" fitHeight="19.0" fitWidth="23.0" layoutX="248.0" layoutY="443.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="damagePoint2" fitHeight="19.0" fitWidth="23.0" layoutX="292.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="damagePoint3" fitHeight="19.0" fitWidth="23.0" layoutX="406.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="damagePoint4" fitHeight="19.0" fitWidth="23.0" layoutX="501.0" layoutY="248.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
