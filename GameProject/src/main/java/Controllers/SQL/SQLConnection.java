@@ -1,6 +1,4 @@
-package com.example.gameproject.SQL;
-
-import com.example.gameproject.PageController;
+package Controllers.SQL;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

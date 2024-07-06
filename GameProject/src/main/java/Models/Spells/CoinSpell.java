@@ -1,22 +1,20 @@
 package Models.Spells;
 
-import Models.Spells.AbstractSpell;
+import Controllers.SpellsController;
+import Models.Map;
 
-public class CoinSpell extends AbstractSpell {
-    private final int coinIncrease;
+public class CoinSpell extends Spell {
+    private  int coinIncrease=200;
 
-    public CoinSpell(String name, int price, int coinIncrease) {
-        super(name, price);
-        this.coinIncrease = coinIncrease;
-    }
-
-    @Override
-    public void drop() {
-        System.out.println("Player coins increased by " + coinIncrease + " units.");
+    public CoinSpell() {
+        super("Coins", 850 );
     }
 
     public int getCoinIncrease() {
         return coinIncrease;
     }
 
+    public void setCoinIncrease(int coinIncrease) {
+        this.coinIncrease = coinIncrease;
+    }
 }

@@ -1,22 +1,21 @@
 package com.example.gameproject;
 import Controllers.PlayerController;
+import Controllers.SpellsController;
 import Models.Map;
 import Models.Position;
 import Models.Raiders.Raider;
 import Models.Raiders.ShieldRaider;
-import Models.Spells.LittleBoySpell;
-import Models.Spells.Spell;
+import Models.Spells.*;
 import Models.Towers.ArcherTower;
 import Models.Towers.Artillery;
 import Models.Towers.Tower;
 import Models.Towers.WizardTower;
 import Models.Wave;
-import com.example.gameproject.SQL.SQLController;
+import Controllers.SQL.SQLController;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -199,30 +198,46 @@ public class Map1Controller implements Initializable {
 
     @FXML
     void dropBomb(MouseEvent event) {
-        for(String spellName:PlayerController.getInstance().player.getBackPack().keySet()){
-            if(spellName.equals("LittleBoy")){
-                int count = PlayerController.getInstance().player.getBackPack().get(spellName);
-                PlayerController.getInstance().player.getBackPack().put(spellName,count-1);
-                map1.getAttackWave().get(waveIndex).getRaiders().clear();
-                //remove from page
-            }
+        SpellsController.spell= new LittleBoySpell();
+        if(SpellsController.getInstance().drop()){
+            //gUI
+            setSpellCounts();
         }
     }
-    public void bombAttack(){
-
-    }
     @FXML
-    void dropCoins(MouseEvent event) {
-
+    void dropCoins(MouseEvent event) throws Exception {
+       CoinSpell coinSpell= new CoinSpell();
+       SpellsController.setSpell(coinSpell);
+        if(SpellsController.getInstance().drop()){
+            coins+=coinSpell.getCoinIncrease();
+            coinsLB.setText(String.valueOf(coins));
+            setSpellCounts();
+        }
+        //PlayerController.getInstance().updateSpells(); update after game finish
     }
 
     @FXML
     void dropFreeze(MouseEvent event) {
-
+        FreezeSpell freezeSpell= new FreezeSpell();
+        SpellsController.setSpell(freezeSpell);
+        if(SpellsController.getInstance().drop()){
+            
+            setSpellCounts();
+        }
     }
 
     @FXML
     void dropHealth(MouseEvent event) {
+        HealthSpell healthSpell=new HealthSpell();
+        SpellsController.setSpell(healthSpell);
+        if(SpellsController.getInstance().drop()){
+            health+=healthSpell.getHealthIncrease();
+            if(health>20){
+                health=20;
+            }
+            heartLB.setText(String.valueOf(health));
+            setSpellCounts();
+        }
 
     }
     @FXML

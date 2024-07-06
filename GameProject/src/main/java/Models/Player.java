@@ -1,12 +1,8 @@
 package Models;
 
-import Models.Spells.Spell;
-import com.example.gameproject.SQL.SQLController;
-import javafx.application.Application;
-import javafx.stage.Stage;
+import Controllers.SQL.SQLController;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Player {

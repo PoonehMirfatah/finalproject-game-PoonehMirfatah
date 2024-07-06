@@ -1,7 +1,7 @@
 package com.example.gameproject;
 
 import Controllers.PlayerController;
-import com.example.gameproject.SQL.SQLController;
+import Controllers.SQL.SQLController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

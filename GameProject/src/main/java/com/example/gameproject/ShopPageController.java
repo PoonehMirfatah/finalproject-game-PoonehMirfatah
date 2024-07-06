@@ -2,22 +2,18 @@ package com.example.gameproject;
 
 import Controllers.PlayerController;
 import Models.Spells.*;
-import com.example.gameproject.SQL.SQLController;
+import Controllers.SQL.SQLController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
-import java.net.IDN;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class ShopPageController implements Initializable {
@@ -86,19 +82,19 @@ public class ShopPageController implements Initializable {
     }
     @FXML
     void buy(MouseEvent event) throws IOException {
-        AbstractSpell selectedSpell = null;
+        Spell selectedSpell = null;
         switch (spellID) {
             case "heart":
-                selectedSpell = new HealthSpell("Health", 350, 5);
+                selectedSpell = new HealthSpell();
                 break;
             case "freeze":
-                selectedSpell = new FreezeSpell("Freeze", 50, 5);
+                selectedSpell = new FreezeSpell();
                 break;
             case "coins":
-                selectedSpell = new CoinSpell("Coins", 850, 200);
+                selectedSpell = new CoinSpell();
                 break;
             case "littleBoy":
-                selectedSpell = new LittleBoySpell("LittleBoy", 999);
+                selectedSpell = new LittleBoySpell();
                 break;
             default:
                 break;
@@ -147,12 +143,7 @@ public class ShopPageController implements Initializable {
 
     @FXML
     void backToHome(MouseEvent event) throws Exception {
-        SQLController.deletePlayerSpells(PlayerController.getInstance().player.getID());
-        for (String spellName : PlayerController.getInstance().player.getBackPack().keySet()) {
-            int count = PlayerController.getInstance().player.getBackPack().get(spellName);
-            SQLController.insertSpell(spellName, count);
-        }
-        SQLController.updatePlayer(PlayerController.getInstance().player.getID());
+        PlayerController.getInstance().updateSpells();
         PageController.setstage(event,"HomePage.fxml");
     }
 }

@@ -1,4 +1,4 @@
-package com.example.gameproject.SQL;
+package Controllers.SQL;
 
 import Controllers.PlayerController;
 import Models.Player;

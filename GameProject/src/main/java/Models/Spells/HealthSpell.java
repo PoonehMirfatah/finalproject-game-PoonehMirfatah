@@ -1,21 +1,18 @@
 package Models.Spells;
 
-import Models.Spells.AbstractSpell;
+import Controllers.SpellsController;
 
-public class HealthSpell extends AbstractSpell {
+
+public class HealthSpell extends Spell {
     private final int healthIncrease;
 
-    public HealthSpell(String name, int price, int healthIncrease) {
-        super(name, price);
-        this.healthIncrease = healthIncrease;
-    }
-
-    @Override
-    public void drop() {
-        System.out.println("Player health increased by " + healthIncrease + " units.");
+    public HealthSpell() {
+        super("Health", 350);
+        this.healthIncrease = 5;
     }
 
     public int getHealthIncrease() {
         return healthIncrease;
     }
+
 }

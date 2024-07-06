@@ -1,13 +1,12 @@
 package Models.Spells;
 
-public class LittleBoySpell extends AbstractSpell {
+import Controllers.SpellsController;
+import Models.Map;
 
-    public LittleBoySpell(String name, int price) {
-        super(name, price);
+public class LittleBoySpell extends Spell {
+
+    public LittleBoySpell() {
+        super("LittleBoy", 999);
     }
 
-    @Override
-    public void drop() {
-        System.out.println("litleboy");
-    }
 }
