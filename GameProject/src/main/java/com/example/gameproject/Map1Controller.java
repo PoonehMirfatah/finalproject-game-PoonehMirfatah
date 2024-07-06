@@ -13,6 +13,7 @@ import Models.Towers.WizardTower;
 import Models.Wave;
 import Controllers.SQL.SQLController;
 import javafx.animation.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -142,6 +143,7 @@ public class Map1Controller implements Initializable {
     List<PathTransition> pathTransitions = new ArrayList<>();
     List<Position> damagePoints=new ArrayList<>();
     int waveIndex;
+    List<Raider> aliveRaiders=new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -220,7 +222,7 @@ public class Map1Controller implements Initializable {
         }
 
     @FXML
-    void dropBomb(MouseEvent event) {
+    void dropBomb(MouseEvent event) throws InterruptedException {
         LittleBoySpell bombSpell=new LittleBoySpell();
         SpellsController.setSpell(bombSpell);
 
@@ -229,9 +231,54 @@ public class Map1Controller implements Initializable {
             setSpellCounts();
         }
     }
-    public void bombAttacks(){
-        //
+    public void bombAttacks() throws InterruptedException {
+        for(Position pointDamage:damagePoints) {
+            Image image = new Image(getClass().getResource("/Weapon/bullet.png").toExternalForm());
+            ImageView bomb = new ImageView(image);
+            Path path1 = new Path();
+            bomb.setFitWidth(30);
+            bomb.setPreserveRatio(true);
+
+            pane.getChildren().add(bomb);
+            double xStart = 300;
+            double yStart = 0;
+
+            path1.getElements().add(new MoveTo(xStart, yStart));
+
+
+            double xEnd = pointDamage.getX();
+            double yEnd = pointDamage.getY();
+            path1.getElements().add(new LineTo(xEnd, yEnd));
+
+            PathTransition pathTransition = new PathTransition();
+            pathTransition.setDuration(Duration.seconds(1));
+            pathTransition.setPath(path1);
+            pathTransition.setNode(bomb);
+            pathTransition.setAutoReverse(false);
+            pathTransition.play();
+            pathTransition.setOnFinished(event2 -> {
+                pane.getChildren().remove(bomb);
+                pane.getChildren().removeIf(node -> node instanceof VBox);
+            });
+
+        }
+        Wave currentWave = map1.getAttackWave().get(waveIndex);
+           for(Raider raider:currentWave.getRaiders()) {
+               raider.setHealth(0);
+           }
+
     }
+
+
+    public Raider getRaider(VBox vBox){
+        for (Raider raider:aliveRaiders) {
+            if(raider.getvBox()==vBox){
+                return raider;
+            }
+        }
+        return null;
+    }
+
     @FXML
     void dropCoins(MouseEvent event) throws Exception {
        CoinSpell coinSpell= new CoinSpell();
@@ -449,6 +496,7 @@ public class Map1Controller implements Initializable {
             PauseTransition pauseTransition = new PauseTransition(Duration.millis(delay));
             Raider currentRaider = currentWave.getRaiders().get(i);
             currentRaider.setvBox(vBox);
+            aliveRaiders.add(currentRaider);
             //
 
             //
@@ -485,9 +533,8 @@ public class Map1Controller implements Initializable {
 
 
     public void attackTimeLine(Raider currentRaider, VBox vBox, PathTransition pathTransition, int health) {
+        currentRaider.setHealth(health);
         Timeline attackTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            currentRaider.setHealth(health);
-
             for (ImageView point : map1.getTowersList().keySet()) {
                 Tower tower = map1.getTowersList().get(point);
                 double distance = Math.hypot(vBox.getTranslateX() - point.getLayoutX(), vBox.getTranslateY() - point.getLayoutY());
@@ -534,6 +581,7 @@ public class Map1Controller implements Initializable {
 
                     if (currentRaider.getHealth() <= 0) {
                         pane.getChildren().remove(vBox);
+                        aliveRaiders.remove(currentRaider);
                         currentRaider.setDead(true);
                         coins += currentRaider.getLoot();
                         coinsLB.setText(String.valueOf(coins));
