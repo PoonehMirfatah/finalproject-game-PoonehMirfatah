@@ -31,8 +31,8 @@ public class HomePageController implements Initializable {
     }
 
     @FXML
-    void goToSetting(MouseEvent event) {
-
+    void goToSetting(MouseEvent event) throws IOException {
+        PageController.setstage(event,"SettingPage.fxml");
     }
 
     @FXML

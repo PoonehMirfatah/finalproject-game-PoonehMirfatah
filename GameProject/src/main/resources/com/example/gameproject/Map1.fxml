@@ -333,7 +333,7 @@
                   <Font name="Forte" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="freezeCountLB" layoutX="312.0" layoutY="67.0" prefHeight="28.0" prefWidth="13.0" text="0">
+            <Label fx:id="freezeCountLB" layoutX="312.0" layoutY="67.0" prefHeight="28.0" prefWidth="30.0" text="0">
                <font>
                   <Font name="Forte" size="25.0" />
                </font>

@@ -9,6 +9,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class SettingPageController {
+    public void backToHome(MouseEvent event) {
+    }
+
+    public void setMusic(MouseEvent event) {
+    }
 //    MediaPlayer player;
 //    boolean playAdd=false;
 //     Media media;

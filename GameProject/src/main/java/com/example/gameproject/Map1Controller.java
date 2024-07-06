@@ -259,6 +259,7 @@ public class Map1Controller implements Initializable {
             pathTransition.setOnFinished(event2 -> {
                 pane.getChildren().remove(bomb);
                 pane.getChildren().removeIf(node -> node instanceof VBox);
+                //&& node.getLayoutX()<100
             });
 
         }

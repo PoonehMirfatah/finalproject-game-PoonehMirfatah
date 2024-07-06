@@ -10,15 +10,11 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SignUpPageController implements Initializable {
+public class SignUpPageController  {
     public TextField usernameTF;
     public TextField passwordTF;
     public Button confirmBT;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
 
     public void signUp(ActionEvent event) throws Exception {
         String username=usernameTF.getText();
