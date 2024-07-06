@@ -14,6 +14,7 @@ import Models.Wave;
 import Controllers.SQL.SQLController;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -117,10 +118,8 @@ public class Map1Controller implements Initializable {
     private Label littleBoyCountLB;
     @FXML
     private AnchorPane spellsBox;
-
-
+    
     String towerID;
-    Position clickedPosition;
     int coins;
     int health;
     ImageView point;
@@ -221,11 +220,39 @@ public class Map1Controller implements Initializable {
         FreezeSpell freezeSpell= new FreezeSpell();
         SpellsController.setSpell(freezeSpell);
         if(SpellsController.getInstance().drop()){
-            
+            freezeTransitions();
+            freezeTimelines();
             setSpellCounts();
         }
     }
+    public void freezeTransitions(){
+        for(PathTransition pathTransition:pathTransitions) {
+            PauseTransition pauseTransition = new PauseTransition(Duration.seconds(5));
+            pauseTransition.setOnFinished(event2 -> pathTransition.play());
 
+            PauseTransition stopTransition = new PauseTransition(Duration.seconds(0.1));
+            stopTransition.setOnFinished(event3 -> {
+                pathTransition.pause();
+                pauseTransition.play();
+            });
+            pathTransition.play();
+            stopTransition.play();
+        }
+    }
+    public void freezeTimelines(){
+        for(Timeline timeline:timelines){
+            PauseTransition pauseTransition = new PauseTransition(Duration.seconds(5));
+            pauseTransition.setOnFinished(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    timeline.play();
+                }
+            });
+
+            timeline.pause();
+            pauseTransition.play();
+        }
+    }
     @FXML
     void dropHealth(MouseEvent event) {
         HealthSpell healthSpell=new HealthSpell();
