@@ -29,7 +29,7 @@ public class PageController {
         alert.setTitle(title);
         alert.setHeaderText(headerText);
         alert.setContentText(message);
-        alert.showAndWait();
+        alert.show();
     }
 }
 

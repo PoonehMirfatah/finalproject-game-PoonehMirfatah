@@ -15,6 +15,7 @@ import Controllers.SQL.SQLController;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,6 +29,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.*;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -476,9 +478,21 @@ public class Map1Controller implements Initializable {
     }
 
     Set<ImageView> activeTowers = new HashSet<>();
-
+    Event event;
     private void initiateAttack() throws IOException {
         setPath();
+        if (map1.getWaveCounter() < 5) {
+            map1.setWaveCounter(map1.getWaveCounter() + 1);
+            waveLB.setText(String.format("Wave %s/5", map1.getWaveCounter()));
+        } else {
+            PageController.showAlert("Finished", "YOU WON!", " ", Alert.AlertType.INFORMATION);
+            try {
+                Main.setRoot(PageController.stage,"HomePage.fxml",722,622);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            startBT.setVisible(false);
+        }
          waveIndex = map1.getWaveCounter() - 1;
         Wave currentWave = map1.getAttackWave().get(waveIndex);
 
@@ -498,9 +512,7 @@ public class Map1Controller implements Initializable {
             Raider currentRaider = currentWave.getRaiders().get(i);
             currentRaider.setvBox(vBox);
             aliveRaiders.add(currentRaider);
-            //
 
-            //
             int raiderHealth=currentRaider.getHealth();
             pauseTransition.setOnFinished(e -> {
                 PathTransition pathTransition = new PathTransition();
@@ -519,6 +531,13 @@ public class Map1Controller implements Initializable {
                         heartLB.setText(String.format("%s/20", health));
                         if (health == 0) {
                             PageController.showAlert("Finished", "GAME OVER", " ", Alert.AlertType.INFORMATION);
+
+                            try {
+                                Main.setRoot(PageController.stage,"HomePage.fxml",722,622);
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
+
                         }
                         pathTransitions.remove(pathTransition);
                     if (pathTransitions.isEmpty()) {
@@ -532,6 +551,24 @@ public class Map1Controller implements Initializable {
         }
     }
 
+    public void checkHealthTimeLine(List<Raider> nearRaiders){
+        Timeline healthTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+        for(Raider raider:nearRaiders){
+            pane.getChildren().remove(raider.getvBox());
+            aliveRaiders.remove(raider);
+            raider.setDead(true);
+            coins += raider.getLoot();
+            coinsLB.setText(String.valueOf(coins));
+            raider.getPathTransition().stop();
+            pathTransitions.remove(raider.getPathTransition());
+            if (pathTransitions.isEmpty()) {
+                startNextAttack();
+            }
+        }
+        }));
+        healthTimeline.play();
+        healthTimeline.setCycleCount(Timeline.INDEFINITE);
+    }
 
     public void attackTimeLine(Raider currentRaider, VBox vBox, PathTransition pathTransition, int health) {
         currentRaider.setHealth(health);
@@ -551,26 +588,12 @@ public class Map1Controller implements Initializable {
                     } else if (tower instanceof Artillery) {
                         activeTowers.add(point);
                         artilleryTowerAttack(point, vBox);
-                        artilleryTowerAttack(point, vBox);
-                        artilleryTowerAttack(point, vBox);
-//                        List<Raider> nearRaiders = getNearbyRaiders(vBox, 50);
-//                        for (Raider raider : nearRaiders) {
-//                            raider.setHealth(raider.getHealth() - tower.getDestroyPower());
-//                            System.out.println(raider.getHealth());
-//                            if (raider.getHealth() <= 0) {
-//                                System.out.println(raider.getvBox().getTranslateX());
-//                                pane.getChildren().remove(raider.getvBox());
-//                                raider.setDead(true);
-//                                coins += raider.getLoot();
-//                                coinsLB.setText(String.valueOf(coins));
-//                                raider.getPathTransition().stop();
-//                                pathTransitions.remove(raider.getPathTransition());
-//                                if (pathTransitions.isEmpty()) {
-//                                    startNextAttack();
-//                                }
-//                            }
-//                        }
+                        //List<Raider>nears=getNearbyRaiders(vBox,50);
+                        //System.out.println(nears.size());
+                        //List<Raider> nearRaiders = getNearbyRaiders(vBox, 100);
+                        //checkHealthTimeLine(nearRaiders);
                         currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower());
+
                     } else if (tower instanceof WizardTower) {
                         activeTowers.add(point);
                         wizardTowerAttack(point, vBox);
@@ -579,7 +602,6 @@ public class Map1Controller implements Initializable {
                             vBox.getChildren().get(1).setVisible(true);
                         }
                     }
-
                     if (currentRaider.getHealth() <= 0) {
                         pane.getChildren().remove(vBox);
                         aliveRaiders.remove(currentRaider);
@@ -600,16 +622,17 @@ public class Map1Controller implements Initializable {
         attackTimeline.setCycleCount(Timeline.INDEFINITE);
         attackTimeline.play();
     }
-    private List<Raider> getNearbyRaiders(VBox vBox, double radius) {
-        List<Raider> nearbyRaiders = new ArrayList<>();
-        for (Raider raider : map1.getAttackWave().get(waveIndex).getRaiders()) {
-            double distance = Math.hypot(vBox.getTranslateX() - raider.getvBox().getTranslateX(), vBox.getTranslateY() - raider.getvBox().getTranslateY());
-            if (distance <= radius) {
-                nearbyRaiders.add(raider);
-            }
-        }
-        return nearbyRaiders;
-    }
+//    public List<Raider> getNearbyRaiders(VBox vBox, double radius) {
+//        List<Raider> nearRaiders = new ArrayList<>();
+//        for (Raider raider : map1.getAttackWave().get(waveIndex).getRaiders()) {
+//            double distance = Math.hypot(raider.getvBox().getTranslateX() - vBox.getTranslateX(),
+//                    raider.getvBox().getTranslateY() - vBox.getTranslateY());
+//            if (distance <= radius) {
+//                nearRaiders.add(raider);
+//            }
+//        }
+//        return nearRaiders;
+//    }
     public void wizardTowerAttack(ImageView point, VBox target){
         Path path1 = new Path();
         Image image = new Image(getClass().getResource("/Weapon/fireball.png").toExternalForm());
@@ -712,12 +735,7 @@ public class Map1Controller implements Initializable {
 
     public void setPath(){
         path.getElements().clear();
-        if (map1.getWaveCounter() < 5) {
-            map1.setWaveCounter(map1.getWaveCounter() + 1);
-            waveLB.setText(String.format("Wave %s/5", map1.getWaveCounter()));
-        } else {
-            startBT.setVisible(false);
-        }
+
         double xStart = ps1.getStartX() + ps1.getLayoutX();
         double yStart = ps1.getStartY() + ps1.getLayoutY();
         path.getElements().add(new MoveTo(xStart, yStart));
