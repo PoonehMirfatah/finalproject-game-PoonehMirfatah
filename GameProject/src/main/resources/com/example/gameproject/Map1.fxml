@@ -108,7 +108,7 @@
             </ImageView>
             <ImageView fitHeight="107.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <image>
-                  <Image url="@../../../Towers/ArmyPlace.png" />
+                  <Image url="@../../../Towers/1ArmyPlace.png" />
                </image>
             </ImageView>
             <VBox alignment="CENTER" prefHeight="67.0" prefWidth="96.0" spacing="5.0" GridPane.columnIndex="1">

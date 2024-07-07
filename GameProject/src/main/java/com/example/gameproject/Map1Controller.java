@@ -3,17 +3,14 @@ import Controllers.PlayerController;
 import Controllers.SpellsController;
 import Models.Map;
 import Models.Position;
+import Models.Raiders.FlyerRaider;
 import Models.Raiders.Raider;
 import Models.Raiders.ShieldRaider;
 import Models.Spells.*;
-import Models.Towers.ArcherTower;
-import Models.Towers.Artillery;
-import Models.Towers.Tower;
-import Models.Towers.WizardTower;
+import Models.Towers.*;
 import Models.Wave;
 import Controllers.SQL.SQLController;
 import javafx.animation.*;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -29,7 +26,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.*;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -133,7 +129,7 @@ public class Map1Controller implements Initializable {
     @FXML
     private ImageView damagePoint4;
 
-    String towerID;
+
     int coins;
     int health;
     ImageView point;
@@ -146,6 +142,7 @@ public class Map1Controller implements Initializable {
     List<Position> damagePoints=new ArrayList<>();
     int waveIndex;
     List<Raider> aliveRaiders=new ArrayList<>();
+    Set<ImageView> activeTowers = new HashSet<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -272,16 +269,6 @@ public class Map1Controller implements Initializable {
 
     }
 
-
-    public Raider getRaider(VBox vBox){
-        for (Raider raider:aliveRaiders) {
-            if(raider.getvBox()==vBox){
-                return raider;
-            }
-        }
-        return null;
-    }
-
     @FXML
     void dropCoins(MouseEvent event) throws Exception {
        CoinSpell coinSpell= new CoinSpell();
@@ -350,7 +337,7 @@ public class Map1Controller implements Initializable {
     void showTowers(MouseEvent event) {
         spellsBox.setVisible(false);
         ImageView clickedImage = (ImageView) event.getSource();
-        towerID = clickedImage.getId();
+        String towerID = clickedImage.getId();
         switch (towerID) {
             case "towerPoint1":
                 point = towerPoint1;
@@ -396,13 +383,16 @@ public class Map1Controller implements Initializable {
                 setTowerOnPosition("/Towers/1WizardTower.png");
                 break;
             case "t4":
-                setTowerOnPosition("/Towers/ArmyPlace.png");
-
+                selectedTower1 = new AirTower(200, 100, 200);
+                if(checkCoins(selectedTower1)){
+                    return;
+                }
+                setTowerOnPosition("/Towers/1ArmyPlace.png");
                 break;
             default:
                 return;
         }
-        assert selectedTower1 != null;
+        //assert selectedTower1 != null;
         map1.getTowersList().put(point, selectedTower1);
         coins -= selectedTower1.getBulidCost();
         coinsLB.setText(String.valueOf(coins));
@@ -443,7 +433,7 @@ public class Map1Controller implements Initializable {
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), event -> {
             ImageView imageView = (ImageView) vBox.getChildren().get(0);
             int index = heroImages.indexOf(imageView.getImage()) + 1;
-
+            
             if (index >= heroImages.size()) {
                 index = 0;
             }
@@ -466,7 +456,7 @@ public class Map1Controller implements Initializable {
     }
 
     @FXML
-    void startAttack(MouseEvent event) throws IOException {
+    void startAttack(MouseEvent event) throws Exception {
         if (firstAttack) {
             firstAttack = false;
             initiateAttack();
@@ -477,23 +467,11 @@ public class Map1Controller implements Initializable {
         }
     }
 
-    Set<ImageView> activeTowers = new HashSet<>();
-    Event event;
-    private void initiateAttack() throws IOException {
+
+    private void initiateAttack() throws Exception {
         setPath();
-        if (map1.getWaveCounter() < 5) {
-            map1.setWaveCounter(map1.getWaveCounter() + 1);
-            waveLB.setText(String.format("Wave %s/5", map1.getWaveCounter()));
-        } else {
-            PageController.showAlert("Finished", "YOU WON!", " ", Alert.AlertType.INFORMATION);
-            try {
-                Main.setRoot(PageController.stage,"HomePage.fxml",722,622);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-            startBT.setVisible(false);
-        }
-         waveIndex = map1.getWaveCounter() - 1;
+        checkWin();
+        waveIndex = map1.getWaveCounter() - 1;
         Wave currentWave = map1.getAttackWave().get(waveIndex);
 
         int i = 0;
@@ -530,14 +508,11 @@ public class Map1Controller implements Initializable {
                         health -= 1;
                         heartLB.setText(String.format("%s/20", health));
                         if (health == 0) {
-                            PageController.showAlert("Finished", "GAME OVER", " ", Alert.AlertType.INFORMATION);
-
                             try {
-                                Main.setRoot(PageController.stage,"HomePage.fxml",722,622);
-                            } catch (IOException ex) {
+                                checkLost();
+                            } catch (Exception ex) {
                                 throw new RuntimeException(ex);
                             }
-
                         }
                         pathTransitions.remove(pathTransition);
                     if (pathTransitions.isEmpty()) {
@@ -548,6 +523,32 @@ public class Map1Controller implements Initializable {
                 pathTransitions.add(pathTransition);
             });
             pauseTransition.play();
+        }
+    }
+    public void checkWin() throws Exception {
+        if (map1.getWaveCounter() < 5) {
+            map1.setWaveCounter(map1.getWaveCounter() + 1);
+            waveLB.setText(String.format("Wave %s/5", map1.getWaveCounter()));
+        } else {
+            PageController.showAlert("Finished", "YOU WON!", " ", Alert.AlertType.INFORMATION);
+            PlayerController.getInstance().getPlayer().setDiamonds(PlayerController.getInstance().player.getDiamonds()+100);
+            PlayerController.getInstance().updateSpells();
+            SQLController.updatePlayer(PlayerController.getInstance().player.getID());
+            try {
+                Main.setRoot(PageController.stage,"HomePage.fxml",722,622);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            startBT.setVisible(false);
+        }
+    }
+    public void checkLost() throws Exception {
+    PageController.showAlert("Finished", "GAME OVER", " ", Alert.AlertType.INFORMATION);
+        PlayerController.getInstance().updateSpells();
+    try {
+        Main.setRoot(PageController.stage,"HomePage.fxml",722,622);
+    } catch (IOException ex) {
+        throw new RuntimeException(ex);
         }
     }
 
@@ -768,7 +769,7 @@ public class Map1Controller implements Initializable {
         nextWavePause.setOnFinished(e -> {
             try {
                 initiateAttack();
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
@@ -810,6 +811,7 @@ public class Map1Controller implements Initializable {
     public Tower getTower(String path){
         Tower selectedTower = null;
         switch (newPath) {
+
             case "/Towers/2ArcherTower.png":
                 selectedTower = new ArcherTower(150, 130, 220);
                 break;
@@ -819,6 +821,7 @@ public class Map1Controller implements Initializable {
             case "/Towers/4ArcherTower.png":
                 selectedTower = new ArcherTower(250, 250, 250);
                 break;
+
             case "/Towers/2Artillery.png":
                 selectedTower = new Artillery(225, 150, 220);
                 break;
@@ -828,6 +831,7 @@ public class Map1Controller implements Initializable {
             case "/Towers/4Artillery.png":
                 selectedTower = new Artillery(280, 250, 245);
                 break;
+
             case "/Towers/2WizardTower.png":
                 selectedTower = new WizardTower(350, 150, 220);
                 break;
@@ -835,7 +839,17 @@ public class Map1Controller implements Initializable {
                 selectedTower = new WizardTower(400, 200, 240);
                 break;
             case "/Towers/4WizardTower.png":
-                selectedTower = new WizardTower(280, 250, 245);
+                selectedTower = new WizardTower(450, 250, 245);
+                break;
+
+            case "/Towers/2ArmyPlace.png":
+                selectedTower = new AirTower(350, 150, 220);
+                break;
+            case "/Towers/3ArmyPlace.png":
+                selectedTower = new AirTower(400, 200, 240);
+                break;
+            case "/Towers/4ArmyPlace.png":
+                selectedTower = new AirTower(450, 250, 245);
                 break;
             default:
         }
