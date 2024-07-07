@@ -1,5 +1,6 @@
 package com.example.gameproject;
 
+import Controllers.PlayerController;
 import Controllers.SQL.SQLController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -42,8 +44,8 @@ public class SettingPageController implements Initializable {
     static Boolean running=true;
 
     @FXML
-    void backToHome(MouseEvent event) {
-
+    void backToHome(MouseEvent event) throws IOException {
+        PageController.setstage(event,"HomePage.fxml");
     }
 
     @FXML
@@ -69,7 +71,8 @@ public class SettingPageController implements Initializable {
                     Alert.AlertType.ERROR);
             return;
         }
-        SQLController.updatePlayerInfo(userNameTF.getText(),passwordTF.getText());
+        SQLController.updatePlayerInfo(userNameTF.getText(),passwordTF.getText(),
+                PlayerController.getInstance().player.getID());
     }
 
 

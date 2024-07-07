@@ -52,19 +52,19 @@
                   <Font name="Bell MT Bold" size="25.0" />
                </font>
             </Label>
-            <ImageView fx:id="soundOnImage" fitHeight="85.0" fitWidth="121.0" layoutX="412.0" layoutY="58.0" onMouseClicked="#muteMusic" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="soundOnImage" fitHeight="85.0" fitWidth="121.0" layoutX="412.0" layoutY="58.0" onMouseClicked="#playSound" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../Photos/on.jpg" />
                </image>
             </ImageView>
-            <ImageView fx:id="soundOffImage" fitHeight="85.0" fitWidth="90.0" layoutX="408.0" layoutY="58.0" onMouseClicked="#playSound" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="soundOffImage" fitHeight="85.0" fitWidth="90.0" layoutX="408.0" layoutY="58.0" onMouseClicked="#muteMusic" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../Photos/off.jpg" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
-      <Button layoutX="38.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#saveEdits" prefHeight="45.0" prefWidth="157.0" style="-fx-background-color: #51442d; -fx-region-border: black;" text="Save Edits" textFill="WHITE">
+      <Button layoutX="38.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#saveEdits" prefHeight="45.0" prefWidth="157.0" style="-fx-background-color: #51442d;" text="Save Edits" textFill="WHITE">
          <font>
             <Font name="Forte" size="25.0" />
          </font>

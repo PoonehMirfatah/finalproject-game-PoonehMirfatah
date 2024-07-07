@@ -18,6 +18,7 @@ class SQLConnection {
             s.execute(SQLcmd);
             con.close();
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 

@@ -65,9 +65,10 @@ public class SQLController {
         SQLConnection sql = new SQLConnection();
          sql.executeSQL(SQLcom);
     }
-    public static void updatePlayerInfo(String userName,String password) throws Exception {
-        String SQLcom = String.format("UPDATE player SET UserName='%s' AND Password='%s'",userName,password);
+    public static void updatePlayerInfo(String userName,String password,int ID) throws Exception {
+        String SQLcom = String.format("UPDATE player SET UserName='%s' , Password='%s' WHERE ID=%s",userName,password,ID);
         SQLConnection sql = new SQLConnection();
         sql.executeSQL(SQLcom);
     }
 }
+//"UPDATE programmers SET %s='%s' WHERE ID=%s"
