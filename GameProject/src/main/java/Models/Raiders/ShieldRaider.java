@@ -18,7 +18,7 @@ public class ShieldRaider extends Raider {
         Image image8 = new Image(getClass().getResource("/Raiders/8.png").toExternalForm());
         Image image9 = new Image(getClass().getResource("/Raiders/9.png").toExternalForm());
         Image image10 = new Image(getClass().getResource("/Raiders/10.png").toExternalForm());
-        //Image image11 = new Image(getClass().getResource("/Raiders/11.png").toExternalForm());
+        Image image11 = new Image(getClass().getResource("/Raiders/11.png").toExternalForm());
         getHeroImages().add(image1);
         getHeroImages().add(image2);
         getHeroImages().add(image3);
@@ -28,6 +28,6 @@ public class ShieldRaider extends Raider {
         getHeroImages().add(image8);
         getHeroImages().add(image9);
         getHeroImages().add(image10);
-        //getHeroImages().add(image11);
+        getHeroImages().add(image11);
     }
 }

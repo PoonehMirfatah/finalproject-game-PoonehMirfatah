@@ -49,6 +49,7 @@ public class MapController {
         MapController.map=map;
     }
 
+    //public static  boolean firstAttack = true;
     public void freezeTransitions(){
         for(PathTransition pathTransition:map.getPathTransitions()) {
             PauseTransition pauseTransition = new PauseTransition(Duration.seconds(5));

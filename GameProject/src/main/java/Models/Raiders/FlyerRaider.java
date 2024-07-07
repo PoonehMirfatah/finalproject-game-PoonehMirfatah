@@ -4,9 +4,9 @@ import javafx.scene.image.Image;
 
 public class FlyerRaider extends Raider {
     public FlyerRaider() {
-        setHealth(100);
-        setLoot(200);
-        setSpeed(70);
+        setHealth(500);
+        setLoot(80);
+        setSpeed(1d/20d);
         setDead(false);
         Image image1 = new Image(getClass().getResource("/Raiders/f1.png").toExternalForm());
         Image image2 = new Image(getClass().getResource("/Raiders/f2.png").toExternalForm());
@@ -18,7 +18,7 @@ public class FlyerRaider extends Raider {
         Image image8 = new Image(getClass().getResource("/Raiders/f8.png").toExternalForm());
         Image image9 = new Image(getClass().getResource("/Raiders/f9.png").toExternalForm());
         Image image10 = new Image(getClass().getResource("/Raiders/f10.png").toExternalForm());
-        Image image11 = new Image(getClass().getResource("/Raiders/f11.png").toExternalForm());
+       // Image image11 = new Image(getClass().getResource("/Raiders/f11.png").toExternalForm());
         getHeroImages().add(image1);
         getHeroImages().add(image2);
         getHeroImages().add(image3);
@@ -29,6 +29,6 @@ public class FlyerRaider extends Raider {
         getHeroImages().add(image8);
         getHeroImages().add(image9);
         getHeroImages().add(image10);
-        getHeroImages().add(image11);
+       // getHeroImages().add(image11);
     }
 }

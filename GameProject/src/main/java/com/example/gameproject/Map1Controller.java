@@ -4,6 +4,7 @@ import Controllers.PlayerController;
 import Controllers.SpellsController;
 import Models.Map;
 import Models.Position;
+import Models.Raiders.FlyerRaider;
 import Models.Raiders.Raider;
 import Models.Raiders.ShieldRaider;
 import Models.Spells.*;
@@ -154,6 +155,7 @@ public class Map1Controller implements Initializable {
         ShieldRaider shieldRaider3 = new ShieldRaider();
         ShieldRaider shieldRaider4 = new ShieldRaider();
         ShieldRaider shieldRaider5 = new ShieldRaider();
+        
         Wave wave1 = new Wave(shieldRaider1, 3);
         Wave wave2 = new Wave(shieldRaider2, 6);
         Wave wave3 = new Wave(shieldRaider3, 8);
@@ -412,6 +414,7 @@ public class Map1Controller implements Initializable {
         for (i = 0; i < currentWave.getRaiderCount(); i++) {
             int delay = i * 1000;
             VBox vBox = new VBox();
+
             ArrayList<Image> heroImages = currentWave.getRaiders().get(i).getHeroImages();
             Image image1 = heroImages.get(0);
             ImageView walkKnight = new ImageView(image1);
@@ -510,8 +513,8 @@ public class Map1Controller implements Initializable {
                 double distance = Math.hypot(vBox.getTranslateX() - point.getLayoutX(), vBox.getTranslateY() - point.getLayoutY());
                 if (distance <= tower.getRange() && !map1.getActiveTowers().contains(point)) {
                     if (tower instanceof ArcherTower) {
-                        map1.getActiveTowers().add(point);
                         archerTowerAttack(point, vBox);
+                        map1.getActiveTowers().add(point);
                         if (currentRaider instanceof ShieldRaider) {
                             currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower() / 2);
                         } else {
@@ -670,7 +673,6 @@ public class Map1Controller implements Initializable {
 
     public void setPath(){
         path.getElements().clear();
-
         double xStart = ps1.getStartX() + ps1.getLayoutX();
         double yStart = ps1.getStartY() + ps1.getLayoutY();
         path.getElements().add(new MoveTo(xStart, yStart));
