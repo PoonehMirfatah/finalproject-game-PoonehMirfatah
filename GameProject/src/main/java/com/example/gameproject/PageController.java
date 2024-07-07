@@ -13,7 +13,7 @@ import java.io.IOException;
 public class PageController {
     static AnchorPane root;
     static AnchorPane MainSection = new AnchorPane();
-    static Stage stage;
+    public static Stage stage;
     static Scene scene;
     public static void setstage(Event event, String fxml) throws IOException {
         root = FXMLLoader.load(PageController.class.getResource(fxml));

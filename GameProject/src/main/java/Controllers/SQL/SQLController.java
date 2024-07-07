@@ -65,4 +65,9 @@ public class SQLController {
         SQLConnection sql = new SQLConnection();
          sql.executeSQL(SQLcom);
     }
+    public static void updatePlayerInfo(String userName,String password) throws Exception {
+        String SQLcom = String.format("UPDATE player SET UserName='%s' AND Password='%s'",userName,password);
+        SQLConnection sql = new SQLConnection();
+        sql.executeSQL(SQLcom);
+    }
 }

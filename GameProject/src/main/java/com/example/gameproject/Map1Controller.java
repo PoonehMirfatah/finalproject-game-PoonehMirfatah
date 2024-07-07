@@ -73,11 +73,6 @@ public class Map1Controller implements Initializable {
     @FXML
     private Button t2;
 
-    @FXML
-    private Button t21;
-
-    @FXML
-    private Button t211;
 
     @FXML
     private Button t3;
@@ -139,9 +134,9 @@ public class Map1Controller implements Initializable {
     Map map1;
     private boolean firstAttack = true;
     List<PathTransition> pathTransitions = new ArrayList<>();
-    List<Position> damagePoints=new ArrayList<>();
+    List<Position> damagePoints = new ArrayList<>();
     int waveIndex;
-    List<Raider> aliveRaiders=new ArrayList<>();
+    List<Raider> aliveRaiders = new ArrayList<>();
     Set<ImageView> activeTowers = new HashSet<>();
 
     @Override
@@ -180,10 +175,10 @@ public class Map1Controller implements Initializable {
         attackWaves.add(wave4);
         attackWaves.add(wave5);
 
-        Position DP1=new Position(damagePoint1.getLayoutX(),damagePoint1.getLayoutY());
-        Position DP2=new Position(damagePoint2.getLayoutX(),damagePoint2.getLayoutY());
-        Position DP3=new Position(damagePoint3.getLayoutX(),damagePoint3.getLayoutY());
-        Position DP4=new Position(damagePoint4.getLayoutX(),damagePoint4.getLayoutY());
+        Position DP1 = new Position(damagePoint1.getLayoutX(), damagePoint1.getLayoutY());
+        Position DP2 = new Position(damagePoint2.getLayoutX(), damagePoint2.getLayoutY());
+        Position DP3 = new Position(damagePoint3.getLayoutX(), damagePoint3.getLayoutY());
+        Position DP4 = new Position(damagePoint4.getLayoutX(), damagePoint4.getLayoutY());
 
         damagePoints.add(DP1);
         damagePoints.add(DP2);
@@ -200,38 +195,39 @@ public class Map1Controller implements Initializable {
     }
 
 
-    public void setSpellCounts(){
-            for (String spellName : PlayerController.getInstance().player.getBackPack().keySet()) {
-                int count = PlayerController.getInstance().player.getBackPack().get(spellName);
-                switch (spellName) {
-                    case "Health":
-                        heartCountLB.setText(String.valueOf(count));
-                        break;
-                    case "Freeze":
-                        freezeCountLB.setText(String.valueOf(count));
-                        break;
-                    case "Coins":
-                        coinsCountLB.setText(String.valueOf(count));
-                        break;
-                    case "LittleBoy":
-                        littleBoyCountLB.setText(String.valueOf(count));
-                        break;
-                }
+    public void setSpellCounts() {
+        for (String spellName : PlayerController.getInstance().player.getBackPack().keySet()) {
+            int count = PlayerController.getInstance().player.getBackPack().get(spellName);
+            switch (spellName) {
+                case "Health":
+                    heartCountLB.setText(String.valueOf(count));
+                    break;
+                case "Freeze":
+                    freezeCountLB.setText(String.valueOf(count));
+                    break;
+                case "Coins":
+                    coinsCountLB.setText(String.valueOf(count));
+                    break;
+                case "LittleBoy":
+                    littleBoyCountLB.setText(String.valueOf(count));
+                    break;
             }
         }
+    }
 
     @FXML
     void dropBomb(MouseEvent event) throws InterruptedException {
-        LittleBoySpell bombSpell=new LittleBoySpell();
+        LittleBoySpell bombSpell = new LittleBoySpell();
         SpellsController.setSpell(bombSpell);
 
-        if(SpellsController.getInstance().drop()){
+        if (SpellsController.getInstance().drop()) {
             bombAttacks();
             setSpellCounts();
         }
     }
+
     public void bombAttacks() throws InterruptedException {
-        for(Position pointDamage:damagePoints) {
+        for (Position pointDamage : damagePoints) {
             Image image = new Image(getClass().getResource("/Weapon/bullet.png").toExternalForm());
             ImageView bomb = new ImageView(image);
             Path path1 = new Path();
@@ -263,18 +259,18 @@ public class Map1Controller implements Initializable {
 
         }
         Wave currentWave = map1.getAttackWave().get(waveIndex);
-           for(Raider raider:currentWave.getRaiders()) {
-               raider.setHealth(0);
-           }
+        for (Raider raider : currentWave.getRaiders()) {
+            raider.setHealth(0);
+        }
 
     }
 
     @FXML
     void dropCoins(MouseEvent event) throws Exception {
-       CoinSpell coinSpell= new CoinSpell();
-       SpellsController.setSpell(coinSpell);
-        if(SpellsController.getInstance().drop()){
-            coins+=coinSpell.getCoinIncrease();
+        CoinSpell coinSpell = new CoinSpell();
+        SpellsController.setSpell(coinSpell);
+        if (SpellsController.getInstance().drop()) {
+            coins += coinSpell.getCoinIncrease();
             coinsLB.setText(String.valueOf(coins));
             setSpellCounts();
         }
@@ -283,16 +279,17 @@ public class Map1Controller implements Initializable {
 
     @FXML
     void dropFreeze(MouseEvent event) {
-        FreezeSpell freezeSpell= new FreezeSpell();
+        FreezeSpell freezeSpell = new FreezeSpell();
         SpellsController.setSpell(freezeSpell);
-        if(SpellsController.getInstance().drop()){
+        if (SpellsController.getInstance().drop()) {
             freezeTransitions();
             freezeTimelines();
             setSpellCounts();
         }
     }
-    public void freezeTransitions(){
-        for(PathTransition pathTransition:pathTransitions) {
+
+    public void freezeTransitions() {
+        for (PathTransition pathTransition : pathTransitions) {
             PauseTransition pauseTransition = new PauseTransition(Duration.seconds(5));
             pauseTransition.setOnFinished(event2 -> pathTransition.play());
 
@@ -305,8 +302,9 @@ public class Map1Controller implements Initializable {
             stopTransition.play();
         }
     }
-    public void freezeTimelines(){
-        for(Timeline timeline:timelines){
+
+    public void freezeTimelines() {
+        for (Timeline timeline : timelines) {
             PauseTransition pauseTransition = new PauseTransition(Duration.seconds(5));
             pauseTransition.setOnFinished(new EventHandler<ActionEvent>() {
                 @Override
@@ -319,20 +317,22 @@ public class Map1Controller implements Initializable {
             pauseTransition.play();
         }
     }
+
     @FXML
     void dropHealth(MouseEvent event) {
-        HealthSpell healthSpell=new HealthSpell();
+        HealthSpell healthSpell = new HealthSpell();
         SpellsController.setSpell(healthSpell);
-        if(SpellsController.getInstance().drop()){
-            health+=healthSpell.getHealthIncrease();
-            if(health>20){
-                health=20;
+        if (SpellsController.getInstance().drop()) {
+            health += healthSpell.getHealthIncrease();
+            if (health > 20) {
+                health = 20;
             }
             heartLB.setText(String.valueOf(health));
             setSpellCounts();
         }
 
     }
+
     @FXML
     void showTowers(MouseEvent event) {
         spellsBox.setVisible(false);
@@ -363,28 +363,28 @@ public class Map1Controller implements Initializable {
         switch (clickedButton.getId()) {
             case "t1":
                 selectedTower1 = new ArcherTower(100, 70, 200);
-                if(checkCoins(selectedTower1)){
+                if (checkCoins(selectedTower1)) {
                     return;
                 }
                 setTowerOnPosition("/Towers/1ArcherTower.png");
                 break;
             case "t2":
                 selectedTower1 = new Artillery(400, 125, 200);
-                if(checkCoins(selectedTower1)){
+                if (checkCoins(selectedTower1)) {
                     return;
                 }
                 setTowerOnPosition("/Towers/1Artillery.png");
                 break;
             case "t3":
                 selectedTower1 = new WizardTower(300, 100, 200);
-                if(checkCoins(selectedTower1)){
+                if (checkCoins(selectedTower1)) {
                     return;
                 }
                 setTowerOnPosition("/Towers/1WizardTower.png");
                 break;
             case "t4":
                 selectedTower1 = new AirTower(200, 100, 200);
-                if(checkCoins(selectedTower1)){
+                if (checkCoins(selectedTower1)) {
                     return;
                 }
                 setTowerOnPosition("/Towers/1ArmyPlace.png");
@@ -417,10 +417,10 @@ public class Map1Controller implements Initializable {
             level += 1;
             String newLevel = String.valueOf(level);
             newPath = towerPath.replaceAll("\\d", newLevel);
-            Tower newTower=getTower(newPath);
+            Tower newTower = getTower(newPath);
             upgradedCostLB.setText(String.valueOf(newTower.getBulidCost()));
-            Tower lastTower=getTower(towerPath);
-            destroyLootLB.setText(String.valueOf(lastTower.getBulidCost()/2));
+            Tower lastTower = getTower(towerPath);
+            destroyLootLB.setText(String.valueOf(lastTower.getBulidCost() / 2));
             Image upgradedImage = new Image(getClass().getResource(newPath).toExternalForm());
             upgradedTower.setImage(upgradedImage);
         });
@@ -433,13 +433,13 @@ public class Map1Controller implements Initializable {
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), event -> {
             ImageView imageView = (ImageView) vBox.getChildren().get(0);
             int index = heroImages.indexOf(imageView.getImage()) + 1;
-            
+
             if (index >= heroImages.size()) {
                 index = 0;
             }
             //Sheild
-            Image image=new Image(getClass().getResource("/Weapon/Sheild.png").toExternalForm());
-            ImageView sheild=new ImageView(image);
+            Image image = new Image(getClass().getResource("/Weapon/Sheild.png").toExternalForm());
+            ImageView sheild = new ImageView(image);
             sheild.setFitWidth(30);
             sheild.setPreserveRatio(true);
             sheild.setVisible(false);
@@ -447,7 +447,7 @@ public class Map1Controller implements Initializable {
             ImageView walkKnight = new ImageView(heroImages.get(index));
             walkKnight.setFitHeight(50);
             walkKnight.setPreserveRatio(true);
-            vBox.getChildren().setAll(walkKnight,sheild);
+            vBox.getChildren().setAll(walkKnight, sheild);
         }));
 
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -491,11 +491,11 @@ public class Map1Controller implements Initializable {
             currentRaider.setvBox(vBox);
             aliveRaiders.add(currentRaider);
 
-            int raiderHealth=currentRaider.getHealth();
+            int raiderHealth = currentRaider.getHealth();
             pauseTransition.setOnFinished(e -> {
                 PathTransition pathTransition = new PathTransition();
                 currentRaider.setPathTransition(pathTransition);
-                attackTimeLine(currentRaider,vBox,pathTransition,raiderHealth);
+                attackTimeLine(currentRaider, vBox, pathTransition, raiderHealth);
                 pane.getChildren().add(vBox);
                 double duration = 1d / currentRaider.getSpeed();
                 pathTransition.setDuration(Duration.seconds(duration));
@@ -505,16 +505,16 @@ public class Map1Controller implements Initializable {
 
                 pathTransition.setOnFinished(event2 -> {
                     pane.getChildren().remove(vBox);
-                        health -= 1;
-                        heartLB.setText(String.format("%s/20", health));
-                        if (health == 0) {
-                            try {
-                                checkLost();
-                            } catch (Exception ex) {
-                                throw new RuntimeException(ex);
-                            }
+                    health -= 1;
+                    heartLB.setText(String.format("%s/20", health));
+                    if (health == 0) {
+                        try {
+                            checkLost();
+                        } catch (Exception ex) {
+                            throw new RuntimeException(ex);
                         }
-                        pathTransitions.remove(pathTransition);
+                    }
+                    pathTransitions.remove(pathTransition);
                     if (pathTransitions.isEmpty()) {
                         startNextAttack();
                     }
@@ -525,47 +525,49 @@ public class Map1Controller implements Initializable {
             pauseTransition.play();
         }
     }
+
     public void checkWin() throws Exception {
         if (map1.getWaveCounter() < 5) {
             map1.setWaveCounter(map1.getWaveCounter() + 1);
             waveLB.setText(String.format("Wave %s/5", map1.getWaveCounter()));
         } else {
             PageController.showAlert("Finished", "YOU WON!", " ", Alert.AlertType.INFORMATION);
-            PlayerController.getInstance().getPlayer().setDiamonds(PlayerController.getInstance().player.getDiamonds()+100);
+            PlayerController.getInstance().getPlayer().setDiamonds(PlayerController.getInstance().player.getDiamonds() + 100);
             PlayerController.getInstance().updateSpells();
             SQLController.updatePlayer(PlayerController.getInstance().player.getID());
             try {
-                Main.setRoot(PageController.stage,"HomePage.fxml",722,622);
+                Main.setRoot(PageController.stage, "HomePage.fxml", 722, 622);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
             startBT.setVisible(false);
         }
     }
+
     public void checkLost() throws Exception {
-    PageController.showAlert("Finished", "GAME OVER", " ", Alert.AlertType.INFORMATION);
+        PageController.showAlert("Finished", "GAME OVER", " ", Alert.AlertType.INFORMATION);
         PlayerController.getInstance().updateSpells();
-    try {
-        Main.setRoot(PageController.stage,"HomePage.fxml",722,622);
-    } catch (IOException ex) {
-        throw new RuntimeException(ex);
+        try {
+            Main.setRoot(PageController.stage, "HomePage.fxml", 722, 622);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
-    public void checkHealthTimeLine(List<Raider> nearRaiders){
+    public void checkHealthTimeLine(List<Raider> nearRaiders) {
         Timeline healthTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-        for(Raider raider:nearRaiders){
-            pane.getChildren().remove(raider.getvBox());
-            aliveRaiders.remove(raider);
-            raider.setDead(true);
-            coins += raider.getLoot();
-            coinsLB.setText(String.valueOf(coins));
-            raider.getPathTransition().stop();
-            pathTransitions.remove(raider.getPathTransition());
-            if (pathTransitions.isEmpty()) {
-                startNextAttack();
+            for (Raider raider : nearRaiders) {
+                pane.getChildren().remove(raider.getvBox());
+                aliveRaiders.remove(raider);
+                raider.setDead(true);
+                coins += raider.getLoot();
+                coinsLB.setText(String.valueOf(coins));
+                raider.getPathTransition().stop();
+                pathTransitions.remove(raider.getPathTransition());
+                if (pathTransitions.isEmpty()) {
+                    startNextAttack();
+                }
             }
-        }
         }));
         healthTimeline.play();
         healthTimeline.setCycleCount(Timeline.INDEFINITE);
@@ -623,7 +625,8 @@ public class Map1Controller implements Initializable {
         attackTimeline.setCycleCount(Timeline.INDEFINITE);
         attackTimeline.play();
     }
-//    public List<Raider> getNearbyRaiders(VBox vBox, double radius) {
+
+    //    public List<Raider> getNearbyRaiders(VBox vBox, double radius) {
 //        List<Raider> nearRaiders = new ArrayList<>();
 //        for (Raider raider : map1.getAttackWave().get(waveIndex).getRaiders()) {
 //            double distance = Math.hypot(raider.getvBox().getTranslateX() - vBox.getTranslateX(),
@@ -634,7 +637,7 @@ public class Map1Controller implements Initializable {
 //        }
 //        return nearRaiders;
 //    }
-    public void wizardTowerAttack(ImageView point, VBox target){
+    public void wizardTowerAttack(ImageView point, VBox target) {
         Path path1 = new Path();
         Image image = new Image(getClass().getResource("/Weapon/fireball.png").toExternalForm());
         ImageView ray = new ImageView(image);
@@ -643,8 +646,8 @@ public class Map1Controller implements Initializable {
 
         pane.getChildren().add(ray);
 
-        double xStart = point.getLayoutX()+50;
-        double yStart = point.getLayoutY()+50;
+        double xStart = point.getLayoutX() + 50;
+        double yStart = point.getLayoutY() + 50;
 
         path1.getElements().add(new MoveTo(xStart, yStart));
 
@@ -665,7 +668,8 @@ public class Map1Controller implements Initializable {
             activeTowers.remove(point);
         });
     }
-    public void artilleryTowerAttack(ImageView point, VBox target){
+
+    public void artilleryTowerAttack(ImageView point, VBox target) {
         Path path1 = new Path();
         Image image = new Image(getClass().getResource("/Weapon/bomb.png").toExternalForm());
         ImageView ray = new ImageView(image);
@@ -674,8 +678,8 @@ public class Map1Controller implements Initializable {
 
         pane.getChildren().add(ray);
 
-        double xStart = point.getLayoutX()+50;
-        double yStart = point.getLayoutY()+20;
+        double xStart = point.getLayoutX() + 50;
+        double yStart = point.getLayoutY() + 20;
 
         path1.getElements().add(new MoveTo(xStart, yStart));
 
@@ -683,10 +687,10 @@ public class Map1Controller implements Initializable {
         double xEnd = target.getTranslateX();
         double yEnd = target.getTranslateY();
 
-        double xControl = (xEnd+xStart)/2;
+        double xControl = (xEnd + xStart) / 2;
         double yControl = 50;
 
-        path1.getElements().add(new QuadCurveTo(xControl,yControl,xEnd,yEnd));
+        path1.getElements().add(new QuadCurveTo(xControl, yControl, xEnd, yEnd));
 
         PathTransition pathTransition = new PathTransition();
         pathTransition.setDuration(Duration.seconds(1));
@@ -700,6 +704,7 @@ public class Map1Controller implements Initializable {
             activeTowers.remove(point);
         });
     }
+
     public void archerTowerAttack(ImageView point, VBox target) {
         Path path1 = new Path();
         Image image = new Image(getClass().getResource("/Weapon/arrow.png").toExternalForm());
@@ -709,8 +714,8 @@ public class Map1Controller implements Initializable {
 
         pane.getChildren().add(arrow);
 
-        double xStart = point.getLayoutX()+50;
-        double yStart = point.getLayoutY()+50;
+        double xStart = point.getLayoutX() + 50;
+        double yStart = point.getLayoutY() + 50;
 
         path1.getElements().add(new MoveTo(xStart, yStart));
 
@@ -734,7 +739,7 @@ public class Map1Controller implements Initializable {
     }
 
 
-    public void setPath(){
+    public void setPath() {
         path.getElements().clear();
 
         double xStart = ps1.getStartX() + ps1.getLayoutX();
@@ -764,6 +769,7 @@ public class Map1Controller implements Initializable {
         path.getElements().add(new QuadCurveTo(xControl4, yControl4, xEnd4, yEnd4));
 
     }
+
     private void startNextAttack() {
         PauseTransition nextWavePause = new PauseTransition(Duration.seconds(5));
         nextWavePause.setOnFinished(e -> {
@@ -786,7 +792,7 @@ public class Map1Controller implements Initializable {
         );
         UpgradeBox.setVisible(false);
         map1.getTowersList().remove(point);
-        coins+=Integer.parseInt(destroyLootLB.getText());
+        coins += Integer.parseInt(destroyLootLB.getText());
         coinsLB.setText(String.valueOf(coins));
     }
 
@@ -794,12 +800,12 @@ public class Map1Controller implements Initializable {
     void upgradeTower(ActionEvent event) {
         UpgradeBox.setVisible(false);
         Tower selectedTower = getTower(newPath);
-       if(checkCoins(selectedTower)){
-           return;
-       }else {
-           coins-=selectedTower.getBulidCost();
-           coinsLB.setText(String.valueOf(coins));
-       }
+        if (checkCoins(selectedTower)) {
+            return;
+        } else {
+            coins -= selectedTower.getBulidCost();
+            coinsLB.setText(String.valueOf(coins));
+        }
         setTowerOnPosition(newPath);
         for (ImageView image : map1.getTowersList().keySet()) {
             if (image == point) {
@@ -808,10 +814,12 @@ public class Map1Controller implements Initializable {
         }
     }
 
-    public Tower getTower(String path){
+    public Tower getTower(String newPath) {
         Tower selectedTower = null;
         switch (newPath) {
-
+            case "/Towers/1ArcherTower.png":
+                selectedTower = new ArcherTower(100, 70, 200);
+                break;
             case "/Towers/2ArcherTower.png":
                 selectedTower = new ArcherTower(150, 130, 220);
                 break;
@@ -822,6 +830,9 @@ public class Map1Controller implements Initializable {
                 selectedTower = new ArcherTower(250, 250, 250);
                 break;
 
+            case "/Towers/1Artillery.png":
+                selectedTower = new Artillery(400, 125, 200);
+                break;
             case "/Towers/2Artillery.png":
                 selectedTower = new Artillery(225, 150, 220);
                 break;
@@ -832,6 +843,10 @@ public class Map1Controller implements Initializable {
                 selectedTower = new Artillery(280, 250, 245);
                 break;
 
+            case "/Towers/1WizardTower.png":
+                selectedTower = new WizardTower(300, 100, 200);
+                break;
+
             case "/Towers/2WizardTower.png":
                 selectedTower = new WizardTower(350, 150, 220);
                 break;
@@ -840,6 +855,10 @@ public class Map1Controller implements Initializable {
                 break;
             case "/Towers/4WizardTower.png":
                 selectedTower = new WizardTower(450, 250, 245);
+                break;
+
+            case "/Towers/1ArmyPlace.png":
+                selectedTower = new AirTower(200, 100, 200);
                 break;
 
             case "/Towers/2ArmyPlace.png":
@@ -855,6 +874,7 @@ public class Map1Controller implements Initializable {
         }
         return selectedTower;
     }
+
     public boolean checkCoins(Tower tower) {
         if (coins < tower.getBulidCost()) {
             PageController.showAlert("Error", "You don't have enough coins to upgrade this tower!!", "", Alert.AlertType.ERROR);

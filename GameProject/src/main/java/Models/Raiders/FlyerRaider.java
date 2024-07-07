@@ -6,7 +6,7 @@ public class FlyerRaider extends Raider {
     public FlyerRaider() {
         setHealth(100);
         setLoot(200);
-        setSpeed(70);
+        setSpeed(1d/20d);
         setDead(false);
         Image image1 = new Image(getClass().getResource("/Raiders/f1.png").toExternalForm());
         Image image2 = new Image(getClass().getResource("/Raiders/f2.png").toExternalForm());

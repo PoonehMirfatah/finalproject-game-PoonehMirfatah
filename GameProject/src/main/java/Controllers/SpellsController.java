@@ -58,4 +58,5 @@ public class SpellsController implements spell {
                 " ", Alert.AlertType.ERROR);
         return false;
     }
+
 }

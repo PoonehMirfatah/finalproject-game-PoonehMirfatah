@@ -1,11 +1,13 @@
 package Models;
 
+import Models.Raiders.Raider;
 import Models.Towers.Tower;
+import javafx.animation.PathTransition;
+import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Path;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class Map {
     private final ArrayList<Position> towerPoints;
@@ -16,6 +18,14 @@ public class Map {
     private final int health;
     private int waveCounter = 0;
     private HashMap<ImageView,Tower> towersList=new HashMap<>();
+    //
+    List<Timeline> timelines = new ArrayList<>();
+    private boolean firstAttack = true;
+    List<PathTransition> pathTransitions = new ArrayList<>();
+    List<Position> damagePoints=new ArrayList<>();
+    int waveIndex;
+    List<Raider> aliveRaiders=new ArrayList<>();
+    Set<ImageView> activeTowers = new HashSet<>();
 
     public Map(ArrayList<Position> towerPoints, javafx.scene.shape.Path path, Position endPoint, ArrayList<Wave> attackWave, int coins, int health) {
         this.towerPoints = towerPoints;
@@ -69,6 +79,62 @@ public class Map {
 
     public HashMap<ImageView, Tower> getTowersList() {
         return towersList;
+    }
+
+    public boolean isFirstAttack() {
+        return firstAttack;
+    }
+
+    public int getWaveIndex() {
+        return waveIndex;
+    }
+
+    public List<PathTransition> getPathTransitions() {
+        return pathTransitions;
+    }
+
+    public List<Position> getDamagePoints() {
+        return damagePoints;
+    }
+
+    public List<Raider> getAliveRaiders() {
+        return aliveRaiders;
+    }
+
+    public List<Timeline> getTimelines() {
+        return timelines;
+    }
+
+    public Set<ImageView> getActiveTowers() {
+        return activeTowers;
+    }
+
+    public void setActiveTowers(Set<ImageView> activeTowers) {
+        this.activeTowers = activeTowers;
+    }
+
+    public void setAliveRaiders(List<Raider> aliveRaiders) {
+        this.aliveRaiders = aliveRaiders;
+    }
+
+    public void setDamagePoints(List<Position> damagePoints) {
+        this.damagePoints = damagePoints;
+    }
+
+    public void setFirstAttack(boolean firstAttack) {
+        this.firstAttack = firstAttack;
+    }
+
+    public void setPathTransitions(List<PathTransition> pathTransitions) {
+        this.pathTransitions = pathTransitions;
+    }
+
+    public void setTimelines(List<Timeline> timelines) {
+        this.timelines = timelines;
+    }
+
+    public void setWaveIndex(int waveIndex) {
+        this.waveIndex = waveIndex;
     }
 }
 

@@ -1,50 +1,85 @@
 package com.example.gameproject;
 
+import Controllers.SQL.SQLController;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
-public class SettingPageController {
-    public void backToHome(MouseEvent event) {
+public class SettingPageController implements Initializable {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(running){
+            soundOffImage.setVisible(true);
+            soundOnImage.setVisible(false);
+        }else {
+            soundOffImage.setVisible(false);
+            soundOnImage.setVisible(true);
+        }
+    }
+    @FXML
+    private TextField passwordTF;
+
+    @FXML
+    private ImageView soundOffImage;
+
+    @FXML
+    private ImageView soundOnImage;
+
+    @FXML
+    private TextField userNameTF;
+    static MediaPlayer player;
+    Media media;
+    static Boolean running=true;
+
+    @FXML
+    void backToHome(MouseEvent event) {
+
     }
 
-    public void setMusic(MouseEvent event) {
+    @FXML
+    void muteMusic(MouseEvent event) {
+        soundOffImage.setVisible(false);
+        soundOnImage.setVisible(true);
+        player.stop();
+        running=true;
     }
-//    MediaPlayer player;
-//    boolean playAdd=false;
-//     Media media;
-//    static Timer timer;
-//    static TimerTask task;
-//    static Boolean running=false;
-//
-//    @FXML
-//    private TextField passwordTF;
-//
-//    @FXML
-//    private ImageView sound;
-//
-//    @FXML
-//    private TextField userNameTF;
-//
-//    @FXML
-//    void backToHome(MouseEvent event) {
-//
-//    }
-//
-//    @FXML
-//    void setMusic(MouseEvent event) {
-//
-//    }
+
+    @FXML
+    void playSound(MouseEvent event) {
+        soundOffImage.setVisible(true);
+        soundOnImage.setVisible(false);
+        player.play();
+        running=true;
+    }
+
+    @FXML
+    void saveEdits(MouseEvent event) throws Exception {
+        if(userNameTF.getText().isEmpty() && passwordTF.getText().isEmpty()){
+            PageController.showAlert("Error","Please fill in Your Informations!"," ",
+                    Alert.AlertType.ERROR);
+            return;
+        }
+        SQLController.updatePlayerInfo(userNameTF.getText(),passwordTF.getText());
+    }
+
+
+
 //// public void playAudio(ActionEvent event) {
 ////        beginTimer();
-////        player.play();
+////
 ////    }
 ////    public void stopAudio(ActionEvent event){
-////        player.stop();
+////
 ////    }
 ////    public void beginTimer() {
 ////        timer=new Timer();
