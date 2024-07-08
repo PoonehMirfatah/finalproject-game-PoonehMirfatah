@@ -11,6 +11,9 @@ public class Player {
     private String password;
     private int level;
     private int diamonds;
+    private int playerCoins;
+    private int playerHealth;
+
     private HashMap<String,Integer> backPack;
     public Player(String userName,String password) throws SQLException {
         this.ID=SQLController.getMaxID()+1;
@@ -64,11 +67,27 @@ public class Player {
         this.diamonds = diamonds;
     }
 
-    public void setBackPack(HashMap backPack) {
+    public HashMap<String,Integer> getBackPack() {
+        return backPack;
+    }
+
+    public void setBackPack(HashMap<String, Integer> backPack) {
         this.backPack = backPack;
     }
 
-    public HashMap<String,Integer> getBackPack() {
-        return backPack;
+    public int getPlayerCoins() {
+        return playerCoins;
+    }
+
+    public int getPlayerHealth() {
+        return playerHealth;
+    }
+
+    public void setPlayerCoins(int playerCoins) {
+        this.playerCoins = playerCoins;
+    }
+
+    public void setPlayerHealth(int playerHealth) {
+        this.playerHealth = playerHealth;
     }
 }

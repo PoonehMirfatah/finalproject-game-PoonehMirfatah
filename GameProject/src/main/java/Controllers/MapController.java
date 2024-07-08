@@ -117,7 +117,7 @@ public class MapController {
         map.getTimelines().add(timeline);
     }
 
-    public void bombAttacks(Pane pane) throws InterruptedException {
+    public void bombAttacks(Pane pane,int waveIndex) throws InterruptedException {
         for (Position pointDamage : map.getDamagePoints()) {
             Image image = new Image(getClass().getResource("/Weapon/bullet.png").toExternalForm());
             ImageView bomb = new ImageView(image);
@@ -148,7 +148,7 @@ public class MapController {
             });
 
         }
-        Wave currentWave = map.getAttackWave().get(map.getWaveIndex());
+        Wave currentWave = map.getAttackWave().get(waveIndex);
         for (Raider raider : currentWave.getRaiders()) {
             raider.setHealth(0);
         }
@@ -228,23 +228,24 @@ public class MapController {
         return vBox;
     }
 
-
-
-
-
-
-    public void checkWin() throws Exception {
-        PageController.showAlert("Finished", "YOU WON!", " ", Alert.AlertType.INFORMATION);
-        PlayerController.getInstance().getPlayer().setDiamonds(PlayerController.getInstance().player.getDiamonds() + 100);
-        PlayerController.getInstance().updateSpells();
-        SQLController.updatePlayer(PlayerController.getInstance().player.getID());
-        try {
-            Main.setRoot(PageController.stage, "HomePage.fxml", 722, 622);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
+    public boolean checkWin() throws Exception {
+        if (map.getWaveCounter() < 5) {
+            map.setWaveCounter(map.getWaveCounter() + 1);
+            return true;
+        } else {
+            PageController.showAlert("Finished", "YOU WON!", " ", Alert.AlertType.INFORMATION);
+            PlayerController.getInstance().getPlayer().setDiamonds(PlayerController.getInstance().player.getDiamonds()+100);
+            PlayerController.getInstance().updateSpells();
+            SQLController.updatePlayer(PlayerController.getInstance().player.getID());
+            try {
+                Main.setRoot(PageController.stage,"HomePage.fxml",722,622);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+           return false;
         }
-//            startBT.setVisible(false);
     }
+
     public void checkLost() throws Exception {
         PageController.showAlert("Finished", "GAME OVER", " ", Alert.AlertType.INFORMATION);
         PlayerController.getInstance().updateSpells();
@@ -254,6 +255,118 @@ public class MapController {
             throw new RuntimeException(ex);
         }
     }
+    public void wizardTowerAttack(ImageView point, VBox target,Pane pane) {
+        Path path1 = new Path();
+        Image image = new Image(getClass().getResource("/Weapon/fireball.png").toExternalForm());
+        ImageView ray = new ImageView(image);
+        ray.setFitWidth(30);
+        ray.setPreserveRatio(true);
+
+        pane.getChildren().add(ray);
+
+        double xStart = point.getLayoutX() + 50;
+        double yStart = point.getLayoutY() + 50;
+
+        path1.getElements().add(new MoveTo(xStart, yStart));
 
 
+        double xEnd = target.getTranslateX();
+        double yEnd = target.getTranslateY();
+        path1.getElements().add(new LineTo(xEnd, yEnd));
+
+        PathTransition pathTransition = new PathTransition();
+        pathTransition.setDuration(Duration.seconds(0.5));
+        pathTransition.setPath(path1);
+        pathTransition.setNode(ray);
+        pathTransition.setAutoReverse(false);
+        pathTransition.play();
+
+        pathTransition.setOnFinished(event -> {
+            pane.getChildren().remove(ray);
+            map.getActiveTowers().remove(point);
+        });
+    }
+
+    public void artilleryTowerAttack(ImageView point, VBox target,Pane pane) {
+        Path path1 = new Path();
+        Image image = new Image(getClass().getResource("/Weapon/bomb.png").toExternalForm());
+        ImageView ray = new ImageView(image);
+        ray.setFitWidth(30);
+        ray.setPreserveRatio(true);
+
+        pane.getChildren().add(ray);
+
+        double xStart = point.getLayoutX() + 50;
+        double yStart = point.getLayoutY() + 20;
+
+        path1.getElements().add(new MoveTo(xStart, yStart));
+
+
+        double xEnd = target.getTranslateX();
+        double yEnd = target.getTranslateY();
+
+        double xControl = (xEnd + xStart) / 2;
+        double yControl = 50;
+
+        path1.getElements().add(new QuadCurveTo(xControl, yControl, xEnd, yEnd));
+
+        PathTransition pathTransition = new PathTransition();
+        pathTransition.setDuration(Duration.seconds(1));
+        pathTransition.setPath(path1);
+        pathTransition.setNode(ray);
+        pathTransition.setAutoReverse(false);
+        pathTransition.play();
+
+        pathTransition.setOnFinished(event -> {
+            pane.getChildren().remove(ray);
+            map.getActiveTowers().remove(point);
+        });
+    }
+    public void archerTowerAttack(ImageView point, VBox target,Pane pane) {
+        Path path1 = new Path();
+        Image image = new Image(getClass().getResource("/Weapon/arrow.png").toExternalForm());
+        ImageView arrow = new ImageView(image);
+        arrow.setFitWidth(30);
+        arrow.setPreserveRatio(true);
+
+        pane.getChildren().add(arrow);
+
+        double xStart = point.getLayoutX() + 50;
+        double yStart = point.getLayoutY() + 50;
+
+        path1.getElements().add(new MoveTo(xStart, yStart));
+
+
+        double xEnd = target.getTranslateX();
+        double yEnd = target.getTranslateY();
+        path1.getElements().add(new LineTo(xEnd, yEnd));
+
+
+        PathTransition pathTransition = new PathTransition();
+        pathTransition.setDuration(Duration.seconds(0.5));
+        pathTransition.setPath(path1);
+        pathTransition.setNode(arrow);
+        pathTransition.setAutoReverse(false);
+        pathTransition.play();
+
+        pathTransition.setOnFinished(event -> {
+            pane.getChildren().remove(arrow);
+            map.getActiveTowers().remove(point);
+        });
+    }
+
+    public String getUpdateTowerPath(String towerPath){
+        int level = 0;
+        char digitChar = 0;
+        for (Character chr : towerPath.toCharArray()) {
+            if (Character.isDigit(chr)) {
+                digitChar = chr;
+                level = Integer.parseInt(String.valueOf(digitChar));
+            }
+        }
+        level += 1;
+        String newLevel = String.valueOf(level);
+        String newPath = towerPath.replaceAll("\\d", newLevel);
+        return newPath;
+    }
 }

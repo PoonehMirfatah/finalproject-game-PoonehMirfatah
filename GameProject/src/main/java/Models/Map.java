@@ -23,7 +23,6 @@ public class Map {
     private boolean firstAttack = true;
     List<PathTransition> pathTransitions = new ArrayList<>();
     List<Position> damagePoints=new ArrayList<>();
-    int waveIndex;
     List<Raider> aliveRaiders=new ArrayList<>();
     Set<ImageView> activeTowers = new HashSet<>();
 
@@ -85,9 +84,7 @@ public class Map {
         return firstAttack;
     }
 
-    public int getWaveIndex() {
-        return waveIndex;
-    }
+
 
     public List<PathTransition> getPathTransitions() {
         return pathTransitions;
@@ -133,8 +130,5 @@ public class Map {
         this.timelines = timelines;
     }
 
-    public void setWaveIndex(int waveIndex) {
-        this.waveIndex = waveIndex;
-    }
 }
 
