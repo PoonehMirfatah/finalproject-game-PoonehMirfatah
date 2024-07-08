@@ -235,7 +235,6 @@ public class Map1Controller implements Initializable {
             coinsLB.setText(String.valueOf(PlayerController.getPlayer().getCoins()));
             setSpellCounts();
         }
-        //PlayerController.getInstance().updateSpells(); update after game finish
     }
 
     @FXML
@@ -259,7 +258,7 @@ public class Map1Controller implements Initializable {
             if (PlayerController.getPlayer().getHealth ()> 20) {
                 PlayerController.getPlayer().setHealth (20);
             }
-            heartLB.setText(String.valueOf(PlayerController.getPlayer().getHealth ()));
+            heartLB.setText(String.format("%s/20", PlayerController.getPlayer().getHealth ()));
             setSpellCounts();
         }
 
@@ -382,31 +381,9 @@ public class Map1Controller implements Initializable {
             int raiderHealth = currentRaider.getHealth();
 
             pauseTransition.setOnFinished(e -> {
-                PathTransition pathTransition = new PathTransition();
-                currentRaider.setPathTransition(pathTransition);
-                attackTimeLine(currentRaider, vBox, pathTransition, raiderHealth);
-                pane.getChildren().add(vBox);
-                double duration = 1d / currentRaider.getSpeed();
-                pathTransition.setDuration(Duration.seconds(duration));
-                pathTransition.setPath(path);
-                pathTransition.setNode(vBox);
-                pathTransition.setAutoReverse(false);
-
+                PathTransition pathTransition=setPathForNextRaider(currentRaider,vBox,raiderHealth);
                 pathTransition.setOnFinished(event2 -> {
-                    pane.getChildren().remove(vBox);
-                    PlayerController.getPlayer().setHealth (PlayerController.getPlayer().getHealth ()-1);
-                    heartLB.setText(String.format("%s/20", PlayerController.getPlayer().getHealth ()));
-                    if (PlayerController.getPlayer().getHealth () == 0) {
-                        try {
-                            MapController.getInstance().checkLost();
-                        } catch (Exception ex) {
-                            throw new RuntimeException(ex);
-                        }
-                    }
-                    MapController.getMap().getPathTransitions().remove(pathTransition);
-                    if (MapController.getMap().getPathTransitions().isEmpty()) {
-                        startNextAttack();
-                    }
+                    removeEndPathRaider(vBox,pathTransition);
                 });
                 pathTransition.play();
                 MapController.getMap().getPathTransitions().add(pathTransition);
@@ -414,7 +391,35 @@ public class Map1Controller implements Initializable {
             pauseTransition.play();
         }
     }
+    public PathTransition setPathForNextRaider(Raider currentRaider,VBox vBox,int raiderHealth){
+        PathTransition pathTransition = new PathTransition();
+        currentRaider.setPathTransition(pathTransition);
+        attackTimeLine(currentRaider, vBox, pathTransition, raiderHealth);
+        pane.getChildren().add(vBox);
+        double duration = 1d / currentRaider.getSpeed();
+        pathTransition.setDuration(Duration.seconds(duration));
+        pathTransition.setPath(path);
+        pathTransition.setNode(vBox);
+        pathTransition.setAutoReverse(false);
+        return pathTransition;
+    }
 
+    public void removeEndPathRaider(VBox vBox,PathTransition pathTransition){
+        pane.getChildren().remove(vBox);
+        PlayerController.getPlayer().setHealth (PlayerController.getPlayer().getHealth ()-1);
+        heartLB.setText(String.format("%s/20", PlayerController.getPlayer().getHealth ()));
+        if (PlayerController.getPlayer().getHealth () == 0) {
+            try {
+                MapController.getInstance().checkLost();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        MapController.getMap().getPathTransitions().remove(pathTransition);
+        if (MapController.getMap().getPathTransitions().isEmpty()) {
+            startNextAttack();
+        }
+    }
     public void attackTimeLine(Raider currentRaider, VBox vBox, PathTransition pathTransition, int health) {
         Timeline attackTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             currentRaider.setHealth(health);
@@ -456,7 +461,7 @@ public class Map1Controller implements Initializable {
                         if (MapController.getMap().getPathTransitions().isEmpty()) {
                             startNextAttack();
                         }
-                       PlayerController.getPlayer().setCoins(currentRaider.getLoot()+PlayerController.getPlayer().getCoins());
+                        PlayerController.getPlayer().setCoins(currentRaider.getLoot()+PlayerController.getPlayer().getCoins());
                         coinsLB.setText(String.valueOf(PlayerController.getPlayer().getCoins()));
                         return;
                     }
@@ -468,6 +473,12 @@ public class Map1Controller implements Initializable {
         attackTimeline.play();
     }
 
+
+//    public void removeRaider(Raider currentRaider,VBox vBox,PathTransition pathTransition) {
+//
+//    }    public void checkTower(Tower tower,Raider currentRaider,VBox vBox){
+//
+//    }
     public void setPath() {
         path.getElements().clear();
 
