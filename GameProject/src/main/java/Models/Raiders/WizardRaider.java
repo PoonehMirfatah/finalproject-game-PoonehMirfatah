@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 public class WizardRaider extends Raider {
     public WizardRaider() {
-        setHealth(300);
+        setHealth(200);
         setLoot(10);
         setSpeed(1d / 18d);
         setDead(false);

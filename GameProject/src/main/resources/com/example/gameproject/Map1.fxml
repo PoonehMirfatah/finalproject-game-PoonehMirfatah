@@ -87,31 +87,32 @@
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="232.0" minWidth="10.0" prefWidth="95.3333740234375" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="100.66666666666667" minHeight="10.0" prefHeight="71.33331298828125" vgrow="SOMETIMES" />
+          <RowConstraints />
+            <RowConstraints maxHeight="100.66666666666667" minHeight="10.0" prefHeight="71.33331298828125" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="105.33336385091147" minHeight="10.0" prefHeight="81.66664632161459" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fitHeight="99.0" fitWidth="111.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="94.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                <image>
                   <Image url="@../../../Towers/1ArcherTower.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="91.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+            <ImageView fitHeight="91.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <image>
                   <Image url="@../../../Towers/1Artillery.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="94.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+            <ImageView fitHeight="94.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
                <image>
                   <Image url="@../../../Towers/1WizardTower.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="107.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <ImageView fitHeight="107.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <image>
                   <Image url="@../../../Towers/1ArmyPlace.png" />
                </image>
             </ImageView>
-            <VBox alignment="CENTER" prefHeight="67.0" prefWidth="96.0" spacing="5.0" GridPane.columnIndex="1">
+            <VBox alignment="CENTER" prefHeight="67.0" prefWidth="96.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <HBox alignment="CENTER" prefHeight="33.0" prefWidth="89.0">
                      <children>
@@ -137,7 +138,7 @@
                   <Insets />
                </opaqueInsets>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="67.0" prefWidth="96.0" spacing="5.0" GridPane.columnIndex="3">
+            <VBox alignment="CENTER" prefHeight="67.0" prefWidth="96.0" spacing="5.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <children>
                   <HBox alignment="CENTER" prefHeight="33.0" prefWidth="89.0">
                      <children>
@@ -163,7 +164,7 @@
                   <Insets />
                </opaqueInsets>
             </VBox>
-            <VBox alignment="CENTER" layoutX="305.0" layoutY="11.0" prefHeight="67.0" prefWidth="96.0" spacing="5.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <VBox alignment="CENTER" layoutX="305.0" layoutY="11.0" prefHeight="67.0" prefWidth="96.0" spacing="5.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <children>
                   <HBox alignment="CENTER" prefHeight="33.0" prefWidth="89.0">
                      <children>
@@ -189,7 +190,7 @@
                   <Insets />
                </opaqueInsets>
             </VBox>
-            <VBox alignment="CENTER" layoutX="11.0" layoutY="11.0" prefHeight="67.0" prefWidth="96.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <VBox alignment="CENTER" layoutX="11.0" layoutY="11.0" prefHeight="67.0" prefWidth="96.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
                   <HBox alignment="CENTER" prefHeight="33.0" prefWidth="89.0">
                      <children>
@@ -215,6 +216,11 @@
                   <Insets />
                </opaqueInsets>
             </VBox>
+            <ImageView fitHeight="19.0" fitWidth="24.0" onMouseClicked="#closeTowersBox" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Photos/delete.png" />
+               </image>
+            </ImageView>
          </children>
       </GridPane>
       <GridPane fx:id="UpgradeBox" alignment="CENTER" layoutX="435.0" layoutY="477.0" prefHeight="143.0" prefWidth="297.0" style="-fx-background-color: b8bc39; -fx-border-color: black;" styleClass="s" visible="false">
@@ -253,6 +259,11 @@
                      </image>
                   </ImageView>
                   <ImageView fx:id="upgradedTower" fitHeight="73.0" fitWidth="79.0" layoutX="7.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="19.0" fitWidth="24.0" layoutX="-2.0" layoutY="-3.0" onMouseClicked="#closeUpgradeBox" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../Photos/delete.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
             <VBox alignment="CENTER" prefHeight="131.0" prefWidth="72.0" spacing="30.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -354,7 +365,7 @@
       <ImageView fx:id="damagePoint2" fitHeight="19.0" fitWidth="23.0" layoutX="292.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="damagePoint3" fitHeight="19.0" fitWidth="23.0" layoutX="406.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="damagePoint4" fitHeight="19.0" fitWidth="23.0" layoutX="501.0" layoutY="248.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="startBT1" layoutX="585.0" layoutY="582.0" mnemonicParsing="false" onMouseClicked="#quitMap" prefHeight="57.0" prefWidth="107.0" style="-fx-background-color: #418228;" text="Quit">
+      <Button fx:id="startBT1" layoutX="639.0" layoutY="171.0" mnemonicParsing="false" onMouseClicked="#quitMap" prefHeight="57.0" prefWidth="107.0" style="-fx-background-color: #418228;" text="Quit">
          <font>
             <Font name="Forte" size="30.0" />
          </font>

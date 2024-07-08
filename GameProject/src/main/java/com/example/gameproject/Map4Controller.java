@@ -504,7 +504,7 @@ import java.util.ResourceBundle;
                         } else if (tower instanceof WizardTower) {
                             MapController.getInstance().wizardTowerAttack(tower,currentRaider,point, vBox,pane);
                         }else if (tower instanceof AirTower && (currentRaider instanceof FlyerRaider)) {
-                            MapController.getInstance().airTowerAttack(currentRaider,point,vBox,pane);
+                            MapController.getInstance().airTowerAttack(tower,currentRaider,point,vBox,pane);
                         }
                         if (currentRaider.getHealth() <= 0) {
                             removeRaider(currentRaider,vBox,pathTransition);
@@ -640,6 +640,16 @@ import java.util.ResourceBundle;
         public void quitMap(MouseEvent event) throws Exception {
             PlayerController.getInstance().updateSpells();
             PageController.setstage(event,"HomePage.fxml");
+        }
+
+        public void closeTowersBox(MouseEvent event) {
+            towersBox.setVisible(false);
+            spellsBox.setVisible(true);
+        }
+
+        public void closeUpgradeBox(MouseEvent event) {
+            UpgradeBox.setVisible(false);
+            spellsBox.setVisible(true);
         }
     }
 

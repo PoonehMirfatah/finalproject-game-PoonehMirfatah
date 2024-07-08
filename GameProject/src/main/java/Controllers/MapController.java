@@ -119,10 +119,10 @@ public class MapController {
 
     public void bombAttacks(Pane pane,int waveIndex) throws InterruptedException {
         for (Position pointDamage : map.getDamagePoints()) {
-            Image image = new Image(getClass().getResource("/Weapon/bullet.png").toExternalForm());
+            Image image = new Image(getClass().getResource("/Weapon/bombs.png").toExternalForm());
             ImageView bomb = new ImageView(image);
             Path path1 = new Path();
-            bomb.setFitWidth(30);
+            bomb.setFitWidth(50);
             bomb.setPreserveRatio(true);
 
             pane.getChildren().add(bomb);
@@ -291,9 +291,11 @@ public class MapController {
             map.getActiveTowers().remove(point);
         });
     }
-    public void airTowerAttack(Raider currentRaider,ImageView point, VBox target,Pane pane) {
+    public void airTowerAttack(Tower tower,Raider currentRaider,ImageView point, VBox target,Pane pane) {
+        MapController.getMap().getActiveTowers().add(point);
+        currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower());
         Path path1 = new Path();
-        Image image = new Image(getClass().getResource("/Weapon/fireball.png").toExternalForm());
+        Image image = new Image(getClass().getResource("/Weapon/airBullet.png").toExternalForm());
         ImageView ray = new ImageView(image);
         ray.setFitWidth(30);
         ray.setPreserveRatio(true);
