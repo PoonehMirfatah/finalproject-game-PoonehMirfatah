@@ -72,7 +72,7 @@ public class SettingPageController implements Initializable {
             return;
         }
         SQLController.updatePlayerInfo(userNameTF.getText(),passwordTF.getText(),
-                PlayerController.getInstance().player.getID());
+                PlayerController.getPlayer().getID());
     }
 
 

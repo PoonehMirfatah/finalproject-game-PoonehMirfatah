@@ -11,8 +11,8 @@ public class Player {
     private String password;
     private int level;
     private int diamonds;
-    private int playerCoins;
-    private int playerHealth;
+    private int coins;
+    private int health;
 
     private HashMap<String,Integer> backPack;
     public Player(String userName,String password) throws SQLException {
@@ -75,19 +75,19 @@ public class Player {
         this.backPack = backPack;
     }
 
-    public int getPlayerCoins() {
-        return playerCoins;
+    public int getCoins() {
+        return coins;
     }
 
-    public int getPlayerHealth() {
-        return playerHealth;
+    public int getHealth() {
+        return health;
     }
 
-    public void setPlayerCoins(int playerCoins) {
-        this.playerCoins = playerCoins;
+    public void setCoins(int playerCoins) {
+        this.coins = playerCoins;
     }
 
-    public void setPlayerHealth(int playerHealth) {
-        this.playerHealth = playerHealth;
+    public void setHealth(int playerHealth) {
+        this.health = playerHealth;
     }
 }

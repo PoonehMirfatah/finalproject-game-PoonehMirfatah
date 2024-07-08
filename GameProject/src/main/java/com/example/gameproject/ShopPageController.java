@@ -52,7 +52,7 @@ public class ShopPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            SQLController.loadPlayerSpells(PlayerController.getInstance().player.getID());
+            SQLController.loadPlayerSpells(PlayerController.getPlayer().getID());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -61,9 +61,9 @@ public class ShopPageController implements Initializable {
 
 
     public void updateLabels(){
-        diamondsLB.setText(String.valueOf(PlayerController.getInstance().player.getDiamonds()));
-        for (String spellName : PlayerController.getInstance().player.getBackPack().keySet()) {
-            int count = PlayerController.getInstance().player.getBackPack().get(spellName);
+        diamondsLB.setText(String.valueOf(PlayerController.getPlayer().getDiamonds()));
+        for (String spellName : PlayerController.getPlayer().getBackPack().keySet()) {
+            int count = PlayerController.getPlayer().getBackPack().get(spellName);
             switch (spellName) {
                 case "Health":
                     heartCountLB.setText(String.valueOf(count));
@@ -100,18 +100,18 @@ public class ShopPageController implements Initializable {
                 break;
         }
         assert selectedSpell != null;
-        if (selectedSpell.getPrice() > PlayerController.getInstance().player.getDiamonds()) {
+        if (selectedSpell.getPrice() > PlayerController.getPlayer().getDiamonds()) {
             PageController.showAlert("Eror", "Your Diamonds Are Not Enough For Buying This Spell", "", Alert.AlertType.ERROR);
             return;
         }
-        if (PlayerController.getInstance().player.getBackPack().containsKey(selectedSpell.getName())) {
-            int count = (int) PlayerController.getInstance().player.getBackPack().get(selectedSpell.getName()) + 1;
-            PlayerController.getInstance().player.getBackPack().put(selectedSpell.getName(), count);
+        if (PlayerController.getPlayer().getBackPack().containsKey(selectedSpell.getName())) {
+            int count = (int) PlayerController.getPlayer().getBackPack().get(selectedSpell.getName()) + 1;
+            PlayerController.getPlayer().getBackPack().put(selectedSpell.getName(), count);
         } else {
-            PlayerController.getInstance().player.getBackPack().put(selectedSpell.getName(), 1);
+            PlayerController.getPlayer().getBackPack().put(selectedSpell.getName(), 1);
         }
-        int primaryDiamonds = PlayerController.getInstance().player.getDiamonds();
-        PlayerController.getInstance().player.setDiamonds(primaryDiamonds - selectedSpell.getPrice());
+        int primaryDiamonds = PlayerController.getPlayer().getDiamonds();
+        PlayerController.getPlayer().setDiamonds(primaryDiamonds - selectedSpell.getPrice());
         updateLabels();
     }
 

@@ -35,12 +35,12 @@ public class SQLController {
             player.setID(Integer.parseInt(rs.getString("ID")));
             player.setLevel(Integer.parseInt(rs.getString("Level")));
             player.setDiamonds(Integer.parseInt(rs.getString("Diamonds")));
-            PlayerController.getInstance().player=player;
-            System.out.println(PlayerController.getInstance().player.getUserName());
+            PlayerController.setPlayer(player);
+            System.out.println(PlayerController.getPlayer().getUserName());
         }
     }
     public static void insertSpell(String spellName, int count) throws Exception {
-        int ID=PlayerController.getInstance().player.getID();
+        int ID=PlayerController.getPlayer().getID();
         String SQLcom = String.format("INSERT INTO spells (PlayerID, SpellName,Count) VALUES (%s, '%s',%s)", ID, spellName, count);
         SQLConnection sql = new SQLConnection();
         sql.executeSQL(SQLcom);
@@ -57,11 +57,11 @@ public class SQLController {
         while (rs.next()) {
             String spellName = rs.getString("SpellName");
             int count=Integer.parseInt(rs.getString("Count"));
-           PlayerController.getInstance().player.getBackPack().put(spellName,count);
+           PlayerController.getPlayer().getBackPack().put(spellName,count);
         }
     }
     public static  void updatePlayer(int ID) throws Exception {
-        String SQLcom = String.format("UPDATE player SET Diamonds=%s WHERE ID=%s", PlayerController.getInstance().player.getDiamonds(),ID);
+        String SQLcom = String.format("UPDATE player SET Diamonds=%s WHERE ID=%s", PlayerController.getPlayer().getDiamonds(),ID);
         SQLConnection sql = new SQLConnection();
          sql.executeSQL(SQLcom);
     }

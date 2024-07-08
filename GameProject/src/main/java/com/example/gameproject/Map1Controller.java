@@ -26,6 +26,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
+import Controllers.PlayerController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -124,8 +125,6 @@ public class Map1Controller implements Initializable {
     private ImageView damagePoint4;
 
 
-    int playerCoins;
-    int playerHealth;
     ImageView point;
     String newPath;
     Path path = new Path();
@@ -137,7 +136,7 @@ public class Map1Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Map map1;
         try {
-            SQLController.loadPlayerSpells(PlayerController.getInstance().player.getID());
+            SQLController.loadPlayerSpells(PlayerController.getPlayer().getID());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -175,7 +174,7 @@ public class Map1Controller implements Initializable {
         Position DP3 = new Position(damagePoint3.getLayoutX(), damagePoint3.getLayoutY());
         Position DP4 = new Position(damagePoint4.getLayoutX(), damagePoint4.getLayoutY());
 
-        map1 = new Map(towersPosition, path, end, attackWaves, 300, 20);
+        map1 = new Map(towersPosition, path, end, attackWaves, 1000, 20);
 
         map1.getDamagePoints().add(DP1);
         map1.getDamagePoints().add(DP2);
@@ -184,18 +183,18 @@ public class Map1Controller implements Initializable {
 
 
 
-        playerCoins = 1000;
-        playerHealth = 20;
+        PlayerController.getPlayer().setCoins(1000);
+        PlayerController.getPlayer().setHealth(20);
         MapController.setMap(map1);
-        heartLB.setText(String.format("%s/20", playerHealth));
-        coinsLB.setText(String.valueOf(playerCoins));
+        heartLB.setText(String.format("%s/20", PlayerController.getPlayer().getHealth()));
+        coinsLB.setText(String.valueOf(PlayerController.getPlayer().getCoins()));
         waveLB.setText(String.format("Wave %s/5", map1.getWaveCounter()));
     }
 
 
     public void setSpellCounts() {
-        for (String spellName : PlayerController.getInstance().player.getBackPack().keySet()) {
-            int count = PlayerController.getInstance().player.getBackPack().get(spellName);
+        for (String spellName : PlayerController.getPlayer().getBackPack().keySet()) {
+            int count = PlayerController.getPlayer().getBackPack().get(spellName);
             switch (spellName) {
                 case "Health":
                     heartCountLB.setText(String.valueOf(count));
@@ -230,8 +229,8 @@ public class Map1Controller implements Initializable {
         CoinSpell coinSpell = new CoinSpell();
         SpellsController.setSpell(coinSpell);
         if (SpellsController.getInstance().drop()) {
-            playerCoins += coinSpell.getCoinIncrease();
-            coinsLB.setText(String.valueOf(playerCoins));
+            PlayerController.getPlayer().setCoins(PlayerController.getPlayer().getCoins()+coinSpell.getCoinIncrease());
+            coinsLB.setText(String.valueOf(PlayerController.getPlayer().getCoins()));
             setSpellCounts();
         }
         //PlayerController.getInstance().updateSpells(); update after game finish
@@ -254,11 +253,11 @@ public class Map1Controller implements Initializable {
         HealthSpell healthSpell = new HealthSpell();
         SpellsController.setSpell(healthSpell);
         if (SpellsController.getInstance().drop()) {
-            playerHealth += healthSpell.getHealthIncrease();
-            if (playerHealth > 20) {
-                playerHealth = 20;
+            PlayerController.getPlayer().setHealth(healthSpell.getHealthIncrease()+ PlayerController.getPlayer().getHealth());
+            if (PlayerController.getPlayer().getHealth ()> 20) {
+                PlayerController.getPlayer().setHealth (20);
             }
-            heartLB.setText(String.valueOf(playerHealth));
+            heartLB.setText(String.valueOf(PlayerController.getPlayer().getHealth ()));
             setSpellCounts();
         }
 
@@ -325,8 +324,8 @@ public class Map1Controller implements Initializable {
         }
         //assert selectedTower1 != null;
         MapController.getMap().getTowersList().put(point, selectedTower1);
-        playerCoins -= selectedTower1.getBulidCost();
-        coinsLB.setText(String.valueOf(playerCoins));
+        PlayerController.getPlayer().setCoins(PlayerController.getPlayer().getCoins()- selectedTower1.getBulidCost());
+        coinsLB.setText(String.valueOf(PlayerController.getPlayer().getCoins()));
         towersBox.setVisible(false);
     }
 
@@ -354,8 +353,8 @@ public class Map1Controller implements Initializable {
             initiateAttack();
         } else {
             initiateAttack();
-            playerCoins += 70;
-            coinsLB.setText(String.valueOf(playerCoins));
+            PlayerController.getPlayer().setCoins(PlayerController.getPlayer().getCoins()+ 70);
+            coinsLB.setText(String.valueOf(PlayerController.getPlayer().getCoins()));
         }
     }
 
@@ -393,9 +392,9 @@ public class Map1Controller implements Initializable {
 
                 pathTransition.setOnFinished(event2 -> {
                     pane.getChildren().remove(vBox);
-                    playerHealth -= 1;
-                    heartLB.setText(String.format("%s/20", playerHealth));
-                    if (playerHealth == 0) {
+                    PlayerController.getPlayer().setHealth (PlayerController.getPlayer().getHealth ()-1);
+                    heartLB.setText(String.format("%s/20", PlayerController.getPlayer().getHealth ()));
+                    if (PlayerController.getPlayer().getHealth () == 0) {
                         try {
                             MapController.getInstance().checkLost();
                         } catch (Exception ex) {
@@ -450,13 +449,13 @@ public class Map1Controller implements Initializable {
                         pane.getChildren().remove(vBox);
                         MapController.getMap().getAliveRaiders().remove(currentRaider);
                         currentRaider.setDead(true);
-                        playerCoins += currentRaider.getLoot();
-                        coinsLB.setText(String.valueOf(playerCoins));
                         pathTransition.stop();
                         MapController.getMap().getPathTransitions().remove(pathTransition);
                         if (MapController.getMap().getPathTransitions().isEmpty()) {
                             startNextAttack();
                         }
+                       PlayerController.getPlayer().setCoins(currentRaider.getLoot()+PlayerController.getPlayer().getCoins());
+                        coinsLB.setText(String.valueOf(PlayerController.getPlayer().getCoins()));
                         return;
                     }
                 }
@@ -520,8 +519,8 @@ public class Map1Controller implements Initializable {
         );
         UpgradeBox.setVisible(false);
         MapController.getMap().getTowersList().remove(point);
-        playerCoins += Integer.parseInt(destroyLootLB.getText());
-        coinsLB.setText(String.valueOf(playerCoins));
+        PlayerController.getPlayer().setCoins(PlayerController.getPlayer().getCoins()+ Integer.parseInt(destroyLootLB.getText()) );
+        coinsLB.setText(String.valueOf(PlayerController.getPlayer().getCoins()));
     }
 
     @FXML
@@ -531,8 +530,8 @@ public class Map1Controller implements Initializable {
         if (checkCoins(selectedTower)) {
             return;
         } else {
-            playerCoins -= selectedTower.getBulidCost();
-            coinsLB.setText(String.valueOf(playerCoins));
+            PlayerController.getPlayer().setCoins(PlayerController.getPlayer().getCoins()-selectedTower.getBulidCost()) ;
+            coinsLB.setText(String.valueOf(PlayerController.getPlayer().getCoins()));
         }
         setTowerOnPosition(newPath);
         for (ImageView image : MapController.getMap().getTowersList().keySet()) {
@@ -543,7 +542,7 @@ public class Map1Controller implements Initializable {
     }
 
     public boolean checkCoins(Tower tower) {
-        if (playerCoins < tower.getBulidCost()) {
+        if (PlayerController.getPlayer().getCoins() < tower.getBulidCost()) {
             PageController.showAlert("Error", "You don't have enough coins to upgrade this tower!!", "", Alert.AlertType.ERROR);
             UpgradeBox.setVisible(false);
             towersBox.setVisible(false);

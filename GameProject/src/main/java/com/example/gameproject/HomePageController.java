@@ -24,9 +24,9 @@ public class HomePageController implements Initializable {
     Event event;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String diamonds=String.valueOf(PlayerController.getInstance().player.getDiamonds());
+        String diamonds=String.valueOf(PlayerController.getPlayer().getDiamonds());
         diamondLB.setText(diamonds);
-        String level=String.valueOf(PlayerController.getInstance().player.getLevel());
+        String level=String.valueOf(PlayerController.getPlayer().getLevel());
         starLB.setText(level+" / 4 ");
     }
 

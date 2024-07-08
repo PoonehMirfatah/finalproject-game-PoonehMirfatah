@@ -234,9 +234,9 @@ public class MapController {
             return true;
         } else {
             PageController.showAlert("Finished", "YOU WON!", " ", Alert.AlertType.INFORMATION);
-            PlayerController.getInstance().getPlayer().setDiamonds(PlayerController.getInstance().player.getDiamonds()+100);
+            PlayerController.getPlayer().setDiamonds(PlayerController.getPlayer().getDiamonds()+100);
             PlayerController.getInstance().updateSpells();
-            SQLController.updatePlayer(PlayerController.getInstance().player.getID());
+            SQLController.updatePlayer(PlayerController.getPlayer().getID());
             try {
                 Main.setRoot(PageController.stage,"HomePage.fxml",722,622);
             } catch (IOException ex) {
@@ -368,5 +368,12 @@ public class MapController {
         String newLevel = String.valueOf(level);
         String newPath = towerPath.replaceAll("\\d", newLevel);
         return newPath;
+    }
+
+
+
+    //-------------------------------------------------------------
+    public void removeRaider(Raider currentRaider,PathTransition pathTransition){
+
     }
 }

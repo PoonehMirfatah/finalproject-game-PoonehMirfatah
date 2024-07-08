@@ -32,7 +32,7 @@ public class LoginPageController  {
         } catch (Exception e) {
             PageController.showAlert("Error", e.getMessage(), "", Alert.AlertType.ERROR);
         }
-        if (PlayerController.getInstance().player==null) {
+        if (PlayerController.getPlayer()==null) {
             PageController.showAlert("Error", "User Not Found!", "", Alert.AlertType.ERROR);
             return;
         }

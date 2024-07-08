@@ -45,11 +45,11 @@ public class SpellsController implements spell {
             selectedSpell = "Freeze";
         }
 
-        for (String spellName : PlayerController.getInstance().player.getBackPack().keySet()) {
+        for (String spellName : PlayerController.getPlayer().getBackPack().keySet()) {
             if (spellName.equals(selectedSpell)) {
-                int count = PlayerController.getInstance().player.getBackPack().get(spellName);
+                int count = PlayerController.getPlayer().getBackPack().get(spellName);
                 if (count >= 1) {
-                    PlayerController.getInstance().player.getBackPack().put(spellName, count - 1);
+                    PlayerController.getPlayer().getBackPack().put(spellName, count - 1);
                     return true;
                 }
             }
