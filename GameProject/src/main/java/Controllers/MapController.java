@@ -159,57 +159,57 @@ public class MapController {
         Tower selectedTower = null;
         switch (newPath) {
             case "/Towers/1ArcherTower.png":
-                selectedTower = new ArcherTower(100, 70, 200);
+                selectedTower = new ArcherTower(100, 70, 200,1);
                 break;
             case "/Towers/2ArcherTower.png":
-                selectedTower = new ArcherTower(150, 130, 220);
+                selectedTower = new ArcherTower(150, 130, 220,2);
                 break;
             case "/Towers/3ArcherTower.png":
-                selectedTower = new ArcherTower(200, 200, 240);
+                selectedTower = new ArcherTower(200, 200, 240,3);
                 break;
             case "/Towers/4ArcherTower.png":
-                selectedTower = new ArcherTower(250, 250, 250);
+                selectedTower = new ArcherTower(250, 250, 250,4);
                 break;
 
             case "/Towers/1Artillery.png":
-                selectedTower = new Artillery(500, 125, 200);
+                selectedTower = new Artillery(500, 125, 200,1);
                 break;
             case "/Towers/2Artillery.png":
-                selectedTower = new Artillery(550, 150, 220);
+                selectedTower = new Artillery(550, 150, 220,2);
                 break;
             case "/Towers/3Artillery.png":
-                selectedTower = new Artillery(600, 200, 240);
+                selectedTower = new Artillery(600, 200, 240,3);
                 break;
             case "/Towers/4Artillery.png":
-                selectedTower = new Artillery(650, 250, 245);
+                selectedTower = new Artillery(650, 250, 245,4);
                 break;
 
             case "/Towers/1WizardTower.png":
-                selectedTower = new WizardTower(150, 100, 200);
+                selectedTower = new WizardTower(150, 100, 200,1);
                 break;
 
             case "/Towers/2WizardTower.png":
-                selectedTower = new WizardTower(200, 150, 220);
+                selectedTower = new WizardTower(200, 150, 220,2);
                 break;
             case "/Towers/3WizardTower.png":
-                selectedTower = new WizardTower(250, 200, 240);
+                selectedTower = new WizardTower(250, 200, 240,3);
                 break;
             case "/Towers/4WizardTower.png":
-                selectedTower = new WizardTower(300, 250, 245);
+                selectedTower = new WizardTower(300, 250, 245,4);
                 break;
 
             case "/Towers/1ArmyPlace.png":
-                selectedTower = new AirTower(150, 100, 200);
+                selectedTower = new AirTower(150, 100, 200,1);
                 break;
 
             case "/Towers/2ArmyPlace.png":
-                selectedTower = new AirTower(200, 150, 220);
+                selectedTower = new AirTower(200, 150, 220,2);
                 break;
             case "/Towers/3ArmyPlace.png":
-                selectedTower = new AirTower(250, 200, 240);
+                selectedTower = new AirTower(250, 200, 240,3);
                 break;
             case "/Towers/4ArmyPlace.png":
-                selectedTower = new AirTower(300, 250, 245);
+                selectedTower = new AirTower(300, 250, 245,4);
                 break;
             default:
         }
@@ -413,7 +413,15 @@ public class MapController {
         String newPath = towerPath.replaceAll("\\d", newLevel);
         return newPath;
     }
-
+    public boolean checkTowerLevelForUpgrade(Tower tower){
+        if(PlayerController.getPlayer().getLevel()<tower.getLevel()){
+            PageController.showAlert("Error",String.format("You can't Update this tower in level %s",tower.getLevel()-1)
+                    ,"", Alert.AlertType.ERROR);
+            return true;
+        }else {
+            return false;
+        }
+    }
 
 
     //-------------------------------------------------------------

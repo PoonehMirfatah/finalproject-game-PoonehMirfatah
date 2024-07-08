@@ -357,28 +357,28 @@ import java.util.ResourceBundle;
             Tower selectedTower1 = null;
             switch (clickedButton.getId()) {
                 case "t1":
-                    selectedTower1 = new ArcherTower(100, 70, 200);
+                    selectedTower1 = new ArcherTower(100, 70, 200,1);
                     if (checkCoins(selectedTower1)) {
                         return;
                     }
                     setTowerOnPosition("/Towers/1ArcherTower.png");
                     break;
                 case "t2":
-                    selectedTower1 = new Artillery(500, 125, 200);
+                    selectedTower1 = new Artillery(500, 125, 200,1);
                     if (checkCoins(selectedTower1)) {
                         return;
                     }
                     setTowerOnPosition("/Towers/1Artillery.png");
                     break;
                 case "t3":
-                    selectedTower1 = new WizardTower(150, 100, 200);
+                    selectedTower1 = new WizardTower(150, 100, 200,1);
                     if (checkCoins(selectedTower1)) {
                         return;
                     }
                     setTowerOnPosition("/Towers/1WizardTower.png");
                     break;
                 case "t4":
-                    selectedTower1 = new AirTower(150, 100, 200);
+                    selectedTower1 = new AirTower(150, 100, 200,1);
                     if (checkCoins(selectedTower1)) {
                         return;
                     }
@@ -610,6 +610,9 @@ import java.util.ResourceBundle;
         void upgradeTower(ActionEvent event) {
             UpgradeBox.setVisible(false);
             Tower selectedTower = MapController.getInstance().getTower(newPath);
+            if(MapController.getInstance().checkTowerLevelForUpgrade(selectedTower)){
+                return;
+            }
             if (checkCoins(selectedTower)) {
                 return;
             } else {
