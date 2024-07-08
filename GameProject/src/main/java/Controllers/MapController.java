@@ -255,7 +255,12 @@ public class MapController {
             throw new RuntimeException(ex);
         }
     }
-    public void wizardTowerAttack(ImageView point, VBox target,Pane pane) {
+    public void wizardTowerAttack(Tower tower,Raider currentRaider,ImageView point, VBox target,Pane pane) {
+        MapController.getMap().getActiveTowers().add(point);
+        currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower());
+        if (currentRaider instanceof ShieldRaider && currentRaider.getHealth() <= 100) {
+            target.getChildren().get(1).setVisible(true);
+        }
         Path path1 = new Path();
         Image image = new Image(getClass().getResource("/Weapon/fireball.png").toExternalForm());
         ImageView ray = new ImageView(image);
@@ -286,7 +291,7 @@ public class MapController {
             map.getActiveTowers().remove(point);
         });
     }
-    public void airTowerAttack(ImageView point, VBox target,Pane pane) {
+    public void airTowerAttack(Raider currentRaider,ImageView point, VBox target,Pane pane) {
         Path path1 = new Path();
         Image image = new Image(getClass().getResource("/Weapon/fireball.png").toExternalForm());
         ImageView ray = new ImageView(image);
@@ -318,7 +323,9 @@ public class MapController {
         });
     }
 
-    public void artilleryTowerAttack(ImageView point, VBox target,Pane pane) {
+    public void artilleryTowerAttack(Tower tower,Raider currentRaider,ImageView point, VBox target,Pane pane) {
+        MapController.getMap().getActiveTowers().add(point);
+        currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower());
         Path path1 = new Path();
         Image image = new Image(getClass().getResource("/Weapon/bomb.png").toExternalForm());
         ImageView ray = new ImageView(image);
@@ -353,7 +360,13 @@ public class MapController {
             map.getActiveTowers().remove(point);
         });
     }
-    public void archerTowerAttack(ImageView point, VBox target,Pane pane) {
+    public void archerTowerAttack(Tower tower,Raider currentRaider,ImageView point, VBox target,Pane pane) {
+        MapController.getMap().getActiveTowers().add(point);
+        if (currentRaider instanceof ShieldRaider) {
+            currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower() / 2);
+        } else {
+            currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower());
+        }
         Path path1 = new Path();
         Image image = new Image(getClass().getResource("/Weapon/arrow.png").toExternalForm());
         ImageView arrow = new ImageView(image);

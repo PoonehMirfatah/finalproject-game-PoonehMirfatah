@@ -21,7 +21,7 @@
                 <Image url="@../../../Maps/m4.jpg" />
             </image>
         </ImageView>
-        <AnchorPane layoutX="16.0" layoutY="7.0" prefHeight="69.0" prefWidth="375.0" style="-fx-background-color: #5e863c;">
+        <AnchorPane layoutX="16.0" layoutY="7.0" prefHeight="69.0" prefWidth="375.0" style="-fx-background-color: #7b6524;">
             <children>
                 <Label fx:id="coinsLB" layoutX="257.0" layoutY="6.0" prefHeight="57.0" prefWidth="118.0" text="Label" textFill="#e9b636f2">
                     <font>
@@ -45,7 +45,7 @@
                 </Label>
             </children>
         </AnchorPane>
-        <AnchorPane layoutX="34.0" layoutY="84.0" prefHeight="64.0" prefWidth="178.0" style="-fx-background-color: #5e863c;">
+        <AnchorPane layoutX="34.0" layoutY="84.0" prefHeight="64.0" prefWidth="178.0" style="-fx-background-color: #7b6524;">
             <children>
                 <ImageView fitHeight="57.0" fitWidth="68.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -74,7 +74,7 @@
                 <Image url="@../../../Towers/Pointer.png" />
             </image>
         </ImageView>
-        <Button fx:id="startBT" layoutX="605.0" layoutY="104.0" mnemonicParsing="false" onMouseClicked="#startAttack" prefHeight="57.0" prefWidth="107.0" style="-fx-background-color: #418228;" text="Start">
+        <Button fx:id="startBT" layoutX="605.0" layoutY="104.0" mnemonicParsing="false" onMouseClicked="#startAttack" prefHeight="57.0" prefWidth="107.0" style="-fx-background-color: #7b6524;" text="Start" textFill="#ffc802">
             <font>
                 <Font name="Forte" size="30.0" />
             </font>
@@ -217,7 +217,7 @@
                 </VBox>
             </children>
         </GridPane>
-        <GridPane fx:id="UpgradeBox" alignment="CENTER" layoutX="435.0" layoutY="590.0" prefHeight="131.0" prefWidth="297.0" style="-fx-background-color: b8bc39; -fx-border-color: black;" styleClass="s" visible="false">
+        <GridPane fx:id="UpgradeBox" alignment="CENTER" layoutX="435.0" layoutY="590.0" prefHeight="131.0" prefWidth="297.0" style="-fx-background-color: #7b6524; -fx-border-color: black;" styleClass="s" visible="false">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.3333740234375" minWidth="10.0" prefWidth="88.33333333333333" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.66668701171875" minWidth="10.0" prefWidth="95.66666666666669" />
@@ -302,7 +302,7 @@
                 </VBox>
             </children>
         </GridPane>
-        <AnchorPane fx:id="spellsBox" layoutX="6.0" layoutY="619.0" prefHeight="100.0" prefWidth="344.0" style="-fx-border-color: black; -fx-background-color: #a1ae29;">
+        <AnchorPane fx:id="spellsBox" layoutX="6.0" layoutY="619.0" prefHeight="100.0" prefWidth="344.0" style="-fx-border-color: black; -fx-background-color: #3f3200;">
             <children>
                 <ImageView fitHeight="69.0" fitWidth="71.0" layoutX="85.0" layoutY="10.0" onMouseClicked="#dropCoins" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -324,22 +324,22 @@
                         <Image url="@../../../Shop/snowflake.png" />
                     </image>
                 </ImageView>
-                <Label fx:id="littleBoyCountLB" layoutX="67.0" layoutY="67.0" prefHeight="28.0" prefWidth="13.0" text="0">
+                <Label fx:id="littleBoyCountLB" layoutX="67.0" layoutY="67.0" prefHeight="28.0" prefWidth="13.0" text="0" textFill="WHITE">
                     <font>
                         <Font name="Forte" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="freezeCountLB" layoutX="312.0" layoutY="67.0" prefHeight="28.0" prefWidth="30.0" text="0">
+                <Label fx:id="freezeCountLB" layoutX="312.0" layoutY="67.0" prefHeight="28.0" prefWidth="30.0" text="0" textFill="WHITE">
                     <font>
                         <Font name="Forte" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="coinsCountLB" layoutX="147.0" layoutY="68.0" text="0">
+                <Label fx:id="coinsCountLB" layoutX="147.0" layoutY="68.0" text="0" textFill="WHITE">
                     <font>
                         <Font name="Forte" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="heartCountLB" layoutX="233.0" layoutY="67.0" text="0">
+                <Label fx:id="heartCountLB" layoutX="233.0" layoutY="67.0" text="0" textFill="WHITE">
                     <font>
                         <Font name="Forte" size="25.0" />
                     </font>
