@@ -107,7 +107,7 @@ public class MapController {
             sheild.setVisible(false);
             //
             ImageView walkKnight = new ImageView(heroImages.get(index));
-            walkKnight.setFitHeight(50);
+            walkKnight.setFitHeight(60);
             walkKnight.setPreserveRatio(true);
             vBox.getChildren().setAll(walkKnight, sheild);
         }));
@@ -373,7 +373,4 @@ public class MapController {
 
 
     //-------------------------------------------------------------
-    public void removeRaider(Raider currentRaider,PathTransition pathTransition){
-
-    }
 }

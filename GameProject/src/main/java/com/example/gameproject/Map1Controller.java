@@ -6,6 +6,8 @@ import Models.Map;
 import Models.Position;
 import Models.Raiders.Raider;
 import Models.Raiders.ShieldRaider;
+import Models.Raiders.SpeedyRaider;
+import Models.Raiders.WizardRaider;
 import Models.Spells.*;
 import Models.Towers.*;
 import Models.Wave;
@@ -152,9 +154,9 @@ public class Map1Controller implements Initializable {
         towersPosition.add(p3);
 
         ArrayList<Wave> attackWaves = new ArrayList<>();
-        ShieldRaider shieldRaider1 = new ShieldRaider();
-        ShieldRaider shieldRaider2 = new ShieldRaider();
-        ShieldRaider shieldRaider3 = new ShieldRaider();
+        SpeedyRaider shieldRaider1 = new SpeedyRaider();
+        WizardRaider shieldRaider2 = new WizardRaider();
+        WizardRaider shieldRaider3 = new WizardRaider();
         ShieldRaider shieldRaider4 = new ShieldRaider();
         ShieldRaider shieldRaider5 = new ShieldRaider();
         Wave wave1 = new Wave(shieldRaider1, 3);

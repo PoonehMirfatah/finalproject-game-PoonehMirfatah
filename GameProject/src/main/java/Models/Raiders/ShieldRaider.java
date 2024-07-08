@@ -3,7 +3,6 @@ package Models.Raiders;
 import javafx.scene.image.Image;
 
 public class ShieldRaider extends Raider {
-
     public ShieldRaider() {
        setHealth(400);
         setLoot(50);
