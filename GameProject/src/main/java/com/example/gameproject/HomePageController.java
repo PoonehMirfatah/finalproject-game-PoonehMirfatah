@@ -53,7 +53,8 @@ public class HomePageController implements Initializable {
             case "map3":
 
             case "map4":
-
+                PageController.setstage(event, "map4.fxml");
+                break;
 
         }
 

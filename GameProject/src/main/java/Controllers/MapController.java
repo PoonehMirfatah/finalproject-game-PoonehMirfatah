@@ -286,6 +286,37 @@ public class MapController {
             map.getActiveTowers().remove(point);
         });
     }
+    public void airTowerAttack(ImageView point, VBox target,Pane pane) {
+        Path path1 = new Path();
+        Image image = new Image(getClass().getResource("/Weapon/fireball.png").toExternalForm());
+        ImageView ray = new ImageView(image);
+        ray.setFitWidth(30);
+        ray.setPreserveRatio(true);
+
+        pane.getChildren().add(ray);
+
+        double xStart = point.getLayoutX() + 50;
+        double yStart = point.getLayoutY() + 50;
+
+        path1.getElements().add(new MoveTo(xStart, yStart));
+
+
+        double xEnd = target.getTranslateX();
+        double yEnd = target.getTranslateY();
+        path1.getElements().add(new LineTo(xEnd, yEnd));
+
+        PathTransition pathTransition = new PathTransition();
+        pathTransition.setDuration(Duration.seconds(0.5));
+        pathTransition.setPath(path1);
+        pathTransition.setNode(ray);
+        pathTransition.setAutoReverse(false);
+        pathTransition.play();
+
+        pathTransition.setOnFinished(event -> {
+            pane.getChildren().remove(ray);
+            map.getActiveTowers().remove(point);
+        });
+    }
 
     public void artilleryTowerAttack(ImageView point, VBox target,Pane pane) {
         Path path1 = new Path();
