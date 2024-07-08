@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 public class SpeedyRaider extends Raider{
     public SpeedyRaider() {
         setHealth(200);
-        setLoot(50);
+        setLoot(10);
         setSpeed(1d/15d);
         setDead(false);
         Image image1 = new Image(getClass().getResource("/Raiders/12.png").toExternalForm());

@@ -172,44 +172,44 @@ public class MapController {
                 break;
 
             case "/Towers/1Artillery.png":
-                selectedTower = new Artillery(400, 125, 200);
+                selectedTower = new Artillery(500, 125, 200);
                 break;
             case "/Towers/2Artillery.png":
-                selectedTower = new Artillery(225, 150, 220);
+                selectedTower = new Artillery(550, 150, 220);
                 break;
             case "/Towers/3Artillery.png":
-                selectedTower = new Artillery(250, 200, 240);
+                selectedTower = new Artillery(600, 200, 240);
                 break;
             case "/Towers/4Artillery.png":
-                selectedTower = new Artillery(280, 250, 245);
+                selectedTower = new Artillery(650, 250, 245);
                 break;
 
             case "/Towers/1WizardTower.png":
-                selectedTower = new WizardTower(300, 100, 200);
+                selectedTower = new WizardTower(150, 100, 200);
                 break;
 
             case "/Towers/2WizardTower.png":
-                selectedTower = new WizardTower(350, 150, 220);
+                selectedTower = new WizardTower(200, 150, 220);
                 break;
             case "/Towers/3WizardTower.png":
-                selectedTower = new WizardTower(400, 200, 240);
+                selectedTower = new WizardTower(250, 200, 240);
                 break;
             case "/Towers/4WizardTower.png":
-                selectedTower = new WizardTower(450, 250, 245);
+                selectedTower = new WizardTower(300, 250, 245);
                 break;
 
             case "/Towers/1ArmyPlace.png":
-                selectedTower = new AirTower(200, 100, 200);
+                selectedTower = new AirTower(150, 100, 200);
                 break;
 
             case "/Towers/2ArmyPlace.png":
-                selectedTower = new AirTower(350, 150, 220);
+                selectedTower = new AirTower(200, 150, 220);
                 break;
             case "/Towers/3ArmyPlace.png":
-                selectedTower = new AirTower(400, 200, 240);
+                selectedTower = new AirTower(250, 200, 240);
                 break;
             case "/Towers/4ArmyPlace.png":
-                selectedTower = new AirTower(450, 250, 245);
+                selectedTower = new AirTower(300, 250, 245);
                 break;
             default:
         }
@@ -229,7 +229,7 @@ public class MapController {
     }
 
     public boolean checkWin() throws Exception {
-        if (map.getWaveCounter() < 5) {
+        if (map.getWaveCounter() < 15) {
             map.setWaveCounter(map.getWaveCounter() + 1);
             return true;
         } else {
@@ -280,7 +280,7 @@ public class MapController {
         path1.getElements().add(new LineTo(xEnd, yEnd));
 
         PathTransition pathTransition = new PathTransition();
-        pathTransition.setDuration(Duration.seconds(0.5));
+        pathTransition.setDuration(Duration.seconds(0.3));
         pathTransition.setPath(path1);
         pathTransition.setNode(ray);
         pathTransition.setAutoReverse(false);
@@ -349,7 +349,7 @@ public class MapController {
         path1.getElements().add(new QuadCurveTo(xControl, yControl, xEnd, yEnd));
 
         PathTransition pathTransition = new PathTransition();
-        pathTransition.setDuration(Duration.seconds(1));
+        pathTransition.setDuration(Duration.seconds(0.4));
         pathTransition.setPath(path1);
         pathTransition.setNode(ray);
         pathTransition.setAutoReverse(false);

@@ -4,9 +4,9 @@ import javafx.scene.image.Image;
 
 public class WizardRaider extends Raider {
     public WizardRaider() {
-        setHealth(200);
-        setLoot(80);
-        setSpeed(1d / 20d);
+        setHealth(300);
+        setLoot(10);
+        setSpeed(1d / 18d);
         setDead(false);
         Image image1 = new Image(getClass().getResource("/Raiders/wizardRaider (1).png").toExternalForm());
         Image image2 = new Image(getClass().getResource("/Raiders/wizardRaider (2).png").toExternalForm());

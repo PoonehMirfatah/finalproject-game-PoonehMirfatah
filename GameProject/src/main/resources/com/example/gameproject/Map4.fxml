@@ -375,5 +375,10 @@
          </image>
       </ImageView>
       <ImageView fx:id="damagePoint4" fitHeight="19.0" fitWidth="23.0" layoutX="572.0" layoutY="302.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+      <Button fx:id="startBT2" layoutX="591.0" layoutY="619.0" mnemonicParsing="false" onMouseClicked="#quitMap" prefHeight="57.0" prefWidth="107.0" style="-fx-background-color: #7b6524;" text="Quit" textFill="#ffc802">
+         <font>
+            <Font name="Forte" size="30.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>

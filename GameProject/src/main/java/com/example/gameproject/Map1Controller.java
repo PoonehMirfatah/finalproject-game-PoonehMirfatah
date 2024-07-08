@@ -173,7 +173,7 @@ public class Map1Controller implements Initializable {
         Position DP3 = new Position(damagePoint3.getLayoutX(), damagePoint3.getLayoutY());
         Position DP4 = new Position(damagePoint4.getLayoutX(), damagePoint4.getLayoutY());
 
-        map1 = new Map(towersPosition, path, end, attackWaves, 1000, 20);
+        map1 = new Map(towersPosition, path, end, attackWaves, 500, 20);
 
         map1.getDamagePoints().add(DP1);
         map1.getDamagePoints().add(DP2);
@@ -182,7 +182,7 @@ public class Map1Controller implements Initializable {
 
 
 
-        PlayerController.getPlayer().setCoins(1000);
+        PlayerController.getPlayer().setCoins(500);
         PlayerController.getPlayer().setHealth(20);
         MapController.setMap(map1);
         heartLB.setText(String.format("%s/20", PlayerController.getPlayer().getHealth()));
@@ -297,21 +297,21 @@ public class Map1Controller implements Initializable {
                 setTowerOnPosition("/Towers/1ArcherTower.png");
                 break;
             case "t2":
-                selectedTower1 = new Artillery(400, 125, 200);
+                selectedTower1 = new Artillery(500, 125, 200);
                 if (checkCoins(selectedTower1)) {
                     return;
                 }
                 setTowerOnPosition("/Towers/1Artillery.png");
                 break;
             case "t3":
-                selectedTower1 = new WizardTower(300, 100, 200);
+                selectedTower1 = new WizardTower(150, 100, 200);
                 if (checkCoins(selectedTower1)) {
                     return;
                 }
                 setTowerOnPosition("/Towers/1WizardTower.png");
                 break;
             case "t4":
-                selectedTower1 = new AirTower(200, 100, 200);
+                selectedTower1 = new AirTower(150, 100, 200);
                 if (checkCoins(selectedTower1)) {
                     return;
                 }
@@ -543,5 +543,10 @@ public class Map1Controller implements Initializable {
             return true;
         }
         return false;
+    }
+
+    public void quitMap(MouseEvent event) throws Exception {
+        PlayerController.getInstance().updateSpells();
+        PageController.setstage(event,"HomePage.fxml");
     }
 }

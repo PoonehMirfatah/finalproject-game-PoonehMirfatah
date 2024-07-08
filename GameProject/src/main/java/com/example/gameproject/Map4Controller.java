@@ -35,6 +35,7 @@ import javafx.scene.shape.QuadCurve;
 import javafx.scene.shape.QuadCurveTo;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -236,13 +237,12 @@ import java.util.ResourceBundle;
             map1.getDamagePoints().add(DP3);
             map1.getDamagePoints().add(DP4);
 
-
             PlayerController.getPlayer().setCoins(1000);
             PlayerController.getPlayer().setHealth(20);
             MapController.setMap(map1);
             heartLB.setText(String.format("%s/20", PlayerController.getPlayer().getHealth()));
             coinsLB.setText(String.valueOf(PlayerController.getPlayer().getCoins()));
-            waveLB.setText(String.format("Wave %s/5", map1.getWaveCounter()));
+            waveLB.setText(String.format("Wave %s/15", map1.getWaveCounter()));
         }
 
 
@@ -364,21 +364,21 @@ import java.util.ResourceBundle;
                     setTowerOnPosition("/Towers/1ArcherTower.png");
                     break;
                 case "t2":
-                    selectedTower1 = new Artillery(400, 125, 200);
+                    selectedTower1 = new Artillery(500, 125, 200);
                     if (checkCoins(selectedTower1)) {
                         return;
                     }
                     setTowerOnPosition("/Towers/1Artillery.png");
                     break;
                 case "t3":
-                    selectedTower1 = new WizardTower(300, 100, 200);
+                    selectedTower1 = new WizardTower(150, 100, 200);
                     if (checkCoins(selectedTower1)) {
                         return;
                     }
                     setTowerOnPosition("/Towers/1WizardTower.png");
                     break;
                 case "t4":
-                    selectedTower1 = new AirTower(200, 100, 200);
+                    selectedTower1 = new AirTower(150, 100, 200);
                     if (checkCoins(selectedTower1)) {
                         return;
                     }
@@ -426,7 +426,7 @@ import java.util.ResourceBundle;
         private void initiateAttack() throws Exception {
             setPath();
             if(MapController.getInstance().checkWin()){
-                waveLB.setText(String.format("Wave %s/5", MapController.getMap().getWaveCounter()));
+                waveLB.setText(String.format("Wave %s/15", MapController.getMap().getWaveCounter()));
             }else {
                 startBT.setVisible(false);
             }
@@ -632,6 +632,11 @@ import java.util.ResourceBundle;
                 return true;
             }
             return false;
+        }
+
+        public void quitMap(MouseEvent event) throws Exception {
+            PlayerController.getInstance().updateSpells();
+            PageController.setstage(event,"HomePage.fxml");
         }
     }
 
