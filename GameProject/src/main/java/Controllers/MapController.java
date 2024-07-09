@@ -11,6 +11,7 @@ import Models.Wave;
 import com.example.gameproject.Main;
 import com.example.gameproject.Map1Controller;
 import com.example.gameproject.PageController;
+import com.example.gameproject.SettingPageController;
 import javafx.animation.KeyFrame;
 import javafx.animation.PathTransition;
 import javafx.animation.PauseTransition;
@@ -27,10 +28,14 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static com.example.gameproject.SettingPageController.setSound;
+import static com.example.gameproject.SettingPageController.setSound;
 
 public class MapController {
     public static Map map;
@@ -114,7 +119,7 @@ public class MapController {
         map.getTimelines().add(timeline);
     }
 
-    public void bombAttacks(Pane pane,int waveIndex) throws InterruptedException {
+    public void bombAttacks(Pane pane,int waveIndex) throws InterruptedException, URISyntaxException {
         for (Position pointDamage : map.getDamagePoints()) {
             Image image = new Image(getClass().getResource("/Weapon/bombs.png").toExternalForm());
             ImageView bomb = new ImageView(image);
@@ -139,6 +144,7 @@ public class MapController {
             pathTransition.setNode(bomb);
             pathTransition.setAutoReverse(false);
             pathTransition.play();
+            setSound("Music/bombSpell.mp3");
             pathTransition.setOnFinished(event2 -> {
                 pane.getChildren().remove(bomb);
                 pane.getChildren().removeIf(node -> node instanceof VBox);
@@ -230,6 +236,7 @@ public class MapController {
             map.setWaveCounter(map.getWaveCounter() + 1);
             return true;
         } else {
+            setSound("Music/win2.wav");
             PageController.showAlert("Finished", "YOU WON!", " ", Alert.AlertType.INFORMATION);
             PlayerController.getPlayer().setDiamonds(PlayerController.getPlayer().getDiamonds()+100);
             PlayerController.getInstance().updateSpells();
@@ -244,6 +251,8 @@ public class MapController {
     }
 
     public void checkLost() throws Exception {
+        SettingPageController.player.stop();
+        setSound("Music/gameOver.wav");
         PageController.showAlert("Finished", "GAME OVER", " ", Alert.AlertType.INFORMATION);
         PlayerController.getInstance().updateSpells();
         try {
@@ -252,7 +261,7 @@ public class MapController {
             throw new RuntimeException(ex);
         }
     }
-    public void wizardTowerAttack(Tower tower,Raider currentRaider,ImageView point, VBox target,Pane pane) {
+    public void wizardTowerAttack(Tower tower,Raider currentRaider,ImageView point, VBox target,Pane pane)  {
         MapController.getMap().getActiveTowers().add(point);
         currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower());
         if (currentRaider instanceof ShieldRaider && currentRaider.getHealth() <= 100) {
@@ -281,6 +290,11 @@ public class MapController {
         pathTransition.setPath(path1);
         pathTransition.setNode(ray);
         pathTransition.setAutoReverse(false);
+        try {
+            setSound("Music/wizard1.mp3");
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
         pathTransition.play();
 
         pathTransition.setOnFinished(event -> {
@@ -288,7 +302,7 @@ public class MapController {
             map.getActiveTowers().remove(point);
         });
     }
-    public void airTowerAttack(Tower tower,Raider currentRaider,ImageView point, VBox target,Pane pane) {
+    public void airTowerAttack(Tower tower,Raider currentRaider,ImageView point, VBox target,Pane pane)  {
         MapController.getMap().getActiveTowers().add(point);
         currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower());
         Path path1 = new Path();
@@ -314,6 +328,11 @@ public class MapController {
         pathTransition.setPath(path1);
         pathTransition.setNode(ray);
         pathTransition.setAutoReverse(false);
+        try {
+            setSound("Music/flyattack.mp3");
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
         pathTransition.play();
 
         pathTransition.setOnFinished(event -> {
@@ -322,7 +341,7 @@ public class MapController {
         });
     }
 
-    public void artilleryTowerAttack(Tower tower,Raider currentRaider,ImageView point, VBox target,Pane pane) {
+    public void artilleryTowerAttack(Tower tower,Raider currentRaider,ImageView point, VBox target,Pane pane)  {
         MapController.getMap().getActiveTowers().add(point);
         currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower());
 
@@ -353,6 +372,11 @@ public class MapController {
         pathTransition.setPath(path1);
         pathTransition.setNode(ray);
         pathTransition.setAutoReverse(false);
+        try {
+            setSound("Music/artillery.mp3");
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
         pathTransition.play();
 
         pathTransition.setOnFinished(event -> {
@@ -391,6 +415,11 @@ public class MapController {
         pathTransition.setPath(path1);
         pathTransition.setNode(arrow);
         pathTransition.setAutoReverse(false);
+        try {
+            setSound("Music/archer.mp3");
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
         pathTransition.play();
 
         pathTransition.setOnFinished(event -> {

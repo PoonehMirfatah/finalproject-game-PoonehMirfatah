@@ -12,15 +12,11 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import static com.example.gameproject.SettingPageController.player;
+import static com.example.gameproject.SettingPageController.setSound;
 
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException, URISyntaxException {
-        String fileName = getClass().getResource("Music/gamemusic.wav").toURI().toString();
-        Media media = new Media(fileName);
-        player= new MediaPlayer(media);
-        player.setCycleCount(MediaPlayer.INDEFINITE);
-        player.play();
        setRoot(stage,"FirstPage.fxml",800,500);
     }
 

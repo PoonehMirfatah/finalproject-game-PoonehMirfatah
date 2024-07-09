@@ -2,6 +2,7 @@ package com.example.gameproject;
 
 import Controllers.PlayerController;
 import Controllers.SQL.SQLController;
+import Models.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -10,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -39,7 +41,7 @@ public class SettingPageController implements Initializable {
 
     @FXML
     private TextField userNameTF;
-    static MediaPlayer player;
+    public static MediaPlayer player;
     Media media;
     static Boolean running=true;
 
@@ -75,7 +77,18 @@ public class SettingPageController implements Initializable {
                 PlayerController.getPlayer().getID());
     }
 
-
+    public static void setSound(String soundName) throws URISyntaxException {
+        String fileName = Main.class.getResource(soundName).toURI().toString();
+        Media media = new Media(fileName);
+        player= new MediaPlayer(media);
+        player.play();
+    }
+//    public static void setSound2(String soundName) throws URISyntaxException {
+//        String fileName = Main.class.getResource(soundName).toURI().toString();
+//        Media media = new Media(fileName);
+//        MediaPlayer player= new MediaPlayer(media);
+//        player.play();
+//    }
 
 //// public void playAudio(ActionEvent event) {
 ////        beginTimer();

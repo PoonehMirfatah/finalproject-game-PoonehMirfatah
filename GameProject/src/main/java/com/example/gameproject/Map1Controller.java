@@ -28,9 +28,13 @@ import javafx.util.Duration;
 import Controllers.PlayerController;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
+
+import static com.example.gameproject.SettingPageController.setSound;
+import static com.example.gameproject.SettingPageController.setSound;
 
 public class Map1Controller implements Initializable {
     @FXML
@@ -134,6 +138,12 @@ public class Map1Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try{
+            SettingPageController.player.stop();
+            setSound("Music/gamemusic.wav");
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
         Map map1;
         try {
             SQLController.loadPlayerSpells(PlayerController.getPlayer().getID());
@@ -213,7 +223,7 @@ public class Map1Controller implements Initializable {
     }
 
     @FXML
-    void dropBomb(MouseEvent event) throws InterruptedException {
+    void dropBomb(MouseEvent event) throws InterruptedException, URISyntaxException {
         LittleBoySpell bombSpell = new LittleBoySpell();
         SpellsController.setSpell(bombSpell);
 
@@ -230,16 +240,18 @@ public class Map1Controller implements Initializable {
         SpellsController.setSpell(coinSpell);
         if (SpellsController.getInstance().drop()) {
             PlayerController.getPlayer().setCoins(PlayerController.getPlayer().getCoins()+coinSpell.getCoinIncrease());
+            setSound("Music/getCoins.mp3");
             coinsLB.setText(String.valueOf(PlayerController.getPlayer().getCoins()));
             setSpellCounts();
         }
     }
 
     @FXML
-    void dropFreeze(MouseEvent event) {
+    void dropFreeze(MouseEvent event) throws URISyntaxException {
         FreezeSpell freezeSpell = new FreezeSpell();
         SpellsController.setSpell(freezeSpell);
         if (SpellsController.getInstance().drop()) {
+            setSound("Music/freeze.mp3");
             MapController.getInstance().freezeTransitions();
             MapController.getInstance().freezeTimelines();
             setSpellCounts();
@@ -359,8 +371,8 @@ public class Map1Controller implements Initializable {
 
     private void initiateAttack() throws Exception {
         setPath();
-        if(MapController.getInstance().checkWin(15)){
-            waveLB.setText(String.format("Wave %s/15", MapController.getMap().getWaveCounter()));
+        if(MapController.getInstance().checkWin(5)){
+            waveLB.setText(String.format("Wave %s/5", MapController.getMap().getWaveCounter()));
         }else {
             startBT.setVisible(false);
         }
@@ -518,7 +530,7 @@ public class Map1Controller implements Initializable {
     }
 
     @FXML
-    void upgradeTower(ActionEvent event) {
+    void upgradeTower(ActionEvent event) throws URISyntaxException {
         UpgradeBox.setVisible(false);
         Tower selectedTower = MapController.getInstance().getTower(newPath);
         if(MapController.getInstance().checkTowerLevelForUpgrade(selectedTower)){
@@ -528,6 +540,7 @@ public class Map1Controller implements Initializable {
             return;
         } else {
             PlayerController.getPlayer().setCoins(PlayerController.getPlayer().getCoins()-selectedTower.getBulidCost()) ;
+            setSound("Music/upgrade2.wav");
             coinsLB.setText(String.valueOf(PlayerController.getPlayer().getCoins()));
         }
         setTowerOnPosition(newPath);

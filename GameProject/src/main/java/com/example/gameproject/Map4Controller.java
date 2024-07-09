@@ -36,11 +36,15 @@ import javafx.scene.shape.QuadCurveTo;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-    public class Map4Controller implements Initializable {
+
+import static com.example.gameproject.SettingPageController.setSound;
+
+public class Map4Controller implements Initializable {
         @FXML
         private GridPane UpgradeBox;
 
@@ -151,6 +155,12 @@ import java.util.ResourceBundle;
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
+            try{
+                SettingPageController.player.stop();
+                setSound("Music/gamemusic.wav");
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
             Map map1;
             try {
                 SQLController.loadPlayerSpells(PlayerController.getPlayer().getID());
@@ -267,7 +277,7 @@ import java.util.ResourceBundle;
         }
 
         @FXML
-        void dropBomb(MouseEvent event) throws InterruptedException {
+        void dropBomb(MouseEvent event) throws InterruptedException, URISyntaxException {
             LittleBoySpell bombSpell = new LittleBoySpell();
             SpellsController.setSpell(bombSpell);
 
