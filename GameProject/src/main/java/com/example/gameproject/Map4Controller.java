@@ -425,7 +425,7 @@ import java.util.ResourceBundle;
 
         private void initiateAttack() throws Exception {
             setPath();
-            if(MapController.getInstance().checkWin()){
+            if(MapController.getInstance().checkWin(15)){
                 waveLB.setText(String.format("Wave %s/15", MapController.getMap().getWaveCounter()));
             }else {
                 startBT.setVisible(false);

@@ -129,6 +129,7 @@ public class Map1Controller implements Initializable {
     Path path = new Path();
     private boolean firstAttack = true;
     int waveIndex;
+    ArrayList<VBox> vboxesList=new ArrayList<>();
 
 
     @Override
@@ -151,12 +152,12 @@ public class Map1Controller implements Initializable {
         towersPosition.add(p3);
 
         ArrayList<Wave> attackWaves = new ArrayList<>();
-        SpeedyRaider shieldRaider1 = new SpeedyRaider();
+        WizardRaider shieldRaider1 = new WizardRaider();
         WizardRaider shieldRaider2 = new WizardRaider();
         WizardRaider shieldRaider3 = new WizardRaider();
         ShieldRaider shieldRaider4 = new ShieldRaider();
         ShieldRaider shieldRaider5 = new ShieldRaider();
-        Wave wave1 = new Wave(shieldRaider1, 3);
+        Wave wave1 = new Wave(shieldRaider1, 6);
         Wave wave2 = new Wave(shieldRaider2, 6);
         Wave wave3 = new Wave(shieldRaider3, 8);
         Wave wave4 = new Wave(shieldRaider4, 10);
@@ -358,8 +359,8 @@ public class Map1Controller implements Initializable {
 
     private void initiateAttack() throws Exception {
         setPath();
-        if(MapController.getInstance().checkWin()){
-            waveLB.setText(String.format("Wave %s/5", MapController.getMap().getWaveCounter()));
+        if(MapController.getInstance().checkWin(15)){
+            waveLB.setText(String.format("Wave %s/15", MapController.getMap().getWaveCounter()));
         }else {
             startBT.setVisible(false);
         }
@@ -375,12 +376,12 @@ public class Map1Controller implements Initializable {
             Raider currentRaider = currentWave.getRaiders().get(i);
             currentRaider.setvBox(vBox);
             MapController.getMap().getAliveRaiders().add(currentRaider);
+            int index=i;
             int raiderHealth = currentRaider.getHealth();
-
             pauseTransition.setOnFinished(e -> {
-                PathTransition pathTransition=setPathForNextRaider(currentRaider,vBox,raiderHealth);
+                PathTransition pathTransition = setPathForNextRaider(path, currentRaider, vBox, raiderHealth);
                 pathTransition.setOnFinished(event2 -> {
-                    removeEndPathRaider(vBox,pathTransition);
+                    removeEndPathRaider(vBox, pathTransition);
                 });
                 pathTransition.play();
                 MapController.getMap().getPathTransitions().add(pathTransition);
@@ -388,7 +389,7 @@ public class Map1Controller implements Initializable {
             pauseTransition.play();
         }
     }
-    public PathTransition setPathForNextRaider(Raider currentRaider,VBox vBox,int raiderHealth){
+    public PathTransition setPathForNextRaider(Path path,Raider currentRaider,VBox vBox,int raiderHealth){
         PathTransition pathTransition = new PathTransition();
         currentRaider.setPathTransition(pathTransition);
         attackTimeLine(currentRaider, vBox, pathTransition, raiderHealth);
@@ -445,7 +446,6 @@ public class Map1Controller implements Initializable {
         attackTimeline.setCycleCount(Timeline.INDEFINITE);
         attackTimeline.play();
     }
-
 
     public void removeRaider(Raider currentRaider,VBox vBox,PathTransition pathTransition) {
         pane.getChildren().remove(vBox);

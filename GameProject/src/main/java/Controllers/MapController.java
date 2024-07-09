@@ -22,10 +22,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
-import javafx.scene.shape.QuadCurveTo;
+import javafx.scene.shape.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -228,8 +225,8 @@ public class MapController {
         return vBox;
     }
 
-    public boolean checkWin() throws Exception {
-        if (map.getWaveCounter() < 15) {
+    public boolean checkWin(int waveNumbers) throws Exception {
+        if (map.getWaveCounter() < waveNumbers) {
             map.setWaveCounter(map.getWaveCounter() + 1);
             return true;
         } else {
@@ -328,6 +325,7 @@ public class MapController {
     public void artilleryTowerAttack(Tower tower,Raider currentRaider,ImageView point, VBox target,Pane pane) {
         MapController.getMap().getActiveTowers().add(point);
         currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower());
+
         Path path1 = new Path();
         Image image = new Image(getClass().getResource("/Weapon/bomb.png").toExternalForm());
         ImageView ray = new ImageView(image);
