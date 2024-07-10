@@ -17,6 +17,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static com.example.gameproject.SettingPageController.player;
 import static com.example.gameproject.SettingPageController.setSound;
 
 public class HomePageController implements Initializable {
@@ -34,6 +35,8 @@ public class HomePageController implements Initializable {
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
             }
+        }else {
+            player.play();
         }
         String diamonds=String.valueOf(PlayerController.getPlayer().getDiamonds());
         diamondLB.setText(diamonds);
@@ -60,7 +63,8 @@ public class HomePageController implements Initializable {
                 PageController.setstage(event, "map1.fxml");
                 break;
             case "map2":
-
+                PageController.setstage(event, "map2.fxml");
+                break;
             case "map3":
 
             case "map4":

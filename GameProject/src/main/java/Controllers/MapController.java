@@ -249,7 +249,8 @@ public class MapController {
                 alert.setOnHidden((event)->{
                     try {
                         Main.setRoot(PageController.stage,"HomePage.fxml",722,622);
-                    } catch (IOException e) {
+                        SettingPageController.setSound("Music/gamemusic.mp3");
+                    } catch (IOException | URISyntaxException e) {
                         throw new RuntimeException(e);
                     }
                 });
@@ -269,7 +270,8 @@ public class MapController {
             alert.setOnHidden((event -> {
                 try {
                     Main.setRoot(PageController.stage,"HomePage.fxml",722,622);
-                } catch (IOException e) {
+                    SettingPageController.setSound("Music/gamemusic.mp3");
+                } catch (IOException | URISyntaxException e) {
                     throw new RuntimeException(e);
                 }
             }));
