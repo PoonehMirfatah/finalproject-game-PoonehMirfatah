@@ -151,13 +151,14 @@ public class Map4Controller implements Initializable {
         Path path2 = new Path();
         private boolean firstAttack = true;
         int waveIndex;
+         boolean isFinished=false;
 
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
             try{
                 SettingPageController.player.stop();
-                setSound("Music/gamemusic.wav");
+                SettingPageController.setSound("Music/gamemusic.wav");
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
             }
@@ -293,16 +294,18 @@ public class Map4Controller implements Initializable {
             SpellsController.setSpell(coinSpell);
             if (SpellsController.getInstance().drop()) {
                 PlayerController.getPlayer().setCoins(PlayerController.getPlayer().getCoins()+coinSpell.getCoinIncrease());
+                setSound("Music/getCoins.mp3");
                 coinsLB.setText(String.valueOf(PlayerController.getPlayer().getCoins()));
                 setSpellCounts();
             }
         }
 
         @FXML
-        void dropFreeze(MouseEvent event) {
+        void dropFreeze(MouseEvent event) throws URISyntaxException {
             FreezeSpell freezeSpell = new FreezeSpell();
             SpellsController.setSpell(freezeSpell);
             if (SpellsController.getInstance().drop()) {
+                setSound("Music/freeze.mp3");
                 MapController.getInstance().freezeTransitions();
                 MapController.getInstance().freezeTimelines();
                 setSpellCounts();
@@ -311,7 +314,7 @@ public class Map4Controller implements Initializable {
 
 
         @FXML
-        void dropHealth(MouseEvent event) {
+        void dropHealth(MouseEvent event) throws URISyntaxException {
             HealthSpell healthSpell = new HealthSpell();
             SpellsController.setSpell(healthSpell);
             if (SpellsController.getInstance().drop()) {
@@ -319,6 +322,7 @@ public class Map4Controller implements Initializable {
                 if (PlayerController.getPlayer().getHealth ()> 20) {
                     PlayerController.getPlayer().setHealth (20);
                 }
+                setSound("Music/health2.mp3");
                 heartLB.setText(String.format("%s/20", PlayerController.getPlayer().getHealth ()));
                 setSpellCounts();
             }
@@ -358,7 +362,7 @@ public class Map4Controller implements Initializable {
         }
 
         @FXML
-        void buildTower(MouseEvent event) {
+        void buildTower(MouseEvent event) throws URISyntaxException {
             spellsBox.setVisible(true);
             Button clickedButton = (Button) event.getSource();
             if (clickedButton.getId() == null) {
@@ -398,7 +402,9 @@ public class Map4Controller implements Initializable {
                     return;
             }
             //assert selectedTower1 != null;
+            setSound("Music/build.wav");
             MapController.getMap().getTowersList().put(point, selectedTower1);
+            setSound("Music/costCoin.mp3");
             PlayerController.getPlayer().setCoins(PlayerController.getPlayer().getCoins()- selectedTower1.getBulidCost());
             coinsLB.setText(String.valueOf(PlayerController.getPlayer().getCoins()));
             towersBox.setVisible(false);
@@ -428,6 +434,7 @@ public class Map4Controller implements Initializable {
                 initiateAttack();
             } else {
                 initiateAttack();
+                setSound("Music/getCoins.mp3");
                 PlayerController.getPlayer().setCoins(PlayerController.getPlayer().getCoins()+ 70);
                 coinsLB.setText(String.valueOf(PlayerController.getPlayer().getCoins()));
             }
@@ -445,6 +452,9 @@ public class Map4Controller implements Initializable {
 
             int i = 0;
             for (i = 0; i < currentWave.getRaiderCount(); i++) {
+                if(isFinished){
+                    return;
+                }
                 int delay = i * 1000;
                 VBox vBox=MapController.getInstance().addRaiderVbox(currentWave,i);
 
@@ -502,6 +512,9 @@ public class Map4Controller implements Initializable {
         }
         public void attackTimeLine(Raider currentRaider, VBox vBox, PathTransition pathTransition, int health) {
             Timeline attackTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+                if(isFinished){
+                    return;
+                }
                 currentRaider.setHealth(health);
                 for (ImageView point : MapController.getMap().getTowersList().keySet()) {
                     Tower tower = MapController.getMap().getTowersList().get(point);
@@ -604,20 +617,22 @@ public class Map4Controller implements Initializable {
 
 
         @FXML
-        void destroyTower(ActionEvent event) {
+        void destroyTower(ActionEvent event) throws URISyntaxException {
             Image image = new Image(getClass().getResource("/Towers/Pointer.png").toExternalForm());
             point.setImage(image);
             point.setOnMouseClicked(
                     this::showTowers
             );
             UpgradeBox.setVisible(false);
+            setSound("Music/destroy.mp3");
             MapController.getMap().getTowersList().remove(point);
+            setSound("Music/getCoins.mp3");
             PlayerController.getPlayer().setCoins(PlayerController.getPlayer().getCoins()+ Integer.parseInt(destroyLootLB.getText()) );
             coinsLB.setText(String.valueOf(PlayerController.getPlayer().getCoins()));
         }
 
         @FXML
-        void upgradeTower(ActionEvent event) {
+        void upgradeTower(ActionEvent event) throws URISyntaxException {
             UpgradeBox.setVisible(false);
             Tower selectedTower = MapController.getInstance().getTower(newPath);
             if(MapController.getInstance().checkTowerLevelForUpgrade(selectedTower)){
@@ -626,7 +641,9 @@ public class Map4Controller implements Initializable {
             if (checkCoins(selectedTower)) {
                 return;
             } else {
+                setSound("Music/costCoin.mp3");
                 PlayerController.getPlayer().setCoins(PlayerController.getPlayer().getCoins()-selectedTower.getBulidCost()) ;
+                setSound("Music/upgrade2.wav");
                 coinsLB.setText(String.valueOf(PlayerController.getPlayer().getCoins()));
             }
             setTowerOnPosition(newPath);
@@ -649,6 +666,9 @@ public class Map4Controller implements Initializable {
 
         public void quitMap(MouseEvent event) throws Exception {
             PlayerController.getInstance().updateSpells();
+            SettingPageController.player.stop();
+            SettingPageController.setSound("Music/gamemusic.mp3");
+            isFinished=true;
             PageController.setstage(event,"HomePage.fxml");
         }
 

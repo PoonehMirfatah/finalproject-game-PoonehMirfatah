@@ -150,7 +150,7 @@ public class MapController {
             setSound("Music/bombSpell.mp3");
             pathTransition.setOnFinished(event2 -> {
                 pane.getChildren().remove(bomb);
-                pane.getChildren().removeIf(node -> node instanceof VBox);
+                pane.getChildren().removeIf(node -> node instanceof VBox );
             });
 
         }

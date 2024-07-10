@@ -472,6 +472,19 @@ public class Map1Controller implements Initializable {
         attackTimeline.setCycleCount(Timeline.INDEFINITE);
         attackTimeline.play();
     }
+    public void checkHealthTimeLine(Raider currentRaider, VBox vBox, PathTransition pathTransition, int health){
+        Timeline attackTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            if(isFinished){
+                return;
+            }
+                if (health < 0) {
+                    removeRaider(currentRaider, vBox, pathTransition);
+                }
+        }));
+        attackTimeline.setCycleCount(Timeline.INDEFINITE);
+        attackTimeline.play();
+    }
+
 
     public void removeRaider(Raider currentRaider,VBox vBox,PathTransition pathTransition) {
         pane.getChildren().remove(vBox);
