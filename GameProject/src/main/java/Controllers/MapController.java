@@ -5,11 +5,9 @@ import Models.Map;
 import Models.Position;
 import Models.Raiders.Raider;
 import Models.Raiders.ShieldRaider;
-import Models.Spells.Spell;
 import Models.Towers.*;
 import Models.Wave;
 import com.example.gameproject.Main;
-import com.example.gameproject.Map1Controller;
 import com.example.gameproject.PageController;
 import com.example.gameproject.SettingPageController;
 import javafx.animation.KeyFrame;
@@ -23,20 +21,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.*;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
-import static com.example.gameproject.SettingPageController.*;
 import static com.example.gameproject.SettingPageController.setSound;
 
 public class MapController {
@@ -218,6 +210,7 @@ public class MapController {
                 selectedTower = new AirTower(300, 250, 245,4);
                 break;
             default:
+                return null;
         }
         return selectedTower;
     }
@@ -458,6 +451,9 @@ public class MapController {
             }
         }
         level += 1;
+        if(level>4){
+            return towerPath;
+        }
         String newLevel = String.valueOf(level);
         String newPath = towerPath.replaceAll("\\d", newLevel);
         return newPath;

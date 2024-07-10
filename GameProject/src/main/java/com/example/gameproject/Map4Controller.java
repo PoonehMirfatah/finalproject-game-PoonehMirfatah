@@ -176,8 +176,8 @@ public class Map4Controller implements Initializable {
             Position p3 = new Position(towerPoint3.getX(), towerPoint3.getY());
             Position p4 = new Position(towerPoint4.getX(), towerPoint4.getY());
             Position p5 = new Position(towerPoint5.getX(), towerPoint5.getY());
-            Position p6 = new Position(towerPoint4.getX(), towerPoint4.getY());
-            Position p7 = new Position(towerPoint5.getX(), towerPoint5.getY());
+            Position p6 = new Position(towerPoint6.getX(), towerPoint6.getY());
+            Position p7 = new Position(towerPoint7.getX(), towerPoint7.getY());
             Position end = new Position(0, 464);
             towersPosition.add(p1);
             towersPosition.add(p2);
@@ -418,6 +418,13 @@ public class Map4Controller implements Initializable {
                 towersBox.setVisible(false);
                 UpgradeBox.setVisible(true);
                 newPath=MapController.getInstance().getUpdateTowerPath(towerPath);
+                if(newPath.equals(towerPath)){
+                    upgradBT.setVisible(false);
+                    upgradedTower.setVisible(false);
+                }else{
+                    upgradBT.setVisible(true);
+                    upgradedTower.setVisible(true);
+                }
                 Tower newTower = MapController.getInstance().getTower(newPath);
                 upgradedCostLB.setText(String.valueOf(newTower.getBulidCost()));
                 Tower lastTower = MapController.getInstance().getTower(towerPath);

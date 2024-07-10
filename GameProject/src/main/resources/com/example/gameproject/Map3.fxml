@@ -14,16 +14,16 @@
 <?import javafx.scene.shape.QuadCurve?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="682.0" prefWidth="785.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gameproject.Map1Controller">
+<AnchorPane fx:id="pane" prefHeight="670.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gameproject.Map3Controller">
     <children>
-        <ImageView fitHeight="733.0" fitWidth="801.0" layoutX="1.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="737.0" fitWidth="825.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../../Maps/m2.jpg" />
+                <Image url="@../../../Maps/m5.jpg" />
             </image>
         </ImageView>
-        <AnchorPane layoutX="9.0" layoutY="7.0" prefHeight="69.0" prefWidth="383.0" style="-fx-background-color: #5e863c;">
+        <AnchorPane layoutX="16.0" layoutY="7.0" prefHeight="69.0" prefWidth="375.0" style="-fx-background-color: #7b6524;">
             <children>
-                <Label fx:id="coinsLB" layoutX="286.0" layoutY="6.0" prefHeight="57.0" prefWidth="96.0" text="Label" textFill="#e9b636f2">
+                <Label fx:id="coinsLB" layoutX="257.0" layoutY="6.0" prefHeight="57.0" prefWidth="118.0" text="Label" textFill="#e9b636f2">
                     <font>
                         <Font name="Forte" size="30.0" />
                     </font>
@@ -33,53 +33,53 @@
                         <Image url="@../../../Photos/heart(1).png" />
                     </image>
                 </ImageView>
-                <ImageView fitHeight="64.0" fitWidth="73.0" layoutX="197.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="64.0" fitWidth="73.0" layoutX="182.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../../Photos/coins.png" />
                     </image>
                 </ImageView>
-                <Label fx:id="heartLB" layoutX="64.0" layoutY="4.0" prefHeight="64.0" prefWidth="122.0">
+                <Label fx:id="heartLB" layoutX="64.0" layoutY="4.0" prefHeight="64.0" prefWidth="118.0">
                     <font>
                         <Font name="System Bold" size="30.0" />
                     </font>
                 </Label>
             </children>
         </AnchorPane>
-        <AnchorPane layoutX="14.0" layoutY="87.0" prefHeight="64.0" prefWidth="178.0" style="-fx-background-color: #5e863c;">
+        <AnchorPane layoutX="34.0" layoutY="84.0" prefHeight="64.0" prefWidth="178.0" style="-fx-background-color: #7b6524;">
             <children>
                 <ImageView fitHeight="57.0" fitWidth="68.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../../Photos/skull.png" />
                     </image>
                 </ImageView>
-                <Label fx:id="waveLB" layoutX="68.0" layoutY="4.0" prefHeight="57.0" prefWidth="177.0" text="Wave" textFill="WHITE">
+                <Label fx:id="waveLB" layoutX="63.0" layoutY="4.0" prefHeight="57.0" prefWidth="177.0" text="Wave" textFill="WHITE">
                     <font>
                         <Font name="Forte" size="30.0" />
                     </font>
                 </Label>
             </children>
         </AnchorPane>
-        <ImageView fx:id="towerPoint2" fitHeight="83.0" fitWidth="139.0" layoutX="406.0" layoutY="462.0" onMouseClicked="#showTowers" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="towerPoint4" fitHeight="89.0" fitWidth="134.0" layoutX="595.0" layoutY="281.0" onMouseClicked="#showTowers" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../../../Towers/Pointer.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="towerPoint1" fitHeight="76.0" fitWidth="128.0" layoutX="321.0" layoutY="218.0" onMouseClicked="#showTowers" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="towerPoint1" fitHeight="89.0" fitWidth="134.0" layoutX="529.0" layoutY="416.0" onMouseClicked="#showTowers" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../../../Towers/Pointer.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="towerPoint3" fitHeight="83.0" fitWidth="141.0" layoutX="313.0" layoutY="324.0" onMouseClicked="#showTowers" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="towerPoint5" fitHeight="89.0" fitWidth="134.0" layoutX="373.0" layoutY="502.0" onMouseClicked="#showTowers" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../../../Towers/Pointer.png" />
             </image>
         </ImageView>
-        <Button fx:id="startBT" layoutX="668.0" layoutY="13.0" mnemonicParsing="false" onMouseClicked="#startAttack" prefHeight="57.0" prefWidth="107.0" style="-fx-background-color: #418228;" text="Start">
+        <Button fx:id="startBT" layoutX="687.0" layoutY="7.0" mnemonicParsing="false" onMouseClicked="#startAttack" prefHeight="57.0" prefWidth="107.0" style="-fx-background-color: #7b6524;" text="Start" textFill="#ffc802">
             <font>
                 <Font name="Forte" size="30.0" />
             </font>
         </Button>
-        <GridPane fx:id="towersBox" layoutX="400.0" layoutY="515.0" prefHeight="178.0" prefWidth="393.0" style="-fx-background-color: b8bc39; -fx-border-color: black;" styleClass="s" visible="false">
+        <GridPane fx:id="towersBox" layoutX="400.0" layoutY="524.0" prefHeight="194.0" prefWidth="393.0" style="-fx-background-color: #7b6524; -fx-border-color: black;" styleClass="s" visible="false">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.3333740234375" minWidth="10.0" prefWidth="95.66665903727214" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.3333740234375" minWidth="10.0" prefWidth="93.33337402343749" />
@@ -88,31 +88,35 @@
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
                 <RowConstraints maxHeight="100.66666666666667" minHeight="10.0" prefHeight="71.33331298828125" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="105.33336385091147" minHeight="10.0" prefHeight="81.66664632161459" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <ImageView fitHeight="94.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                <ImageView fitHeight="93.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5">
                     <image>
                         <Image url="@../../../Towers/1ArcherTower.png" />
                     </image>
                 </ImageView>
-                <ImageView fitHeight="91.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                <ImageView fitHeight="91.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="5">
                     <image>
                         <Image url="@../../../Towers/1Artillery.png" />
                     </image>
                 </ImageView>
-                <ImageView fitHeight="94.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+                <ImageView fitHeight="88.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="6">
                     <image>
                         <Image url="@../../../Towers/1WizardTower.png" />
                     </image>
                 </ImageView>
-                <ImageView fitHeight="107.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                <ImageView fitHeight="107.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="6">
                     <image>
                         <Image url="@../../../Towers/1ArmyPlace.png" />
                     </image>
                 </ImageView>
-                <VBox alignment="CENTER" prefHeight="67.0" prefWidth="96.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <VBox alignment="CENTER" prefHeight="67.0" prefWidth="96.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                     <children>
                         <HBox alignment="CENTER" prefHeight="33.0" prefWidth="89.0">
                             <children>
@@ -138,7 +142,7 @@
                         <Insets />
                     </opaqueInsets>
                 </VBox>
-                <VBox alignment="CENTER" prefHeight="67.0" prefWidth="96.0" spacing="5.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                <VBox alignment="CENTER" prefHeight="67.0" prefWidth="96.0" spacing="5.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
                     <children>
                         <HBox alignment="CENTER" prefHeight="33.0" prefWidth="89.0">
                             <children>
@@ -154,7 +158,7 @@
                                 </Label>
                             </children>
                         </HBox>
-                        <Button fx:id="t2" lineSpacing="10.0" mnemonicParsing="false" onMouseClicked="#buildTower" prefHeight="13.0" prefWidth="79.0" style="-fx-background-color: e9b636; -fx-border-color: black;" styleClass="se" text="Build">
+                        <Button fx:id="t2" lineSpacing="10.0" mnemonicParsing="false" onMouseClicked="#buildTower" prefHeight="39.0" prefWidth="73.0" style="-fx-background-color: e9b636; -fx-border-color: black;" styleClass="se" text="Build">
                             <font>
                                 <Font name="System Bold" size="17.0" />
                             </font>
@@ -164,7 +168,7 @@
                         <Insets />
                     </opaqueInsets>
                 </VBox>
-                <VBox alignment="CENTER" layoutX="305.0" layoutY="11.0" prefHeight="67.0" prefWidth="96.0" spacing="5.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                <VBox alignment="CENTER" layoutX="305.0" layoutY="11.0" prefHeight="67.0" prefWidth="96.0" spacing="5.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
                     <children>
                         <HBox alignment="CENTER" prefHeight="33.0" prefWidth="89.0">
                             <children>
@@ -190,7 +194,7 @@
                         <Insets />
                     </opaqueInsets>
                 </VBox>
-                <VBox alignment="CENTER" layoutX="11.0" layoutY="11.0" prefHeight="67.0" prefWidth="96.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <VBox alignment="CENTER" layoutX="11.0" layoutY="11.0" prefHeight="67.0" prefWidth="96.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                     <children>
                         <HBox alignment="CENTER" prefHeight="33.0" prefWidth="89.0">
                             <children>
@@ -216,14 +220,14 @@
                         <Insets />
                     </opaqueInsets>
                 </VBox>
-                <ImageView fitHeight="19.0" fitWidth="24.0" onMouseClicked="#closeTowersBox" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="19.0" fitWidth="24.0" onMouseClicked="#closeTowersBox" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
                     <image>
                         <Image url="@../../../Photos/delete.png" />
                     </image>
                 </ImageView>
             </children>
         </GridPane>
-        <GridPane fx:id="UpgradeBox" alignment="CENTER" layoutX="490.0" layoutY="550.0" prefHeight="143.0" prefWidth="297.0" style="-fx-background-color: b8bc39; -fx-border-color: black;" styleClass="s" visible="false">
+        <GridPane fx:id="UpgradeBox" alignment="CENTER" layoutX="435.0" layoutY="590.0" prefHeight="131.0" prefWidth="297.0" style="-fx-background-color: #7b6524; -fx-border-color: black;" styleClass="s" visible="false">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.3333740234375" minWidth="10.0" prefWidth="88.33333333333333" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.66668701171875" minWidth="10.0" prefWidth="95.66666666666669" />
@@ -258,8 +262,8 @@
                                 <Image url="@../../../Photos/hammer.png" />
                             </image>
                         </ImageView>
-                        <ImageView fx:id="upgradedTower" fitHeight="73.0" fitWidth="79.0" layoutX="7.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fitHeight="19.0" fitWidth="24.0" layoutX="-2.0" layoutY="-3.0" onMouseClicked="#closeUpgradeBox" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="upgradedTower" fitHeight="69.0" fitWidth="79.0" layoutX="7.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="-1.0" layoutY="5.0" onMouseClicked="#closeUpgradeBox" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../../Photos/delete.png" />
                             </image>
@@ -313,7 +317,7 @@
                 </VBox>
             </children>
         </GridPane>
-        <AnchorPane fx:id="spellsBox" layoutX="7.0" layoutY="596.0" prefHeight="100.0" prefWidth="344.0" style="-fx-border-color: black; -fx-background-color: #a1ae29;">
+        <AnchorPane fx:id="spellsBox" layoutX="6.0" layoutY="619.0" prefHeight="100.0" prefWidth="344.0" style="-fx-border-color: black; -fx-background-color: #3f3200;">
             <children>
                 <ImageView fitHeight="69.0" fitWidth="71.0" layoutX="85.0" layoutY="10.0" onMouseClicked="#dropCoins" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -335,47 +339,58 @@
                         <Image url="@../../../Shop/snowflake.png" />
                     </image>
                 </ImageView>
-                <Label fx:id="littleBoyCountLB" layoutX="67.0" layoutY="67.0" prefHeight="28.0" prefWidth="13.0" text="0">
+                <Label fx:id="littleBoyCountLB" layoutX="64.0" layoutY="67.0" prefHeight="28.0" prefWidth="13.0" text="0" textFill="WHITE">
                     <font>
                         <Font name="Forte" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="freezeCountLB" layoutX="312.0" layoutY="67.0" prefHeight="28.0" prefWidth="30.0" text="0">
+                <Label fx:id="freezeCountLB" layoutX="312.0" layoutY="67.0" prefHeight="28.0" prefWidth="30.0" text="0" textFill="WHITE">
                     <font>
                         <Font name="Forte" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="coinsCountLB" layoutX="147.0" layoutY="68.0" text="0">
+                <Label fx:id="coinsCountLB" layoutX="147.0" layoutY="68.0" text="0" textFill="WHITE">
                     <font>
                         <Font name="Forte" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="heartCountLB" layoutX="233.0" layoutY="67.0" text="0">
+                <Label fx:id="heartCountLB" layoutX="233.0" layoutY="67.0" text="0" textFill="WHITE">
                     <font>
                         <Font name="Forte" size="25.0" />
                     </font>
                 </Label>
             </children>
         </AnchorPane>
-        <ImageView fx:id="damagePoint1" fitHeight="19.0" fitWidth="23.0" layoutX="315.0" layoutY="513.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="damagePoint2" fitHeight="19.0" fitWidth="23.0" layoutX="259.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="damagePoint3" fitHeight="19.0" fitWidth="23.0" layoutX="453.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="damagePoint4" fitHeight="19.0" fitWidth="23.0" layoutX="501.0" layoutY="397.0" pickOnBounds="true" preserveRatio="true" />
-        <Button fx:id="startBT1" layoutX="668.0" layoutY="79.0" mnemonicParsing="false" onMouseClicked="#quitMap" prefHeight="57.0" prefWidth="107.0" style="-fx-background-color: #418228;" text="Quit">
+        <ImageView fx:id="towerPoint2" fitHeight="89.0" fitWidth="134.0" layoutX="338.0" layoutY="346.0" onMouseClicked="#showTowers" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../Towers/Pointer.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="towerPoint3" fitHeight="89.0" fitWidth="134.0" layoutX="418.0" layoutY="156.0" onMouseClicked="#showTowers" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../Towers/Pointer.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="towerPoint6" fitHeight="89.0" fitWidth="134.0" layoutX="260.0" layoutY="196.0" onMouseClicked="#showTowers" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../Towers/Pointer.png" />
+            </image>
+        </ImageView>
+        <Button fx:id="startBT2" layoutX="687.0" layoutY="71.0" mnemonicParsing="false" onMouseClicked="#quitMap" prefHeight="57.0" prefWidth="107.0" style="-fx-background-color: #7b6524;" text="Quit" textFill="#ffc802">
             <font>
                 <Font name="Forte" size="30.0" />
             </font>
         </Button>
-      <ImageView fx:id="towerPoint4" fitHeight="83.0" fitWidth="139.0" layoutX="537.0" layoutY="327.0" onMouseClicked="#showTowers" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../Towers/Pointer.png" />
-         </image>
-      </ImageView>
-      <QuadCurve fx:id="ps1" controlX="-86.33331298828125" controlY="75.66668701171875" endX="29.0" endY="119.0" fill="DODGERBLUE" layoutX="653.0" layoutY="487.0" startX="-129.66668701171875" startY="212.1297607421875" stroke="BLACK" strokeType="INSIDE" visible="false" />
-      <QuadCurve fx:id="ps2" controlX="187.0" controlY="143.99996948242188" endX="17.0" endY="104.66665649414062" fill="DODGERBLUE" layoutX="653.0" layoutY="344.0" startX="29.0" startY="262.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-      <QuadCurve fx:id="ps3" controlX="-46.33331298828125" controlY="275.66668701171875" endX="-54.33331298828125" endY="47.666656494140625" fill="DODGERBLUE" layoutX="515.0" layoutY="237.0" startX="155.0" startY="212.99996948242188" stroke="BLACK" strokeType="INSIDE" visible="false" />
-      <QuadCurve fx:id="ps4" controlX="-122.66668701171875" controlY="60.66667175292969" endX="-247.33331298828125" endY="118.00001525878906" fill="DODGERBLUE" layoutX="574.0" layoutY="80.0" startX="-112.66668701171875" startY="204.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-      <QuadCurve fx:id="ps5" controlX="-222.0" controlY="205.33331298828125" endX="-67.33331298828125" endY="415.3333435058594" fill="DODGERBLUE" layoutX="412.0" layoutY="80.0" startX="-88.0" startY="118.66667175292969" stroke="BLACK" strokeType="INSIDE" visible="false" />
-      <QuadCurve fx:id="ps6" controlX="135.66668701171875" controlY="296.0" endX="-250.0" endY="259.3333740234375" fill="DODGERBLUE" layoutX="251.0" layoutY="294.0" startX="95.0" startY="204.66665649414062" stroke="BLACK" strokeType="INSIDE" visible="false" />
+      <ImageView fx:id="damagePoint1" fitHeight="39.0" fitWidth="45.0" layoutX="263.0" layoutY="514.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="damagePoint2" fitHeight="33.0" fitWidth="45.0" layoutX="218.0" layoutY="338.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="damagePoint3" fitHeight="31.0" fitWidth="38.0" layoutX="444.0" layoutY="299.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="damagePoint4" fitHeight="39.0" fitWidth="45.0" layoutX="561.0" layoutY="522.0" pickOnBounds="true" preserveRatio="true" />
+      <QuadCurve fx:id="ps1" controlX="-102.33331298828125" controlY="-61.000003814697266" endX="33.0" endY="18.333328247070312" fill="DODGERBLUE" layoutX="545.0" layoutY="125.0" startX="-81.66668701171875" startY="-125.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+      <QuadCurve fx:id="ps2" controlX="-21.6666259765625" controlY="-38.99998474121094" endX="-156.33331298828125" endY="38.33331298828125" fill="DODGERBLUE" layoutX="681.0" layoutY="273.0" startX="-105.66668701171875" startY="-133.66665649414062" stroke="BLACK" strokeType="INSIDE" visible="false" />
+      <QuadCurve fx:id="ps4" controlX="-113.0" controlY="44.999969482421875" endX="-214.0" endY="38.333282470703125" fill="DODGERBLUE" layoutX="215.0" layoutY="375.0" startX="-58.33331298828125" startY="38.333282470703125" stroke="BLACK" strokeType="INSIDE" visible="false" />
+      <QuadCurve fx:id="ps3" controlX="-257.0" controlY="-57.66668701171875" endX="-376.33331298828125" endY="64.33334350585938" fill="DODGERBLUE" layoutX="535.0" layoutY="347.0" startX="-10.33331298828125" startY="-36.333343505859375" stroke="BLACK" strokeType="INSIDE" visible="false" />
+      <QuadCurve fx:id="ps6" controlX="-194.33331298828125" controlY="-223.66668701171875" endX="-331.0" endY="-77.5" fill="DODGERBLUE" layoutX="639.0" layoutY="611.0" startX="-62.33331298828125" startY="-57.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+      <QuadCurve fx:id="ps5" controlX="-47.6666259765625" controlY="47.66668701171875" endX="-232.33331298828125" endY="11.66668701171875" fill="DODGERBLUE" layoutX="805.0" layoutY="543.0" startX="21.0" startY="-52.333343505859375" stroke="BLACK" strokeType="INSIDE" visible="false" />
+      <QuadCurve fx:id="ps7" controlX="-129.66668701171875" controlY="7.0" endX="-150.33331298828125" endY="-135.00003051757812" fill="DODGERBLUE" layoutX="311.0" layoutY="549.0" startX="-3.66668701171875" startY="-15.6666259765625" stroke="BLACK" strokeType="INSIDE" visible="false" />
     </children>
 </AnchorPane>

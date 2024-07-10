@@ -60,15 +60,16 @@ public class HomePageController implements Initializable {
         ImageView clickedImageView = (ImageView) event.getSource();
         switch (clickedImageView.getId()) {
             case "map1":
-                PageController.setstage(event, "map1.fxml");
+                PageController.setstage(event, "Map1.fxml");
                 break;
             case "map2":
-                PageController.setstage(event, "map2.fxml");
+                PageController.setstage(event, "Map2.fxml");
                 break;
             case "map3":
-
+                PageController.setstage(event, "Map3.fxml");
+                break;
             case "map4":
-                PageController.setstage(event, "map4.fxml");
+                PageController.setstage(event, "Map4.fxml");
                 break;
 
         }

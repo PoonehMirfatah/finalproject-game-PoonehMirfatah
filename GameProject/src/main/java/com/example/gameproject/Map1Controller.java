@@ -29,7 +29,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.example.gameproject.SettingPageController.*;
 
@@ -64,6 +63,8 @@ public class Map1Controller implements Initializable {
 
     @FXML
     private QuadCurve ps5;
+    @FXML
+    private QuadCurve ps6;
 
     @FXML
     private Button startBT;
@@ -91,6 +92,9 @@ public class Map1Controller implements Initializable {
 
     @FXML
     private ImageView towerPoint3;
+
+    @FXML
+    private ImageView towerPoint4;
 
     @FXML
     private GridPane towersBox;
@@ -138,7 +142,7 @@ public class Map1Controller implements Initializable {
         try{
             SettingPageController.player.stop();
             SettingPageController.setSound("Music/gamemusic.wav");
-       } catch (URISyntaxException e) {
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
         Map map1;
@@ -153,18 +157,21 @@ public class Map1Controller implements Initializable {
         Position p1 = new Position(towerPoint1.getX(), towerPoint1.getY());
         Position p2 = new Position(towerPoint2.getX(), towerPoint2.getY());
         Position p3 = new Position(towerPoint3.getX(), towerPoint3.getY());
-        Position end = new Position(409, 634);
+        Position p4 = new Position(towerPoint4.getX(), towerPoint4.getY());
+
+        Position end = new Position(0, 549);
         towersPosition.add(p1);
         towersPosition.add(p2);
         towersPosition.add(p3);
+        towersPosition.add(p4);
 
         ArrayList<Wave> attackWaves = new ArrayList<>();
-        WizardRaider shieldRaider1 = new WizardRaider();
-        WizardRaider shieldRaider2 = new WizardRaider();
-        WizardRaider shieldRaider3 = new WizardRaider();
+        ShieldRaider shieldRaider1 = new ShieldRaider();
+        ShieldRaider shieldRaider2 = new ShieldRaider();
+        ShieldRaider shieldRaider3 = new ShieldRaider();
         ShieldRaider shieldRaider4 = new ShieldRaider();
         ShieldRaider shieldRaider5 = new ShieldRaider();
-        Wave wave1 = new Wave(shieldRaider1, 6);
+        Wave wave1 = new Wave(shieldRaider1, 3);
         Wave wave2 = new Wave(shieldRaider2, 6);
         Wave wave3 = new Wave(shieldRaider3, 8);
         Wave wave4 = new Wave(shieldRaider4, 10);
@@ -187,8 +194,6 @@ public class Map1Controller implements Initializable {
         map1.getDamagePoints().add(DP2);
         map1.getDamagePoints().add(DP3);
         map1.getDamagePoints().add(DP4);
-
-
 
         PlayerController.getPlayer().setCoins(500);
         PlayerController.getPlayer().setHealth(20);
@@ -287,6 +292,9 @@ public class Map1Controller implements Initializable {
             case "towerPoint3":
                 point = towerPoint3;
                 break;
+            case "towerPoint4":
+                point = towerPoint4;
+                break;
         }
         towersBox.setVisible(true);
     }
@@ -348,6 +356,13 @@ public class Map1Controller implements Initializable {
             towersBox.setVisible(false);
             UpgradeBox.setVisible(true);
             newPath=MapController.getInstance().getUpdateTowerPath(towerPath);
+            if(newPath.equals(towerPath)){
+                upgradBT.setVisible(false);
+                upgradedTower.setVisible(false);
+            }else{
+                upgradBT.setVisible(true);
+                upgradedTower.setVisible(true);
+            }
             Tower newTower = MapController.getInstance().getTower(newPath);
             upgradedCostLB.setText(String.valueOf(newTower.getBulidCost()));
             Tower lastTower = MapController.getInstance().getTower(towerPath);
@@ -472,19 +487,6 @@ public class Map1Controller implements Initializable {
         attackTimeline.setCycleCount(Timeline.INDEFINITE);
         attackTimeline.play();
     }
-    public void checkHealthTimeLine(Raider currentRaider, VBox vBox, PathTransition pathTransition, int health){
-        Timeline attackTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            if(isFinished){
-                return;
-            }
-                if (health < 0) {
-                    removeRaider(currentRaider, vBox, pathTransition);
-                }
-        }));
-        attackTimeline.setCycleCount(Timeline.INDEFINITE);
-        attackTimeline.play();
-    }
-
 
     public void removeRaider(Raider currentRaider,VBox vBox,PathTransition pathTransition) {
         pane.getChildren().remove(vBox);
@@ -495,11 +497,7 @@ public class Map1Controller implements Initializable {
         if (MapController.getMap().getPathTransitions().isEmpty()) {
             startNextAttack();
         }
-//        try {
-//            setSound("Music/getCoins.mp3");
-//        } catch (URISyntaxException e) {
-//            throw new RuntimeException(e);
-//        }
+
         PlayerController.getPlayer().setCoins(currentRaider.getLoot() + PlayerController.getPlayer().getCoins());
         coinsLB.setText(String.valueOf(PlayerController.getPlayer().getCoins()));
     }
@@ -528,10 +526,22 @@ public class Map1Controller implements Initializable {
         double xEnd4 = ps4.getEndX() + ps4.getLayoutX();
         double yEnd4 = ps4.getEndY() + ps4.getLayoutY();
 
+        double xControl5 = ps5.getControlX() + ps5.getLayoutX();
+        double yControl5 = ps5.getControlY() + ps5.getLayoutY();
+        double xEnd5 = ps5.getEndX() + ps5.getLayoutX();
+        double yEnd5 = ps5.getEndY() + ps5.getLayoutY();
+
+        double xControl6 = ps6.getControlX() + ps6.getLayoutX();
+        double yControl6 = ps6.getControlY() + ps6.getLayoutY();
+        double xEnd6 = ps6.getEndX() + ps6.getLayoutX();
+        double yEnd6 = ps6.getEndY() + ps6.getLayoutY();
+
         path.getElements().add(new QuadCurveTo(xControl1, yControl1, xEnd1, yEnd1));
         path.getElements().add(new QuadCurveTo(xControl2, yControl2, xEnd2, yEnd2));
         path.getElements().add(new QuadCurveTo(xControl3, yControl3, xEnd3, yEnd3));
         path.getElements().add(new QuadCurveTo(xControl4, yControl4, xEnd4, yEnd4));
+        path.getElements().add(new QuadCurveTo(xControl5, yControl5, xEnd5, yEnd5));
+        path.getElements().add(new QuadCurveTo(xControl6, yControl6, xEnd6, yEnd6));
 
     }
 
