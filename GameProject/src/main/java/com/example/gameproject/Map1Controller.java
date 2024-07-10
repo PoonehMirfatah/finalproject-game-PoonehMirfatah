@@ -11,7 +11,6 @@ import Models.Wave;
 import Controllers.SQL.SQLController;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -25,18 +24,17 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
-import Controllers.PlayerController;
 
-import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-import static com.example.gameproject.SettingPageController.setSound;
-import static com.example.gameproject.SettingPageController.setSound;
+import static com.example.gameproject.SettingPageController.*;
 
 public class Map1Controller implements Initializable {
+
     @FXML
     private GridPane UpgradeBox;
 
@@ -133,15 +131,14 @@ public class Map1Controller implements Initializable {
     Path path = new Path();
     private boolean firstAttack = true;
     int waveIndex;
-    ArrayList<VBox> vboxesList=new ArrayList<>();
-
+    boolean isFinished=false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try{
             SettingPageController.player.stop();
-            setSound("Music/gamemusic.wav");
-        } catch (URISyntaxException e) {
+            SettingPageController.setSound("Music/gamemusic.wav");
+       } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
         Map map1;
@@ -375,12 +372,16 @@ public class Map1Controller implements Initializable {
             waveLB.setText(String.format("Wave %s/5", MapController.getMap().getWaveCounter()));
         }else {
             startBT.setVisible(false);
+            return;
         }
         waveIndex = MapController.getMap().getWaveCounter() - 1;
         Wave currentWave = MapController.getMap().getAttackWave().get(waveIndex);
 
         int i = 0;
         for (i = 0; i < currentWave.getRaiderCount(); i++) {
+            if(isFinished){
+                return;
+            }
             int delay = i * 1000;
             VBox vBox=MapController.getInstance().addRaiderVbox(currentWave,i);
 
@@ -426,12 +427,15 @@ public class Map1Controller implements Initializable {
             }
         }
         MapController.getMap().getPathTransitions().remove(pathTransition);
-        if (MapController.getMap().getPathTransitions().isEmpty()) {
+        if (MapController.getMap().getPathTransitions().isEmpty() && PlayerController.getPlayer().getHealth()>0) {
             startNextAttack();
         }
     }
     public void attackTimeLine(Raider currentRaider, VBox vBox, PathTransition pathTransition, int health) {
         Timeline attackTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            if(isFinished){
+                return;
+            }
             currentRaider.setHealth(health);
             for (ImageView point : MapController.getMap().getTowersList().keySet()) {
                 Tower tower = MapController.getMap().getTowersList().get(point);
@@ -439,12 +443,34 @@ public class Map1Controller implements Initializable {
                 if (distance <= tower.getRange() && !MapController.getMap().getActiveTowers().contains(point)) {
                     if (tower instanceof ArcherTower && (!(currentRaider instanceof WizardRaider))) {
                         MapController.getInstance().archerTowerAttack(tower,currentRaider,point, vBox,pane);
+                        try {
+                            SettingPageController.setSound("Music/archer.mp3");
+                        } catch (URISyntaxException e) {
+                            throw new RuntimeException(e);
+                        }
                     } else if (tower instanceof Artillery && (!(currentRaider instanceof FlyerRaider))) {
                         MapController.getInstance().artilleryTowerAttack(tower,currentRaider,point, vBox,pane);
+                        try {
+                            SettingPageController.setSound("Music/artillery.mp3");
+                        } catch (URISyntaxException e) {
+                            throw new RuntimeException(e);
+                        }
                     } else if (tower instanceof WizardTower) {
                         MapController.getInstance().wizardTowerAttack(tower,currentRaider,point, vBox,pane);
+                        try {
+                            SettingPageController.setSound("Music/wizard1.mp3");
+                        } catch (URISyntaxException e) {
+                            throw new RuntimeException(e);
+                        }
+
                     }else if (tower instanceof AirTower && (currentRaider instanceof FlyerRaider)) {
                         MapController.getInstance().airTowerAttack(tower,currentRaider,point,vBox,pane);
+                        try {
+                            SettingPageController. setSound("Music/flyattack.mp3");
+                        } catch (URISyntaxException e) {
+                            throw new RuntimeException(e);
+                        }
+
                     }
                     if (currentRaider.getHealth() <= 0) {
                         removeRaider(currentRaider,vBox,pathTransition);
@@ -563,6 +589,9 @@ public class Map1Controller implements Initializable {
 
     public void quitMap(MouseEvent event) throws Exception {
         PlayerController.getInstance().updateSpells();
+        SettingPageController.player.stop();
+        SettingPageController.setSound("Music/gamemusic.mp3");
+        isFinished=true;
         PageController.setstage(event,"HomePage.fxml");
     }
 
@@ -575,4 +604,5 @@ public class Map1Controller implements Initializable {
         UpgradeBox.setVisible(false);
         spellsBox.setVisible(true);
     }
+
 }

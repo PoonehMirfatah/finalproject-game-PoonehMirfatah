@@ -40,10 +40,10 @@ public class FirstPageController  implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            setSound("Music/gamemusic.mp3");
+            SettingPageController.setSound("Music/gamemusic.mp3");
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
-        player.setCycleCount(MediaPlayer.INDEFINITE);
+        //player.setCycleCount(MediaPlayer.INDEFINITE);
     }
 }

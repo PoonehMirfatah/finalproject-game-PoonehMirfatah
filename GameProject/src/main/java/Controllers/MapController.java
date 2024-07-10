@@ -23,6 +23,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -34,11 +36,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.example.gameproject.SettingPageController.setSound;
+import static com.example.gameproject.SettingPageController.*;
 import static com.example.gameproject.SettingPageController.setSound;
 
 public class MapController {
     public static Map map;
+    public static MediaPlayer player;
     private static MapController instance;
 
     private MapController() {
@@ -236,15 +239,22 @@ public class MapController {
             map.setWaveCounter(map.getWaveCounter() + 1);
             return true;
         } else {
-            setSound("Music/win2.wav");
-            PageController.showAlert("Finished", "YOU WON!", " ", Alert.AlertType.INFORMATION);
+            SettingPageController.player.stop();
+            SettingPageController.setSound("Music/win.wav");
+            Alert alert=PageController.showAlert2("Finished", "YOU WON!", " ", Alert.AlertType.INFORMATION);
             PlayerController.getPlayer().setDiamonds(PlayerController.getPlayer().getDiamonds()+100);
             PlayerController.getInstance().updateSpells();
             SQLController.updatePlayer(PlayerController.getPlayer().getID());
             try {
-                Main.setRoot(PageController.stage,"HomePage.fxml",722,622);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                alert.setOnHidden((event)->{
+                    try {
+                        Main.setRoot(PageController.stage,"HomePage.fxml",722,622);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+            } catch (Exception e){
+                System.out.println(e.getMessage());
             }
            return false;
         }
@@ -252,13 +262,19 @@ public class MapController {
 
     public void checkLost() throws Exception {
         SettingPageController.player.stop();
-        setSound("Music/gameOver.wav");
-        PageController.showAlert("Finished", "GAME OVER", " ", Alert.AlertType.INFORMATION);
+        SettingPageController.setSound("Music/win.wav");
+        Alert alert=PageController.showAlert2("Finished", "GAME OVER", " ", Alert.AlertType.INFORMATION);
         PlayerController.getInstance().updateSpells();
         try {
-            Main.setRoot(PageController.stage,"HomePage.fxml",722,622);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
+            alert.setOnHidden((event -> {
+                try {
+                    Main.setRoot(PageController.stage,"HomePage.fxml",722,622);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }));
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
     }
     public void wizardTowerAttack(Tower tower,Raider currentRaider,ImageView point, VBox target,Pane pane)  {
@@ -290,11 +306,6 @@ public class MapController {
         pathTransition.setPath(path1);
         pathTransition.setNode(ray);
         pathTransition.setAutoReverse(false);
-        try {
-            setSound("Music/wizard1.mp3");
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
         pathTransition.play();
 
         pathTransition.setOnFinished(event -> {
@@ -328,11 +339,7 @@ public class MapController {
         pathTransition.setPath(path1);
         pathTransition.setNode(ray);
         pathTransition.setAutoReverse(false);
-        try {
-            setSound("Music/flyattack.mp3");
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+
         pathTransition.play();
 
         pathTransition.setOnFinished(event -> {
@@ -372,11 +379,6 @@ public class MapController {
         pathTransition.setPath(path1);
         pathTransition.setNode(ray);
         pathTransition.setAutoReverse(false);
-        try {
-            setSound("Music/artillery.mp3");
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
         pathTransition.play();
 
         pathTransition.setOnFinished(event -> {
@@ -415,11 +417,7 @@ public class MapController {
         pathTransition.setPath(path1);
         pathTransition.setNode(arrow);
         pathTransition.setAutoReverse(false);
-        try {
-            setSound("Music/archer.mp3");
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+
         pathTransition.play();
 
         pathTransition.setOnFinished(event -> {
@@ -452,6 +450,12 @@ public class MapController {
         }
     }
 
+//    public static void setSound(String soundName) throws URISyntaxException {
+//        String fileName = Main.class.getResource(soundName).toURI().toString();
+//        Media media = new Media(fileName);
+//        player= new MediaPlayer(media);
+//        player.play();
+//    }
 
     //-------------------------------------------------------------
 }

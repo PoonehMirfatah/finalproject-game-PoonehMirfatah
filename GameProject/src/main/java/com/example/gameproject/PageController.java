@@ -31,5 +31,13 @@ public class PageController {
         alert.setContentText(message);
         alert.show();
     }
+    public static Alert showAlert2(String title, String headerText,String message, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(message);
+        alert.show();
+        return alert;
+    }
 }
 

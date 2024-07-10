@@ -496,7 +496,7 @@ public class Map4Controller implements Initializable {
                 }
             }
             MapController.getMap().getPathTransitions().remove(pathTransition);
-            if (MapController.getMap().getPathTransitions().isEmpty()) {
+            if (MapController.getMap().getPathTransitions().isEmpty()&&PlayerController.getPlayer().getHealth()>0) {
                 startNextAttack();
             }
         }

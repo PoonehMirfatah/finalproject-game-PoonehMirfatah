@@ -22,7 +22,7 @@ import javafx.scene.media.MediaPlayer;
 public class SettingPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(running){
+        if(!player.isMute()){
             soundOffImage.setVisible(true);
             soundOnImage.setVisible(false);
         }else {
@@ -42,8 +42,7 @@ public class SettingPageController implements Initializable {
     @FXML
     private TextField userNameTF;
     public static MediaPlayer player;
-    Media media;
-    static Boolean running=true;
+
 
     @FXML
     void backToHome(MouseEvent event) throws IOException {
@@ -54,16 +53,16 @@ public class SettingPageController implements Initializable {
     void muteMusic(MouseEvent event) {
         soundOffImage.setVisible(false);
         soundOnImage.setVisible(true);
+        player.setMute(true);
         player.stop();
-        running=true;
     }
 
     @FXML
     void playSound(MouseEvent event) {
         soundOffImage.setVisible(true);
         soundOnImage.setVisible(false);
+        player.setMute(false);
         player.play();
-        running=true;
     }
 
     @FXML
@@ -78,6 +77,11 @@ public class SettingPageController implements Initializable {
     }
 
     public static void setSound(String soundName) throws URISyntaxException {
+        if(player!=null) {
+            if (player.isMute()) {
+                return;
+            }
+        }
         String fileName = Main.class.getResource(soundName).toURI().toString();
         Media media = new Media(fileName);
         player= new MediaPlayer(media);

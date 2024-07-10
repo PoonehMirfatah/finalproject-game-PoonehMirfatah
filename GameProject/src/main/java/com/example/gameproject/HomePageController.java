@@ -1,5 +1,6 @@
 package com.example.gameproject;
 
+import Controllers.MapController;
 import Controllers.PlayerController;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -12,8 +13,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static com.example.gameproject.SettingPageController.setSound;
 
 public class HomePageController implements Initializable {
     @FXML
@@ -21,9 +25,16 @@ public class HomePageController implements Initializable {
 
     @FXML
     private Label starLB;
-    Event event;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+//        SettingPageController.player.stop();
+//        try {
+//            SettingPageController.setSound("Music/gamemusic.mp3");
+//        } catch (URISyntaxException e) {
+//            throw new RuntimeException(e);
+//        }
+
         String diamonds=String.valueOf(PlayerController.getPlayer().getDiamonds());
         diamondLB.setText(diamonds);
         String level=String.valueOf(PlayerController.getPlayer().getLevel());
