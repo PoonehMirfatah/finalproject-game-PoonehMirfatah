@@ -168,8 +168,8 @@ public class Map1Controller implements Initializable {
         ArrayList<Wave> attackWaves = new ArrayList<>();
         ShieldRaider shieldRaider1 = new ShieldRaider();
         ShieldRaider shieldRaider2 = new ShieldRaider();
-        ShieldRaider shieldRaider3 = new ShieldRaider();
-        ShieldRaider shieldRaider4 = new ShieldRaider();
+        WizardRaider shieldRaider3 = new WizardRaider();
+        WizardRaider shieldRaider4 = new WizardRaider();
         ShieldRaider shieldRaider5 = new ShieldRaider();
         Wave wave1 = new Wave(shieldRaider1, 3);
         Wave wave2 = new Wave(shieldRaider2, 6);
@@ -188,14 +188,14 @@ public class Map1Controller implements Initializable {
         Position DP3 = new Position(damagePoint3.getLayoutX(), damagePoint3.getLayoutY());
         Position DP4 = new Position(damagePoint4.getLayoutX(), damagePoint4.getLayoutY());
 
-        map1 = new Map(towersPosition, path, end, attackWaves, 500, 20);
+        map1 = new Map(towersPosition, path, end, attackWaves, 300, 20);
 
         map1.getDamagePoints().add(DP1);
         map1.getDamagePoints().add(DP2);
         map1.getDamagePoints().add(DP3);
         map1.getDamagePoints().add(DP4);
 
-        PlayerController.getPlayer().setCoins(500);
+        PlayerController.getPlayer().setCoins(300);
         PlayerController.getPlayer().setHealth(20);
         MapController.setMap(map1);
         heartLB.setText(String.format("%s/20", PlayerController.getPlayer().getHealth()));

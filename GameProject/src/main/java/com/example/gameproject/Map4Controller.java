@@ -178,6 +178,7 @@ public class Map4Controller implements Initializable {
             Position p5 = new Position(towerPoint5.getX(), towerPoint5.getY());
             Position p6 = new Position(towerPoint6.getX(), towerPoint6.getY());
             Position p7 = new Position(towerPoint7.getX(), towerPoint7.getY());
+
             Position end = new Position(0, 464);
             towersPosition.add(p1);
             towersPosition.add(p2);
@@ -189,7 +190,7 @@ public class Map4Controller implements Initializable {
 
             ArrayList<Wave> attackWaves = new ArrayList<>();
             SpeedyRaider shieldRaider1 = new SpeedyRaider();
-            ShieldRaider shieldRaider2 = new ShieldRaider();
+            FlyerRaider shieldRaider2 = new FlyerRaider();
             WizardRaider shieldRaider3 = new WizardRaider();
             FlyerRaider shieldRaider4 = new FlyerRaider();
             SpeedyRaider shieldRaider5 = new SpeedyRaider();
@@ -201,8 +202,8 @@ public class Map4Controller implements Initializable {
             WizardRaider shieldRaider11 = new WizardRaider();
             FlyerRaider shieldRaider12 = new FlyerRaider();
             SpeedyRaider shieldRaider13 = new SpeedyRaider();
-            ShieldRaider shieldRaider14 = new ShieldRaider();
-            WizardRaider shieldRaider15 = new WizardRaider();
+            FlyerRaider shieldRaider14 = new FlyerRaider();
+            ShieldRaider shieldRaider15 = new ShieldRaider();
 
             Wave wave1 = new Wave(shieldRaider1, 3);
             Wave wave2 = new Wave(shieldRaider2, 4);
@@ -241,14 +242,14 @@ public class Map4Controller implements Initializable {
             Position DP3 = new Position(damagePoint3.getLayoutX(), damagePoint3.getLayoutY());
             Position DP4 = new Position(damagePoint4.getLayoutX(), damagePoint4.getLayoutY());
 
-            map1 = new Map(towersPosition, path, end, attackWaves, 1000, 20);
+            map1 = new Map(towersPosition, path, end, attackWaves, 500, 20);
 
             map1.getDamagePoints().add(DP1);
             map1.getDamagePoints().add(DP2);
             map1.getDamagePoints().add(DP3);
             map1.getDamagePoints().add(DP4);
 
-            PlayerController.getPlayer().setCoins(1000);
+            PlayerController.getPlayer().setCoins(500);
             PlayerController.getPlayer().setHealth(20);
             MapController.setMap(map1);
             heartLB.setText(String.format("%s/20", PlayerController.getPlayer().getHealth()));

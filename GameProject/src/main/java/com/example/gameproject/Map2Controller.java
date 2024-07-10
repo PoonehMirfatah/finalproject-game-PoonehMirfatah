@@ -158,29 +158,36 @@ public class Map2Controller implements Initializable {
         towersPosition.add(p3);
 
         ArrayList<Wave> attackWaves = new ArrayList<>();
-        WizardRaider shieldRaider1 = new WizardRaider();
+        ShieldRaider shieldRaider1 = new ShieldRaider();
         WizardRaider shieldRaider2 = new WizardRaider();
-        WizardRaider shieldRaider3 = new WizardRaider();
-        ShieldRaider shieldRaider4 = new ShieldRaider();
-        ShieldRaider shieldRaider5 = new ShieldRaider();
-        Wave wave1 = new Wave(shieldRaider1, 6);
+        ShieldRaider shieldRaider3 = new ShieldRaider();
+        SpeedyRaider shieldRaider4 = new SpeedyRaider();
+        WizardRaider shieldRaider5 = new WizardRaider();
+        SpeedyRaider shieldRaider6 = new SpeedyRaider();
+        ShieldRaider shieldRaider7 = new ShieldRaider();
+
+        Wave wave1 = new Wave(shieldRaider1, 3);
         Wave wave2 = new Wave(shieldRaider2, 6);
         Wave wave3 = new Wave(shieldRaider3, 8);
         Wave wave4 = new Wave(shieldRaider4, 10);
-        Wave wave5 = new Wave(shieldRaider5, 13);
+        Wave wave5 = new Wave(shieldRaider5, 10);
+        Wave wave6 = new Wave(shieldRaider4, 10);
+        Wave wave7 = new Wave(shieldRaider5, 13);
 
         attackWaves.add(wave1);
         attackWaves.add(wave2);
         attackWaves.add(wave3);
         attackWaves.add(wave4);
         attackWaves.add(wave5);
+        attackWaves.add(wave6);
+        attackWaves.add(wave7);
 
         Position DP1 = new Position(damagePoint1.getLayoutX(), damagePoint1.getLayoutY());
         Position DP2 = new Position(damagePoint2.getLayoutX(), damagePoint2.getLayoutY());
         Position DP3 = new Position(damagePoint3.getLayoutX(), damagePoint3.getLayoutY());
         Position DP4 = new Position(damagePoint4.getLayoutX(), damagePoint4.getLayoutY());
 
-        map1 = new Map(towersPosition, path, end, attackWaves, 500, 20);
+        map1 = new Map(towersPosition, path, end, attackWaves, 400, 20);
 
         map1.getDamagePoints().add(DP1);
         map1.getDamagePoints().add(DP2);
@@ -188,13 +195,12 @@ public class Map2Controller implements Initializable {
         map1.getDamagePoints().add(DP4);
 
 
-
-        PlayerController.getPlayer().setCoins(500);
+        PlayerController.getPlayer().setCoins(400);
         PlayerController.getPlayer().setHealth(20);
         MapController.setMap(map1);
         heartLB.setText(String.format("%s/20", PlayerController.getPlayer().getHealth()));
         coinsLB.setText(String.valueOf(PlayerController.getPlayer().getCoins()));
-        waveLB.setText(String.format("Wave %s/5", map1.getWaveCounter()));
+        waveLB.setText(String.format("Wave %s/7", map1.getWaveCounter()));
     }
 
 
