@@ -262,7 +262,7 @@ public class MapController {
 
     public void checkLost() throws Exception {
         SettingPageController.player.stop();
-        SettingPageController.setSound("Music/win.wav");
+        SettingPageController.setSound("Music/gameOver.wav");
         Alert alert=PageController.showAlert2("Finished", "GAME OVER", " ", Alert.AlertType.INFORMATION);
         PlayerController.getInstance().updateSpells();
         try {
@@ -307,6 +307,11 @@ public class MapController {
         pathTransition.setNode(ray);
         pathTransition.setAutoReverse(false);
         pathTransition.play();
+        try {
+            SettingPageController.setSound("Music/wizard1.mp3");
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
 
         pathTransition.setOnFinished(event -> {
             pane.getChildren().remove(ray);
@@ -341,6 +346,11 @@ public class MapController {
         pathTransition.setAutoReverse(false);
 
         pathTransition.play();
+        try {
+            SettingPageController. setSound("Music/flyattack.mp3");
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
 
         pathTransition.setOnFinished(event -> {
             pane.getChildren().remove(ray);
@@ -379,6 +389,11 @@ public class MapController {
         pathTransition.setPath(path1);
         pathTransition.setNode(ray);
         pathTransition.setAutoReverse(false);
+        try {
+            SettingPageController.setSound("Music/artillery.mp3");
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
         pathTransition.play();
 
         pathTransition.setOnFinished(event -> {
@@ -419,6 +434,11 @@ public class MapController {
         pathTransition.setAutoReverse(false);
 
         pathTransition.play();
+        try {
+            SettingPageController.setSound("Music/archer.mp3");
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
 
         pathTransition.setOnFinished(event -> {
             pane.getChildren().remove(arrow);

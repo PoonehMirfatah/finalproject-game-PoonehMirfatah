@@ -28,13 +28,13 @@ public class HomePageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        SettingPageController.player.stop();
-//        try {
-//            SettingPageController.setSound("Music/gamemusic.mp3");
-//        } catch (URISyntaxException e) {
-//            throw new RuntimeException(e);
-//        }
-
+        if(SettingPageController.player==null){
+            try {
+                SettingPageController.setSound("Music/gamemusic.mp3");
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        }
         String diamonds=String.valueOf(PlayerController.getPlayer().getDiamonds());
         diamondLB.setText(diamonds);
         String level=String.valueOf(PlayerController.getPlayer().getLevel());
