@@ -437,7 +437,7 @@ public class Map3Controller implements Initializable {
 
     private void initiateAttack() throws Exception {
         setPath();
-        if(MapController.getInstance().checkWin(15)){
+        if(MapController.getInstance().checkWin(10)){
             waveLB.setText(String.format("Wave %s/10", MapController.getMap().getWaveCounter()));
         }else {
             startBT.setVisible(false);

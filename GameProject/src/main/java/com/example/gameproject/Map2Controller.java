@@ -384,8 +384,8 @@ public class Map2Controller implements Initializable {
 
     private void initiateAttack() throws Exception {
         setPath();
-        if(MapController.getInstance().checkWin(5)){
-            waveLB.setText(String.format("Wave %s/5", MapController.getMap().getWaveCounter()));
+        if(MapController.getInstance().checkWin(7)){
+            waveLB.setText(String.format("Wave %s/7", MapController.getMap().getWaveCounter()));
         }else {
             startBT.setVisible(false);
             return;
@@ -484,19 +484,6 @@ public class Map2Controller implements Initializable {
         attackTimeline.setCycleCount(Timeline.INDEFINITE);
         attackTimeline.play();
     }
-    public void checkHealthTimeLine(Raider currentRaider, VBox vBox, PathTransition pathTransition, int health){
-        Timeline attackTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            if(isFinished){
-                return;
-            }
-                if (health < 0) {
-                    removeRaider(currentRaider, vBox, pathTransition);
-                }
-        }));
-        attackTimeline.setCycleCount(Timeline.INDEFINITE);
-        attackTimeline.play();
-    }
-
 
     public void removeRaider(Raider currentRaider,VBox vBox,PathTransition pathTransition) {
         pane.getChildren().remove(vBox);

@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 public class ShieldRaider extends Raider {
     public ShieldRaider() {
-       setHealth(400);
+       setHealth(500);
         setLoot(20);
         setSpeed(1d/22d);
         setDead(false);

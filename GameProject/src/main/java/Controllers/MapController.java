@@ -142,14 +142,14 @@ public class MapController {
             setSound("Music/bombSpell.mp3");
             pathTransition.setOnFinished(event2 -> {
                 pane.getChildren().remove(bomb);
-                pane.getChildren().removeIf(node -> node instanceof VBox );
+                //pane.getChildren().removeIf(node -> node instanceof VBox );
             });
 
         }
-        Wave currentWave = map.getAttackWave().get(waveIndex);
-        for (Raider raider : currentWave.getRaiders()) {
-            raider.setHealth(0);
-        }
+//        Wave currentWave = map.getAttackWave().get(waveIndex);
+//        for (Raider raider : currentWave.getRaiders()) {
+//            raider.setHealth(0);
+//        }
 
     }
 
@@ -355,7 +355,6 @@ public class MapController {
 
     public void artilleryTowerAttack(Tower tower,Raider currentRaider,ImageView point, VBox target,Pane pane)  {
         MapController.getMap().getActiveTowers().add(point);
-        currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower());
 
         Path path1 = new Path();
         Image image = new Image(getClass().getResource("/Weapon/bomb.png").toExternalForm());

@@ -11,8 +11,8 @@ public abstract class Raider {
     private double speed;
     private int loot;
     private boolean isDead;
-    private VBox vBox;
-    private PathTransition pathTransition;
+    private VBox vBox=new VBox();
+    private PathTransition pathTransition=new PathTransition();
     private ArrayList<Image> heroImages = new ArrayList<>();
 
     public VBox getvBox() {
