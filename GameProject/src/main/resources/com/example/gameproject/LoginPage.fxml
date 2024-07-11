@@ -44,7 +44,12 @@
             </TextField>
          </children>
       </AnchorPane>
-      <Button fx:id="confirmBT" layoutX="528.0" layoutY="394.0" mnemonicParsing="false" onAction="#signIn" style="-fx-background-color: #e9b722;" text="Confirm">
+      <Button fx:id="confirmBT" layoutX="517.0" layoutY="397.0" mnemonicParsing="false" onAction="#signIn" style="-fx-background-color: #e9b722;" text="Confirm">
+         <font>
+            <Font name="Eras Bold ITC" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="backBT" layoutX="640.0" layoutY="397.0" mnemonicParsing="false" onMouseClicked="#backToFirstPage" style="-fx-background-color: #e9b722;" text="Back">
          <font>
             <Font name="Eras Bold ITC" size="20.0" />
          </font>

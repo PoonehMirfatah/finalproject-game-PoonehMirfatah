@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,5 +34,8 @@ public class LoginPageController  {
             return;
         }
         PageController.setstage(event, "HomePage.fxml");
+    }
+    public void backToFirstPage(MouseEvent event) throws IOException {
+        PageController.setstage(event,"FirstPage.fxml");
     }
 }

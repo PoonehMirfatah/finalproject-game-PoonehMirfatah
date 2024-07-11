@@ -24,6 +24,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 
@@ -193,7 +194,7 @@ public class Map1Controller implements Initializable {
         Position DP3 = new Position(damagePoint3.getLayoutX(), damagePoint3.getLayoutY());
         Position DP4 = new Position(damagePoint4.getLayoutX(), damagePoint4.getLayoutY());
 
-        map1 = new Map(towersPosition, path, end, attackWaves, 300, 20);
+        map1 = new Map(towersPosition, path, end, attackWaves, 300, 20,1);
 
         map1.getDamagePoints().add(DP1);
         map1.getDamagePoints().add(DP2);
@@ -660,6 +661,7 @@ public class Map1Controller implements Initializable {
         PlayerController.getInstance().updateSpells();
         SettingPageController.player.stop();
         SettingPageController.setSound("Music/startGame.mp3");
+        player.setCycleCount(MediaPlayer.INDEFINITE);
         isFinished=true;
         PageController.setstage(event,"HomePage.fxml");
     }

@@ -42,10 +42,15 @@
                </font></TextField>
             </children>
         </AnchorPane>
-        <Button fx:id="confirmBT" layoutX="528.0" layoutY="394.0" mnemonicParsing="false" onAction="#signUp" style="-fx-background-color: #e9b722;" text="Confirm">
+        <Button fx:id="confirmBT" layoutX="509.0" layoutY="399.0" mnemonicParsing="false" onAction="#signUp" style="-fx-background-color: #e9b722;" text="Confirm">
             <font>
                 <Font name="Eras Bold ITC" size="20.0" />
             </font>
         </Button>
+      <Button fx:id="backBT" layoutX="634.0" layoutY="399.0" mnemonicParsing="false" onMouseClicked="#backToFirstPage" style="-fx-background-color: #e9b722;" text="Back">
+         <font>
+            <Font name="Eras Bold ITC" size="20.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>

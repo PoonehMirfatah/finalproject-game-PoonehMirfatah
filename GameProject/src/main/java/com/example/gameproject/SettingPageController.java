@@ -20,16 +20,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class SettingPageController implements Initializable {
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(!player.isMute()){
-            soundOffImage.setVisible(true);
-            soundOnImage.setVisible(false);
-        }else {
-            soundOffImage.setVisible(false);
-            soundOnImage.setVisible(true);
-        }
-    }
     @FXML
     private TextField passwordTF;
 
@@ -41,6 +31,22 @@ public class SettingPageController implements Initializable {
 
     @FXML
     private TextField userNameTF;
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        userNameTF.setText(PlayerController.getPlayer().getUserName());
+        passwordTF.setText(PlayerController.getPlayer().getPassword());
+
+        if(!player.isMute()){
+            soundOffImage.setVisible(true);
+            soundOnImage.setVisible(false);
+        }else {
+            soundOffImage.setVisible(false);
+            soundOnImage.setVisible(true);
+        }
+    }
+
     public static MediaPlayer player;
 
 
@@ -62,6 +68,7 @@ public class SettingPageController implements Initializable {
         soundOffImage.setVisible(true);
         soundOnImage.setVisible(false);
         player.setMute(false);
+        player.setCycleCount(MediaPlayer.INDEFINITE);
         player.play();
     }
 

@@ -61,7 +61,7 @@ public class SQLController {
         }
     }
     public static  void updatePlayer(int ID) throws Exception {
-        String SQLcom = String.format("UPDATE player SET Diamonds=%s WHERE ID=%s", PlayerController.getPlayer().getDiamonds(),ID);
+        String SQLcom = String.format("UPDATE player SET Diamonds=%s,Level=%s WHERE ID=%s", PlayerController.getPlayer().getDiamonds(),PlayerController.getPlayer().getLevel(),ID);
         SQLConnection sql = new SQLConnection();
          sql.executeSQL(SQLcom);
     }

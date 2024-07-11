@@ -27,14 +27,14 @@
                   <Font name="Bell MT Bold" size="25.0" />
                </font>
             </Label>
-            <TextField fx:id="userNameTF" layoutX="140.0" layoutY="61.0" prefHeight="32.0" prefWidth="144.0">
+            <TextField fx:id="userNameTF" layoutX="140.0" layoutY="55.0" prefHeight="32.0" prefWidth="144.0">
                <font>
-                  <Font size="14.0" />
+                  <Font name="Bell MT" size="21.0" />
                </font>
             </TextField>
-            <TextField fx:id="passwordTF" layoutX="140.0" layoutY="100.0" prefHeight="32.0" prefWidth="144.0">
+            <TextField fx:id="passwordTF" layoutX="140.0" layoutY="101.0" prefHeight="32.0" prefWidth="144.0">
                <font>
-                  <Font size="14.0" />
+                  <Font name="Bell MT" size="20.0" />
                </font>
             </TextField>
             <Label alignment="CENTER" layoutY="46.0" prefHeight="55.0" prefWidth="132.0" text="UserName" textFill="#d9d6cf">
@@ -42,7 +42,7 @@
                   <Font name="Bell MT Bold" size="25.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="5.0" layoutY="85.0" prefHeight="55.0" prefWidth="121.0" text="Password" textFill="#d9d6cf">
+            <Label alignment="CENTER" layoutX="5.0" layoutY="88.0" prefHeight="55.0" prefWidth="121.0" text="Password" textFill="#d9d6cf">
                <font>
                   <Font name="Bell MT Bold" size="25.0" />
                </font>

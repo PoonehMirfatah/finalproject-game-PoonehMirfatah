@@ -226,6 +226,9 @@ public class MapController {
             map.setWaveCounter(map.getWaveCounter() + 1);
             return true;
         } else {
+            if(PlayerController.getPlayer().getLevel()<=map.getLevel()){
+                PlayerController.getPlayer().setLevel(map.getLevel()+1);
+            }
             SettingPageController.player.stop();
             SettingPageController.setSound("Music/win.wav");
             Alert alert=PageController.showAlert2("Finished", "YOU WON!", " ", Alert.AlertType.INFORMATION);

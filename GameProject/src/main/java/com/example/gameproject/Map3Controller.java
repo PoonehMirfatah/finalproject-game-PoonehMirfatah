@@ -29,6 +29,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.QuadCurve;
@@ -43,6 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static com.example.gameproject.SettingPageController.player;
 import static com.example.gameproject.SettingPageController.setSound;
 
 public class Map3Controller implements Initializable {
@@ -234,7 +236,7 @@ public class Map3Controller implements Initializable {
         Position DP3 = new Position(damagePoint3.getLayoutX(), damagePoint3.getLayoutY());
         Position DP4 = new Position(damagePoint4.getLayoutX(), damagePoint4.getLayoutY());
 
-        map1 = new Map(towersPosition, path, end, attackWaves, 500, 20);
+        map1 = new Map(towersPosition, path, end, attackWaves, 500, 20,3);
 
         map1.getDamagePoints().add(DP1);
         map1.getDamagePoints().add(DP2);
@@ -726,6 +728,7 @@ public class Map3Controller implements Initializable {
         PlayerController.getInstance().updateSpells();
         SettingPageController.player.stop();
         SettingPageController.setSound("Music/startGame.mp3");
+        player.setCycleCount(MediaPlayer.INDEFINITE);
         isFinished=true;
         PageController.setstage(event,"HomePage.fxml");
     }

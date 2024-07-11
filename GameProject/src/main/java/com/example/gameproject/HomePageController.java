@@ -8,8 +8,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -27,11 +29,38 @@ public class HomePageController implements Initializable {
     @FXML
     private Label starLB;
 
+    @FXML
+    private ImageView map1;
+
+    @FXML
+    private ImageView map2;
+
+    @FXML
+    private ImageView map3;
+
+    @FXML
+    private ImageView map4;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Image image = new Image(getClass().getResource("/Photos/flag.png").toExternalForm());
+        switch (PlayerController.getPlayer().getLevel()){
+            case 1:
+                map2.setImage(image);
+                map3.setImage(image);
+                map4.setImage(image);
+                break;
+            case 2:
+                map3.setImage(image);
+                map4.setImage(image);
+                break;
+            case 3:
+                map4.setImage(image);
+                break;
+        }
         if(SettingPageController.player==null){
             try {
                 SettingPageController.setSound("Music/startGame.mp3");
+                player.setCycleCount(MediaPlayer.INDEFINITE);
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
             }
@@ -76,6 +105,9 @@ public class HomePageController implements Initializable {
 
     }
 
+    public void backToFirstPage(MouseEvent event) throws IOException {
+        PageController.setstage(event,"FirstPage.fxml");
+    }
 
 }
 
