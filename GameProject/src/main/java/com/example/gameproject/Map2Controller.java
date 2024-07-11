@@ -131,6 +131,7 @@ public class Map2Controller implements Initializable {
     private boolean firstAttack = true;
     int waveIndex;
     boolean isFinished=false;
+    List<VBox> vboxesList=new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -231,7 +232,16 @@ public class Map2Controller implements Initializable {
 
         if (SpellsController.getInstance().drop()) {
             MapController.getInstance().bombAttacks(pane,waveIndex);
+            for(Raider raider:MapController.map.getAliveRaiders()){
+                int index=MapController.map.getAliveRaiders().indexOf(raider);
+                VBox vBox=vboxesList.get(index);
+                PathTransition pathTransition=MapController.map.getPathTransitions().get(index);
+                removeRaider(raider, vBox, pathTransition);
+            }
+
+            MapController.map.getAliveRaiders().clear();
             setSpellCounts();
+
         }
     }
 
@@ -400,7 +410,7 @@ public class Map2Controller implements Initializable {
             }
             int delay = i * 1000;
             VBox vBox=MapController.getInstance().addRaiderVbox(currentWave,i);
-
+            vboxesList.add(vBox);
             PauseTransition pauseTransition = new PauseTransition(Duration.millis(delay));
             Raider currentRaider = currentWave.getRaiders().get(i);
             currentRaider.setvBox(vBox);
@@ -411,6 +421,7 @@ public class Map2Controller implements Initializable {
                 PathTransition pathTransition = setPathForNextRaider(path, currentRaider, vBox, raiderHealth);
                 pathTransition.setOnFinished(event2 -> {
                     removeEndPathRaider(vBox, pathTransition);
+                    MapController.getMap().getAliveRaiders().remove(currentRaider);
                 });
                 pathTransition.play();
                 MapController.getMap().getPathTransitions().add(pathTransition);
@@ -442,63 +453,91 @@ public class Map2Controller implements Initializable {
                 throw new RuntimeException(ex);
             }
         }
+        vboxesList.remove(vBox);
         MapController.getMap().getPathTransitions().remove(pathTransition);
         if (MapController.getMap().getPathTransitions().isEmpty() && PlayerController.getPlayer().getHealth()>0) {
             startNextAttack();
         }
     }
     public void attackTimeLine(Raider currentRaider, VBox vBox, PathTransition pathTransition, int health) {
+
         Timeline attackTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            if(isFinished){
+            if (isFinished) {
+                return;
+            }
+            if(!MapController.map.getAliveRaiders().contains(currentRaider)) {
                 return;
             }
             currentRaider.setHealth(health);
             for (ImageView point : MapController.getMap().getTowersList().keySet()) {
                 Tower tower = MapController.getMap().getTowersList().get(point);
                 double distance = Math.hypot(vBox.getTranslateX() - point.getLayoutX(), vBox.getTranslateY() - point.getLayoutY());
-                if (distance <= tower.getRange() && !MapController.getMap().getActiveTowers().contains(point)) {
+                if (distance <= tower.getRange() && !MapController.getMap().getActiveTowers().contains(point)&&currentRaider.getHealth()>0) {
                     if (tower instanceof ArcherTower && (!(currentRaider instanceof WizardRaider))) {
-                        MapController.getInstance().archerTowerAttack(tower,currentRaider,point, vBox,pane);
+                        MapController.getInstance().archerTowerAttack(tower, currentRaider, point, vBox, pane);
 
                     } else if (tower instanceof Artillery && (!(currentRaider instanceof FlyerRaider))) {
-                        MapController.getInstance().artilleryTowerAttack(tower,currentRaider,point, vBox,pane);
+                        MapController.getInstance().artilleryTowerAttack(tower, currentRaider, point, vBox, pane);
+                        attackNearRaiders(tower,vBox,tower.getRange()/3);
+                        return;
 
                     } else if (tower instanceof WizardTower) {
-                        MapController.getInstance().wizardTowerAttack(tower,currentRaider,point, vBox,pane);
+                        MapController.getInstance().wizardTowerAttack(tower, currentRaider, point, vBox, pane);
 
 
-                    }else if (tower instanceof AirTower && (currentRaider instanceof FlyerRaider)) {
-                        MapController.getInstance().airTowerAttack(tower,currentRaider,point,vBox,pane);
+                    } else if (tower instanceof AirTower && (currentRaider instanceof FlyerRaider)) {
+                        MapController.getInstance().airTowerAttack(tower, currentRaider, point, vBox, pane);
 
 
                     }
-                    if (currentRaider.getHealth() <= 0) {
-                        removeRaider(currentRaider,vBox,pathTransition);
-                        return;
-                    }
-
+                }
+                if(currentRaider.getHealth()<=0){
+                    removeRaider(currentRaider, vBox, pathTransition);
+                    MapController.map.getAliveRaiders().remove(currentRaider);
+                    return;
                 }
             }
-
         }));
         attackTimeline.setCycleCount(Timeline.INDEFINITE);
         attackTimeline.play();
+
+    }
+
+    public  void attackNearRaiders(Tower tower,VBox vBox1,int range){
+        ArrayList<Integer> indexes=new ArrayList<>();
+        for(Raider raider:MapController.map.getAliveRaiders()){
+            int index=MapController.map.getAliveRaiders().indexOf(raider);
+            VBox vBox2=vboxesList.get(index);
+            double distance=Math.hypot(vBox1.getTranslateX()-vBox2.getTranslateX(),vBox1.getTranslateY()-vBox2.getTranslateY());
+            if(distance<range) {
+                PathTransition pathTransition = MapController.map.getPathTransitions().get(index);
+                raider.setHealth(raider.getHealth()-tower.getDestroyPower());
+
+                if(raider.getHealth()<=0) {
+                    indexes.add(index);
+                    removeRaider(raider, vBox2, pathTransition);
+                }else{
+                    attackTimeLine(raider,vBox1,pathTransition,raider.getHealth());
+                    return;
+                }
+            }
+        }
+        for(int index:indexes){
+            MapController.map.getAliveRaiders().remove(index);
+        }
     }
 
     public void removeRaider(Raider currentRaider,VBox vBox,PathTransition pathTransition) {
         pane.getChildren().remove(vBox);
-        MapController.getMap().getAliveRaiders().remove(currentRaider);
+        vboxesList.remove(vBox);
+        //MapController.getMap().getAliveRaiders().remove(currentRaider);
         currentRaider.setDead(true);
         pathTransition.stop();
         MapController.getMap().getPathTransitions().remove(pathTransition);
         if (MapController.getMap().getPathTransitions().isEmpty()) {
             startNextAttack();
         }
-//        try {
-//            setSound("Music/getCoins.mp3");
-//        } catch (URISyntaxException e) {
-//            throw new RuntimeException(e);
-//        }
+
         PlayerController.getPlayer().setCoins(currentRaider.getLoot() + PlayerController.getPlayer().getCoins());
         coinsLB.setText(String.valueOf(PlayerController.getPlayer().getCoins()));
     }

@@ -519,7 +519,7 @@ public class Map1Controller implements Initializable {
             if(distance<range) {
                 PathTransition pathTransition = MapController.map.getPathTransitions().get(index);
                 raider.setHealth(raider.getHealth()-tower.getDestroyPower());
-                System.out.println(raider.getHealth());
+
                 if(raider.getHealth()<=0) {
                     indexes.add(index);
                     removeRaider(raider, vBox2, pathTransition);

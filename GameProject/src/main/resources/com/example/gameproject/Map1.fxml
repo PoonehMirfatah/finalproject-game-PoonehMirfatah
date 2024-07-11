@@ -79,7 +79,7 @@
                 <Font name="Forte" size="30.0" />
             </font>
         </Button>
-        <GridPane fx:id="towersBox" layoutX="400.0" layoutY="515.0" prefHeight="178.0" prefWidth="393.0" style="-fx-background-color: b8bc39; -fx-border-color: black;" styleClass="s" visible="false">
+        <GridPane fx:id="towersBox" layoutX="20.0" layoutY="515.0" prefHeight="178.0" prefWidth="393.0" style="-fx-background-color: b8bc39; -fx-border-color: black;" styleClass="s" visible="false">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.3333740234375" minWidth="10.0" prefWidth="95.66665903727214" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.3333740234375" minWidth="10.0" prefWidth="93.33337402343749" />
