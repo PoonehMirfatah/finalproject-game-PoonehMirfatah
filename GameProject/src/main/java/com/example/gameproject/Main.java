@@ -17,7 +17,7 @@ import static com.example.gameproject.SettingPageController.setSound;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException, URISyntaxException {
-       setRoot(stage,"FirstPage.fxml",800,500);
+       setRoot(stage,"FirstPage.fxml",850,600);
     }
 
     public static void setRoot(Stage stage,String fxml,int width,int height) throws IOException{

@@ -173,10 +173,10 @@ public class MapController {
                 selectedTower = new Artillery(500, 125, 200,1);
                 break;
             case "/Towers/2Artillery.png":
-                selectedTower = new Artillery(550, 150, 220,2);
+                selectedTower = new Artillery(550, 150, 215,2);
                 break;
             case "/Towers/3Artillery.png":
-                selectedTower = new Artillery(600, 200, 240,3);
+                selectedTower = new Artillery(600, 200, 230,3);
                 break;
             case "/Towers/4Artillery.png":
                 selectedTower = new Artillery(650, 250, 245,4);

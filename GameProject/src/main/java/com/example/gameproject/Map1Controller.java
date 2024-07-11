@@ -169,9 +169,10 @@ public class Map1Controller implements Initializable {
         towersPosition.add(p4);
 
         ArrayList<Wave> attackWaves = new ArrayList<>();
+
         ShieldRaider shieldRaider1 = new ShieldRaider();
-        ShieldRaider shieldRaider2 = new ShieldRaider();
-        WizardRaider shieldRaider3 = new WizardRaider();
+        WizardRaider shieldRaider2 = new WizardRaider();
+        ShieldRaider shieldRaider3 = new ShieldRaider();
         WizardRaider shieldRaider4 = new WizardRaider();
         ShieldRaider shieldRaider5 = new ShieldRaider();
 
@@ -179,7 +180,7 @@ public class Map1Controller implements Initializable {
         Wave wave2 = new Wave(shieldRaider2, 6);
         Wave wave3 = new Wave(shieldRaider3, 8);
         Wave wave4 = new Wave(shieldRaider4, 10);
-        Wave wave5 = new Wave(shieldRaider5, 13);
+        Wave wave5 = new Wave(shieldRaider5, 10);
 
         attackWaves.add(wave1);
         attackWaves.add(wave2);

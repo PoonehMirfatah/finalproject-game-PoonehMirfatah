@@ -19,10 +19,6 @@ public class LoginPageController  {
     public TextField usernameTF;
     public TextField passwordTF;
     public Button confirmBT;
-    @FXML
-    private Button exitBT;
-    @FXML
-    private Button startBT;
 
     public void signIn(ActionEvent event) throws SQLException, IOException {
         String username = usernameTF.getText();
