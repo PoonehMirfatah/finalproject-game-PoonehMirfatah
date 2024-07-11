@@ -286,7 +286,7 @@ public class Map4Controller implements Initializable {
         SpellsController.setSpell(bombSpell);
 
         if (SpellsController.getInstance().drop()) {
-            MapController.getInstance().bombAttacks(pane,waveIndex);
+            MapController.getInstance().bombAttacks(pane);
             for(Raider raider:MapController.map.getAliveRaiders()){
                 int index=MapController.map.getAliveRaiders().indexOf(raider);
                 VBox vBox=vboxesList.get(index);
@@ -383,28 +383,28 @@ public class Map4Controller implements Initializable {
             Tower selectedTower1 = null;
             switch (clickedButton.getId()) {
                 case "t1":
-                    selectedTower1 = new ArcherTower(100, 70, 200,1);
+                    selectedTower1 = new ArcherTower(100, 70, 180,1);
                     if (checkCoins(selectedTower1)) {
                         return;
                     }
                     setTowerOnPosition("/Towers/1ArcherTower.png");
                     break;
                 case "t2":
-                    selectedTower1 = new Artillery(500, 125, 200,1);
+                    selectedTower1 = new Artillery(500, 125, 180,1,70);
                     if (checkCoins(selectedTower1)) {
                         return;
                     }
                     setTowerOnPosition("/Towers/1Artillery.png");
                     break;
                 case "t3":
-                    selectedTower1 = new WizardTower(150, 100, 200,1);
+                    selectedTower1 = new WizardTower(150, 100, 180,1);
                     if (checkCoins(selectedTower1)) {
                         return;
                     }
                     setTowerOnPosition("/Towers/1WizardTower.png");
                     break;
                 case "t4":
-                    selectedTower1 = new AirTower(150, 100, 200,1);
+                    selectedTower1 = new AirTower(150, 100, 180,1);
                     if (checkCoins(selectedTower1)) {
                         return;
                     }
@@ -448,6 +448,7 @@ public class Map4Controller implements Initializable {
 
         @FXML
         void startAttack(MouseEvent event) throws Exception {
+            SettingPageController.setSound("Music/start.mp3");
             if (firstAttack) {
                 firstAttack = false;
                 initiateAttack();
@@ -550,7 +551,7 @@ public class Map4Controller implements Initializable {
 
                     } else if (tower instanceof Artillery && (!(currentRaider instanceof FlyerRaider))) {
                         MapController.getInstance().artilleryTowerAttack(tower, currentRaider, point, vBox, pane);
-                        attackNearRaiders(tower,vBox,tower.getRange()/3);
+                        attackNearRaiders(tower,vBox,((Artillery) tower).getDamageRange());
                         return;
 
                     } else if (tower instanceof WizardTower) {
@@ -726,7 +727,7 @@ public class Map4Controller implements Initializable {
         public void quitMap(MouseEvent event) throws Exception {
             PlayerController.getInstance().updateSpells();
             SettingPageController.player.stop();
-            SettingPageController.setSound("Music/gamemusic.mp3");
+            SettingPageController.setSound("Music/startGame.mp3");
             isFinished=true;
             PageController.setstage(event,"HomePage.fxml");
         }

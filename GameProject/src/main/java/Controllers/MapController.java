@@ -114,7 +114,7 @@ public class MapController {
         map.getTimelines().add(timeline);
     }
 
-    public void bombAttacks(Pane pane,int waveIndex) throws InterruptedException, URISyntaxException {
+    public void bombAttacks(Pane pane) throws  URISyntaxException {
         for (Position pointDamage : map.getDamagePoints()) {
             Image image = new Image(getClass().getResource("/Weapon/bombs.png").toExternalForm());
             ImageView bomb = new ImageView(image);
@@ -142,72 +142,66 @@ public class MapController {
             setSound("Music/bombSpell.mp3");
             pathTransition.setOnFinished(event2 -> {
                 pane.getChildren().remove(bomb);
-                //pane.getChildren().removeIf(node -> node instanceof VBox );
             });
 
         }
-//        Wave currentWave = map.getAttackWave().get(waveIndex);
-//        for (Raider raider : currentWave.getRaiders()) {
-//            raider.setHealth(0);
-//        }
-
     }
 
     public Tower getTower(String newPath) {
         Tower selectedTower = null;
         switch (newPath) {
             case "/Towers/1ArcherTower.png":
-                selectedTower = new ArcherTower(100, 70, 200,1);
+                selectedTower = new ArcherTower(100, 70, 180,1);
                 break;
             case "/Towers/2ArcherTower.png":
-                selectedTower = new ArcherTower(150, 130, 220,2);
+                selectedTower = new ArcherTower(150, 130, 200,2);
                 break;
             case "/Towers/3ArcherTower.png":
-                selectedTower = new ArcherTower(200, 200, 240,3);
+                selectedTower = new ArcherTower(200, 200, 215,3);
                 break;
             case "/Towers/4ArcherTower.png":
-                selectedTower = new ArcherTower(250, 250, 250,4);
+                selectedTower = new ArcherTower(250, 250, 230,4);
                 break;
 
             case "/Towers/1Artillery.png":
-                selectedTower = new Artillery(500, 125, 200,1);
+                selectedTower = new Artillery(500, 125, 180,1,70);
                 break;
             case "/Towers/2Artillery.png":
-                selectedTower = new Artillery(550, 150, 215,2);
+                selectedTower = new Artillery(550, 150, 200,2,100);
                 break;
             case "/Towers/3Artillery.png":
-                selectedTower = new Artillery(600, 200, 230,3);
+                selectedTower = new Artillery(600, 200, 215,3,100);
                 break;
             case "/Towers/4Artillery.png":
-                selectedTower = new Artillery(650, 250, 245,4);
+                selectedTower = new Artillery(650, 250, 230,4,140);
                 break;
 
             case "/Towers/1WizardTower.png":
-                selectedTower = new WizardTower(150, 100, 200,1);
+                selectedTower = new WizardTower(150, 100, 180,1);
                 break;
 
             case "/Towers/2WizardTower.png":
-                selectedTower = new WizardTower(200, 150, 220,2);
+                selectedTower = new WizardTower(200, 150, 200,2);
                 break;
             case "/Towers/3WizardTower.png":
-                selectedTower = new WizardTower(250, 200, 240,3);
+                selectedTower = new WizardTower(250, 200, 215,3);
                 break;
             case "/Towers/4WizardTower.png":
-                selectedTower = new WizardTower(300, 250, 245,4);
+                selectedTower = new WizardTower(300, 250, 230,4);
                 break;
 
             case "/Towers/1ArmyPlace.png":
-                selectedTower = new AirTower(150, 100, 200,1);
+                selectedTower = new AirTower(150, 100, 180,1);
                 break;
 
             case "/Towers/2ArmyPlace.png":
-                selectedTower = new AirTower(200, 150, 220,2);
+                selectedTower = new AirTower(200, 150, 200,2);
                 break;
             case "/Towers/3ArmyPlace.png":
-                selectedTower = new AirTower(250, 200, 240,3);
+                selectedTower = new AirTower(250, 200, 215,3);
                 break;
             case "/Towers/4ArmyPlace.png":
-                selectedTower = new AirTower(300, 250, 245,4);
+                selectedTower = new AirTower(300, 250, 230,4);
                 break;
             default:
                 return null;
@@ -275,7 +269,7 @@ public class MapController {
     public void wizardTowerAttack(Tower tower,Raider currentRaider,ImageView point, VBox target,Pane pane)  {
         MapController.getMap().getActiveTowers().add(point);
         currentRaider.setHealth(currentRaider.getHealth() - tower.getDestroyPower());
-        if (currentRaider instanceof ShieldRaider && currentRaider.getHealth() <= 100) {
+        if (currentRaider instanceof ShieldRaider ) {
             target.getChildren().get(1).setVisible(true);
         }
         Path path1 = new Path();

@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,7 +22,7 @@ public class SignUpPageController  {
         String password=passwordTF.getText();
         Player player=new Player(username,password);
         SQLController.insertPlayer(player);
-
+        PageController.setstage(event,"FirstPage.fxml");
     }
 
 }

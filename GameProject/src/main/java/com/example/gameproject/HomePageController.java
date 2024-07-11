@@ -31,7 +31,7 @@ public class HomePageController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(SettingPageController.player==null){
             try {
-                SettingPageController.setSound("Music/gamemusic.mp3");
+                SettingPageController.setSound("Music/startGame.mp3");
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
             }

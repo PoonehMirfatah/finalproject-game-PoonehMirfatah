@@ -87,45 +87,5 @@ public class SettingPageController implements Initializable {
         player= new MediaPlayer(media);
         player.play();
     }
-//    public static void setSound2(String soundName) throws URISyntaxException {
-//        String fileName = Main.class.getResource(soundName).toURI().toString();
-//        Media media = new Media(fileName);
-//        MediaPlayer player= new MediaPlayer(media);
-//        player.play();
-//    }
 
-//// public void playAudio(ActionEvent event) {
-////        beginTimer();
-////
-////    }
-////    public void stopAudio(ActionEvent event){
-////
-////    }
-////    public void beginTimer() {
-////        timer=new Timer();
-////        task=new TimerTask(){
-////
-////            @Override
-////            public void run() {
-////                running = true;
-////                if(player==null) {
-////                    setAudio(DataBase.getDataBase().getAudioList().getFirst().getAudioLink());
-////                }
-////                    double current = player.getCurrentTime().toSeconds();
-////                    double end = media.getDuration().toSeconds();
-////                    progressBar.setProgress(current / end);
-////
-////                    if (current / end == 1) {
-////                        cancelTimer();
-////
-////                }
-////            }
-////        };
-////        timer.scheduleAtFixedRate(task,1000,1000);
-////    }
-////
-////    public void cancelTimer() {
-////        running=false;
-////        timer.cancel();
-////    }
 }

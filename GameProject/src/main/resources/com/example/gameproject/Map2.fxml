@@ -59,12 +59,12 @@
             </Label>
          </children>
       </AnchorPane>
-      <ImageView fx:id="towerPoint2" fitHeight="89.0" fitWidth="134.0" layoutX="141.0" layoutY="306.0" onMouseClicked="#showTowers" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="towerPoint2" fitHeight="89.0" fitWidth="134.0" layoutX="135.0" layoutY="322.0" onMouseClicked="#showTowers" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../Towers/Pointer.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="towerPoint1" fitHeight="89.0" fitWidth="134.0" layoutX="335.0" layoutY="181.0" onMouseClicked="#showTowers" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="towerPoint1" fitHeight="89.0" fitWidth="134.0" layoutX="338.0" layoutY="188.0" onMouseClicked="#showTowers" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../Towers/Pointer.png" />
          </image>
@@ -370,5 +370,10 @@
             <Font name="Forte" size="30.0" />
          </font>
       </Button>
+      <ImageView fx:id="towerPoint4" fitHeight="89.0" fitWidth="134.0" layoutX="211.0" layoutY="221.0" onMouseClicked="#showTowers" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Towers/Pointer.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
