@@ -1,7 +1,6 @@
 package com.example.gameproject;
 
 import Controllers.PlayerController;
-import Controllers.SpellsController;
 import Models.Spells.*;
 import Controllers.SQL.SQLController;
 import javafx.fxml.FXML;
@@ -53,7 +52,7 @@ public class ShopPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            SQLController.loadPlayerSpells(PlayerController.getPlayer().getID());
+            SQLController.loadPlayerSpells(PlayerController.getInstance().player.getID());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -62,9 +61,9 @@ public class ShopPageController implements Initializable {
 
 
     public void updateLabels(){
-        diamondsLB.setText(String.valueOf(PlayerController.getPlayer().getDiamonds()));
-        for (String spellName : PlayerController.getPlayer().getBackPack().keySet()) {
-            int count = PlayerController.getPlayer().getBackPack().get(spellName);
+        diamondsLB.setText(String.valueOf(PlayerController.getInstance().player.getDiamonds()));
+        for (String spellName : PlayerController.getInstance().player.getBackPack().keySet()) {
+            int count = PlayerController.getInstance().player.getBackPack().get(spellName);
             switch (spellName) {
                 case "Health":
                     heartCountLB.setText(String.valueOf(count));
@@ -101,19 +100,26 @@ public class ShopPageController implements Initializable {
                 break;
         }
         assert selectedSpell != null;
-        if (selectedSpell.getPrice() > PlayerController.getPlayer().getDiamonds()) {
+        if (selectedSpell.getPrice() > PlayerController.getInstance().player.getDiamonds()) {
             PageController.showAlert("Eror", "Your Diamonds Are Not Enough For Buying This Spell", "", Alert.AlertType.ERROR);
             return;
         }
-        SpellsController.putSpellInBackPack(selectedSpell);
+        if (PlayerController.getInstance().player.getBackPack().containsKey(selectedSpell.getName())) {
+            int count = (int) PlayerController.getInstance().player.getBackPack().get(selectedSpell.getName()) + 1;
+            PlayerController.getInstance().player.getBackPack().put(selectedSpell.getName(), count);
+        } else {
+            PlayerController.getInstance().player.getBackPack().put(selectedSpell.getName(), 1);
+        }
+        int primaryDiamonds = PlayerController.getInstance().player.getDiamonds();
+        PlayerController.getInstance().player.setDiamonds(primaryDiamonds - selectedSpell.getPrice());
         updateLabels();
     }
 
     @FXML
     void showSpell(MouseEvent event) {
         String imagePath = null;
-        Label clickedLabel = (Label) event.getSource();
-        spellID = clickedLabel.getId();
+        Label clickedButton = (Label) event.getSource();
+        spellID = clickedButton.getId();
         switch (spellID) {
             case "heart":
                 imagePath = "/Shop/HeartBox.jpg";

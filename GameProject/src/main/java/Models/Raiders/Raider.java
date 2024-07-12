@@ -11,10 +11,13 @@ public abstract class Raider {
     private double speed;
     private int loot;
     private boolean isDead;
-    private PathTransition pathTransition=new PathTransition();
+    private VBox vBox;
+    private PathTransition pathTransition;
     private ArrayList<Image> heroImages = new ArrayList<>();
 
-
+    public VBox getvBox() {
+        return vBox;
+    }
 
     public PathTransition getPathTransition() {
         return pathTransition;
@@ -24,7 +27,9 @@ public abstract class Raider {
         this.pathTransition = pathTransition;
     }
 
-
+    public void setvBox(VBox vBox) {
+        this.vBox = vBox;
+    }
 
     public double getSpeed() {
         return speed;

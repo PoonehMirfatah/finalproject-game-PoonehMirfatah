@@ -18,30 +18,22 @@ public class Map {
     private final int health;
     private int waveCounter = 0;
     private HashMap<ImageView,Tower> towersList=new HashMap<>();
-<<<<<<< HEAD
-=======
-    private int level;
->>>>>>> b01
     //
     List<Timeline> timelines = new ArrayList<>();
     private boolean firstAttack = true;
     List<PathTransition> pathTransitions = new ArrayList<>();
     List<Position> damagePoints=new ArrayList<>();
-<<<<<<< HEAD
     int waveIndex;
-=======
->>>>>>> b01
     List<Raider> aliveRaiders=new ArrayList<>();
     Set<ImageView> activeTowers = new HashSet<>();
 
-    public Map(ArrayList<Position> towerPoints, javafx.scene.shape.Path path, Position endPoint, ArrayList<Wave> attackWave, int coins, int health,int level) {
+    public Map(ArrayList<Position> towerPoints, javafx.scene.shape.Path path, Position endPoint, ArrayList<Wave> attackWave, int coins, int health) {
         this.towerPoints = towerPoints;
         this.path = path;
         this.endPoint = endPoint;
         this.attackWave = attackWave;
         this.coins = coins;
         this.health = health;
-        this.level=level;
     }
 
     public int getHealth() {
@@ -93,13 +85,9 @@ public class Map {
         return firstAttack;
     }
 
-<<<<<<< HEAD
     public int getWaveIndex() {
         return waveIndex;
     }
-=======
-
->>>>>>> b01
 
     public List<PathTransition> getPathTransitions() {
         return pathTransitions;
@@ -145,17 +133,8 @@ public class Map {
         this.timelines = timelines;
     }
 
-<<<<<<< HEAD
     public void setWaveIndex(int waveIndex) {
         this.waveIndex = waveIndex;
-=======
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public int getLevel() {
-        return level;
->>>>>>> b01
     }
 }
 

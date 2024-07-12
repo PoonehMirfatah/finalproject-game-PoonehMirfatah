@@ -1,96 +1,76 @@
 package com.example.gameproject;
 
-import Controllers.PlayerController;
-import Controllers.SQL.SQLController;
-import Models.Player;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
-public class SettingPageController implements Initializable {
-    @FXML
-    private TextField passwordTF;
-
-    @FXML
-    private ImageView soundOffImage;
-
-    @FXML
-    private ImageView soundOnImage;
-
-    @FXML
-    private TextField userNameTF;
-
-    public static MediaPlayer player;
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        userNameTF.setText(PlayerController.getPlayer().getUserName());
-        passwordTF.setText(PlayerController.getPlayer().getPassword());
-
-        if(!player.isMute()){
-            soundOffImage.setVisible(true);
-            soundOnImage.setVisible(false);
-        }else {
-            soundOffImage.setVisible(false);
-            soundOnImage.setVisible(true);
-        }
+public class SettingPageController {
+    public void backToHome(MouseEvent event) {
     }
 
-    @FXML
-    void backToHome(MouseEvent event) throws IOException {
-        PageController.setstage(event,"HomePage.fxml");
+    public void setMusic(MouseEvent event) {
     }
-
-    @FXML
-    void muteMusic(MouseEvent event) {
-        soundOffImage.setVisible(false);
-        soundOnImage.setVisible(true);
-        player.setMute(true);
-        player.stop();
-    }
-
-    @FXML
-    void playSound(MouseEvent event) {
-        soundOffImage.setVisible(true);
-        soundOnImage.setVisible(false);
-        player.setMute(false);
-        player.setCycleCount(MediaPlayer.INDEFINITE);
-        player.play();
-    }
-
-    @FXML
-    void saveEdits(MouseEvent event) throws Exception {
-        if(userNameTF.getText().isEmpty() || passwordTF.getText().isEmpty()){
-            PageController.showAlert("Error","Please fill in Your Informations!"," ",
-                    Alert.AlertType.ERROR);
-        }else {
-            SQLController.updatePlayerInfo(userNameTF.getText(), passwordTF.getText(),
-                    PlayerController.getPlayer().getID());
-        }
-    }
-
-    public static void setSound(String soundName) throws URISyntaxException {
-        if(player!=null) {
-            if (player.isMute()) {
-                return;
-            }
-        }
-        String fileName = Main.class.getResource(soundName).toURI().toString();
-        Media media = new Media(fileName);
-        player= new MediaPlayer(media);
-        player.play();
-    }
-
+//    MediaPlayer player;
+//    boolean playAdd=false;
+//     Media media;
+//    static Timer timer;
+//    static TimerTask task;
+//    static Boolean running=false;
+//
+//    @FXML
+//    private TextField passwordTF;
+//
+//    @FXML
+//    private ImageView sound;
+//
+//    @FXML
+//    private TextField userNameTF;
+//
+//    @FXML
+//    void backToHome(MouseEvent event) {
+//
+//    }
+//
+//    @FXML
+//    void setMusic(MouseEvent event) {
+//
+//    }
+//// public void playAudio(ActionEvent event) {
+////        beginTimer();
+////        player.play();
+////    }
+////    public void stopAudio(ActionEvent event){
+////        player.stop();
+////    }
+////    public void beginTimer() {
+////        timer=new Timer();
+////        task=new TimerTask(){
+////
+////            @Override
+////            public void run() {
+////                running = true;
+////                if(player==null) {
+////                    setAudio(DataBase.getDataBase().getAudioList().getFirst().getAudioLink());
+////                }
+////                    double current = player.getCurrentTime().toSeconds();
+////                    double end = media.getDuration().toSeconds();
+////                    progressBar.setProgress(current / end);
+////
+////                    if (current / end == 1) {
+////                        cancelTimer();
+////
+////                }
+////            }
+////        };
+////        timer.scheduleAtFixedRate(task,1000,1000);
+////    }
+////
+////    public void cancelTimer() {
+////        running=false;
+////        timer.cancel();
+////    }
 }

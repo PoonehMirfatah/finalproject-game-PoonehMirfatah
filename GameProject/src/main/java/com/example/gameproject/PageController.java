@@ -13,7 +13,7 @@ import java.io.IOException;
 public class PageController {
     static AnchorPane root;
     static AnchorPane MainSection = new AnchorPane();
-    public static Stage stage;
+    static Stage stage;
     static Scene scene;
     public static void setstage(Event event, String fxml) throws IOException {
         root = FXMLLoader.load(PageController.class.getResource(fxml));
@@ -30,14 +30,6 @@ public class PageController {
         alert.setHeaderText(headerText);
         alert.setContentText(message);
         alert.show();
-    }
-    public static Alert showAlert2(String title, String headerText,String message, Alert.AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(headerText);
-        alert.setContentText(message);
-        alert.show();
-        return alert;
     }
 }
 

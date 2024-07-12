@@ -5,13 +5,11 @@ public abstract class Tower  {
     private int bulidCost;
     private int range;
     private String image;
-    private int level;
 
-    public Tower(int destroyPower, int bulidCost, int range,int level){
+    public Tower(int destroyPower, int bulidCost, int range){
         this.bulidCost=bulidCost;
         this.destroyPower=destroyPower;
         this.range=range;
-        this.level=level;
     }
     public Tower(){
     }
@@ -45,13 +43,5 @@ public abstract class Tower  {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
     }
 }
