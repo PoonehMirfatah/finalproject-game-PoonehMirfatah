@@ -24,7 +24,7 @@ public class SignUpPageController  {
         String password=passwordTF.getText();
         Player player=new Player(username,password);
         SQLController.insertPlayer(player);
-        PageController.showAlert("Successful","You signed up Successfully!","", Alert.AlertType.INFORMATION);
+        PageController.showAlert("Successful",username+" You signed up Successfully!","", Alert.AlertType.INFORMATION);
         PageController.setstage(event,"FirstPage.fxml");
     }
 

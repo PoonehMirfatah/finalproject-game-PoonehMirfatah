@@ -1,6 +1,7 @@
 package com.example.gameproject;
 
 import Controllers.PlayerController;
+import Controllers.SpellsController;
 import Models.Spells.*;
 import Controllers.SQL.SQLController;
 import javafx.fxml.FXML;
@@ -104,22 +105,15 @@ public class ShopPageController implements Initializable {
             PageController.showAlert("Eror", "Your Diamonds Are Not Enough For Buying This Spell", "", Alert.AlertType.ERROR);
             return;
         }
-        if (PlayerController.getPlayer().getBackPack().containsKey(selectedSpell.getName())) {
-            int count = (int) PlayerController.getPlayer().getBackPack().get(selectedSpell.getName()) + 1;
-            PlayerController.getPlayer().getBackPack().put(selectedSpell.getName(), count);
-        } else {
-            PlayerController.getPlayer().getBackPack().put(selectedSpell.getName(), 1);
-        }
-        int primaryDiamonds = PlayerController.getPlayer().getDiamonds();
-        PlayerController.getPlayer().setDiamonds(primaryDiamonds - selectedSpell.getPrice());
+        SpellsController.putSpellInBackPack(selectedSpell);
         updateLabels();
     }
 
     @FXML
     void showSpell(MouseEvent event) {
         String imagePath = null;
-        Label clickedButton = (Label) event.getSource();
-        spellID = clickedButton.getId();
+        Label clickedLabel = (Label) event.getSource();
+        spellID = clickedLabel.getId();
         switch (spellID) {
             case "heart":
                 imagePath = "/Shop/HeartBox.jpg";

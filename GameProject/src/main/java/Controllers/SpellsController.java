@@ -59,4 +59,15 @@ public class SpellsController implements spell {
         return false;
     }
 
+    public static void putSpellInBackPack(Spell selectedSpell){
+        if (PlayerController.getPlayer().getBackPack().containsKey(selectedSpell.getName())) {
+            int count = (int) PlayerController.getPlayer().getBackPack().get(selectedSpell.getName()) + 1;
+            PlayerController.getPlayer().getBackPack().put(selectedSpell.getName(), count);
+        } else {
+            PlayerController.getPlayer().getBackPack().put(selectedSpell.getName(), 1);
+        }
+        int primaryDiamonds = PlayerController.getPlayer().getDiamonds();
+        PlayerController.getPlayer().setDiamonds(primaryDiamonds - selectedSpell.getPrice());
+    }
+
 }

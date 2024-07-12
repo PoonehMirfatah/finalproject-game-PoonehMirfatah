@@ -96,9 +96,9 @@ public class HomePageController implements Initializable {
                     PageController.showAlert("Error",
                             "This Stage is Lock for your level!",""
                     , Alert.AlertType.ERROR);
-                    return;
-                }
+                }else {
                     PageController.setstage(event, "Map2.fxml");
+                    }
                     break;
 
             case "map3":
@@ -106,18 +106,20 @@ public class HomePageController implements Initializable {
                     PageController.showAlert("Error",
                             "This Stage is Lock for your level!",""
                             , Alert.AlertType.ERROR);
-                    return;
                 }
-                PageController.setstage(event, "Map3.fxml");
+                else {
+                    PageController.setstage(event, "Map3.fxml");
+                }
                 break;
             case "map4":
                 if(PlayerController.getPlayer().getLevel()<4) {
                     PageController.showAlert("Error",
                             "This Stage is Lock for your level!",""
                             , Alert.AlertType.ERROR);
-                    return;
                 }
-                PageController.setstage(event, "Map4.fxml");
+                else {
+                    PageController.setstage(event, "Map4.fxml");
+                }
                 break;
 
         }

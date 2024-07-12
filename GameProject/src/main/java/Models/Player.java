@@ -21,7 +21,7 @@ public class Player {
         this.password=password;
         this.level=1;
         this.backPack=new HashMap<>();
-        this.diamonds=1000;
+        this.diamonds=2000;
     }
 
     public String getUserName() {

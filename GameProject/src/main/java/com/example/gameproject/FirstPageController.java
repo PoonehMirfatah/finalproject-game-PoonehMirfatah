@@ -21,9 +21,6 @@ public class FirstPageController  implements Initializable{
     @FXML
     private Button exitBT;
 
-    @FXML
-    private Button startBT;
-
 
     public void signIn(ActionEvent event) throws IOException {
         PageController.setstage(event,"LoginPage.fxml");

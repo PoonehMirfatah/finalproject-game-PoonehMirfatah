@@ -33,8 +33,8 @@ import static com.example.gameproject.SettingPageController.player;
 import static com.example.gameproject.SettingPageController.setSound;
 
 public class MapController {
-    public static Map map;
-    public static MediaPlayer player;
+    private static Map map;
+
     private static MapController instance;
 
     private MapController() {
@@ -103,10 +103,10 @@ public class MapController {
             sheild.setPreserveRatio(true);
             sheild.setVisible(false);
             //
-            ImageView walkKnight = new ImageView(heroImages.get(index));
-            walkKnight.setFitHeight(60);
-            walkKnight.setPreserveRatio(true);
-            vBox.getChildren().setAll(walkKnight, sheild);
+            ImageView raider = new ImageView(heroImages.get(index));
+            raider.setFitHeight(60);
+            raider.setPreserveRatio(true);
+            vBox.getChildren().setAll(raider, sheild);
         }));
 
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -128,7 +128,6 @@ public class MapController {
 
             path1.getElements().add(new MoveTo(xStart, yStart));
 
-
             double xEnd = pointDamage.getX();
             double yEnd = pointDamage.getY();
             path1.getElements().add(new LineTo(xEnd, yEnd));
@@ -139,7 +138,7 @@ public class MapController {
             pathTransition.setNode(bomb);
             pathTransition.setAutoReverse(false);
             pathTransition.play();
-            setSound("Music/bombSpell.mp3");
+            SettingPageController.setSound("Music/bombSpell.mp3");
             pathTransition.setOnFinished(event2 -> {
                 pane.getChildren().remove(bomb);
             });
@@ -209,14 +208,14 @@ public class MapController {
         return selectedTower;
     }
 
-    public VBox addRaiderVbox(Wave currentWave, int waveNum) {
+    public VBox addRaiderVbox(Wave currentWave, int raiderNum) {
         VBox vBox = new VBox();
-        ArrayList<Image> heroImages = currentWave.getRaiders().get(waveNum).getHeroImages();
+        ArrayList<Image> heroImages = currentWave.getRaiders().get(raiderNum).getHeroImages();
         Image image1 = heroImages.get(0);
-        ImageView walkKnight = new ImageView(image1);
-        walkKnight.setFitHeight(50);
-        walkKnight.setPreserveRatio(true);
-        vBox.getChildren().add(walkKnight);
+        ImageView raider = new ImageView(image1);
+        raider.setFitHeight(50);
+        raider.setPreserveRatio(true);
+        vBox.getChildren().add(raider);
         timeline(vBox, heroImages);
         return vBox;
     }
@@ -354,7 +353,7 @@ public class MapController {
         });
     }
 
-    public void artilleryTowerAttack(Tower tower,Raider currentRaider,ImageView point, VBox target,Pane pane)  {
+    public void artilleryTowerAttack(ImageView point, VBox target,Pane pane)  {
         MapController.getMap().getActiveTowers().add(point);
 
         Path path1 = new Path();
@@ -467,13 +466,6 @@ public class MapController {
             return false;
         }
     }
-
-//    public static void setSound(String soundName) throws URISyntaxException {
-//        String fileName = Main.class.getResource(soundName).toURI().toString();
-//        Media media = new Media(fileName);
-//        player= new MediaPlayer(media);
-//        player.play();
-//    }
 
     //-------------------------------------------------------------
 }

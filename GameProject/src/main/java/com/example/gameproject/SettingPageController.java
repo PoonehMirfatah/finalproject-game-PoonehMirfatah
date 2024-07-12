@@ -32,6 +32,7 @@ public class SettingPageController implements Initializable {
     @FXML
     private TextField userNameTF;
 
+    public static MediaPlayer player;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -46,9 +47,6 @@ public class SettingPageController implements Initializable {
             soundOnImage.setVisible(true);
         }
     }
-
-    public static MediaPlayer player;
-
 
     @FXML
     void backToHome(MouseEvent event) throws IOException {
@@ -74,13 +72,13 @@ public class SettingPageController implements Initializable {
 
     @FXML
     void saveEdits(MouseEvent event) throws Exception {
-        if(userNameTF.getText().isEmpty() && passwordTF.getText().isEmpty()){
+        if(userNameTF.getText().isEmpty() || passwordTF.getText().isEmpty()){
             PageController.showAlert("Error","Please fill in Your Informations!"," ",
                     Alert.AlertType.ERROR);
-            return;
+        }else {
+            SQLController.updatePlayerInfo(userNameTF.getText(), passwordTF.getText(),
+                    PlayerController.getPlayer().getID());
         }
-        SQLController.updatePlayerInfo(userNameTF.getText(),passwordTF.getText(),
-                PlayerController.getPlayer().getID());
     }
 
     public static void setSound(String soundName) throws URISyntaxException {
