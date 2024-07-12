@@ -4,8 +4,13 @@ import javafx.scene.image.Image;
 
 public class FlyerRaider extends Raider {
     public FlyerRaider() {
+<<<<<<< HEAD
         setHealth(500);
         setLoot(80);
+=======
+        setHealth(200);
+        setLoot(20);
+>>>>>>> b01
         setSpeed(1d/20d);
         setDead(false);
         Image image1 = new Image(getClass().getResource("/Raiders/f1.png").toExternalForm());

@@ -9,7 +9,7 @@ import Models.Towers.ArcherTower;
 import Models.Towers.Artillery;
 import Models.Towers.Tower;
 import Models.Towers.WizardTower;
-import com.example.gameproject.Map1Controller;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.PathTransition;
 import javafx.animation.PauseTransition;

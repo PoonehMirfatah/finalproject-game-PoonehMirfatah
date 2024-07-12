@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,23 +20,18 @@ public class LoginPageController  {
     public TextField usernameTF;
     public TextField passwordTF;
     public Button confirmBT;
-    @FXML
-    private Button exitBT;
-    @FXML
-    private Button startBT;
 
     public void signIn(ActionEvent event) throws SQLException, IOException {
         String username = usernameTF.getText();
         String password = passwordTF.getText();
-        try {
-            SQLController.loadPlayer(username, password);
-        } catch (Exception e) {
-            PageController.showAlert("Error", e.getMessage(), "", Alert.AlertType.ERROR);
-        }
-        if (PlayerController.getInstance().player==null) {
-            PageController.showAlert("Error", "User Not Found!", "", Alert.AlertType.ERROR);
-            return;
-        }
+
+            if (!SQLController.loadPlayer(username, password)) {
+                PageController.showAlert("Error", "User Not Found!", "", Alert.AlertType.ERROR);
+                return;
+            }
         PageController.setstage(event, "HomePage.fxml");
+    }
+    public void backToFirstPage(MouseEvent event) throws IOException {
+        PageController.setstage(event,"FirstPage.fxml");
     }
 }

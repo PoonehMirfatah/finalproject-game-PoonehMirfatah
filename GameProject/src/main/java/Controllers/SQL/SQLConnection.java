@@ -10,16 +10,15 @@ class SQLConnection {
     String password = "123";
     String username = "root";
 
-    Boolean executeSQL(String SQLcmd) throws Exception {
+    void executeSQL(String SQLcmd) throws Exception {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(URL, username, password);
             Statement s = con.prepareStatement(SQLcmd);
             s.execute(SQLcmd);
             con.close();
-            return true;
         } catch (Exception e) {
-            return false;
+            System.out.println(e.getMessage());
         }
     }
 

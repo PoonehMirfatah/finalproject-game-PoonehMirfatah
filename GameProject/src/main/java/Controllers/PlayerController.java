@@ -7,7 +7,7 @@ public class PlayerController {
 
     private static PlayerController instance;
 
-    public Player player;
+    private  static Player player;
     private PlayerController() {
     }
     public static  PlayerController getInstance() {
@@ -17,12 +17,12 @@ public class PlayerController {
         return instance;
     }
 
-    public Player getPlayer() {
+    public static Player getPlayer() {
         return player;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    public static void setPlayer(Player player) {
+        PlayerController.player = player;
     }
 
     public void updateSpells() throws Exception {

@@ -6,27 +6,26 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="500.0" prefWidth="894.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gameproject.FirstPageController">
    <children>
-      <ImageView fitHeight="526.0" fitWidth="898.0" layoutX="-3.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="677.0" fitWidth="1019.0" layoutX="-3.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../Maps/llogo.jpg" />
+            <Image url="@../../../Maps/start.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="signinBT" layoutX="380.0" layoutY="363.0" lineSpacing="10.0" mnemonicParsing="false" onAction="#signIn" prefHeight="52.0" prefWidth="121.0" text="SignIn">
+      <Button fx:id="signinBT" layoutX="379.0" layoutY="399.0" lineSpacing="10.0" mnemonicParsing="false" onAction="#signIn" prefHeight="59.0" prefWidth="142.0" style="-fx-background-color: #ebd200;" text="SignIn">
          <font>
-            <Font size="25.0" />
+            <Font name="Franklin Gothic Demi Cond" size="32.0" />
          </font>
       </Button>
-      <Button fx:id="signUpBT" layoutX="378.0" layoutY="304.0" mnemonicParsing="false" onAction="#signUp" prefHeight="52.0" prefWidth="127.0" text="SignUp">
+      <Button fx:id="signUpBT" layoutX="376.0" layoutY="322.0" mnemonicParsing="false" onAction="#signUp" prefHeight="59.0" prefWidth="142.0" style="-fx-background-color: #ebc900;" text="SignUp">
          <font>
-            <Font size="25.0" />
+            <Font name="Franklin Gothic Demi Cond" size="32.0" />
          </font>
       </Button>
-      <Button fx:id="exitBT" layoutX="380.0" layoutY="423.0" mnemonicParsing="false" onAction="#exit" prefHeight="52.0" prefWidth="121.0" text="Exit">
+      <Button fx:id="exitBT" layoutX="382.0" layoutY="478.0" mnemonicParsing="false" onAction="#exit" prefHeight="59.0" prefWidth="129.0" style="-fx-background-color: #c73f00;" text="Exit" textFill="WHITE">
          <font>
-            <Font size="25.0" />
+            <Font name="Franklin Gothic Demi Cond" size="32.0" />
          </font>
       </Button>
    </children>

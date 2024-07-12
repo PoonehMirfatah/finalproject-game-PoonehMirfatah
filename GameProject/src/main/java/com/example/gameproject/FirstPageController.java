@@ -4,20 +4,22 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.media.MediaPlayer;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FirstPageController  {
+import static com.example.gameproject.SettingPageController.player;
+import static com.example.gameproject.SettingPageController.setSound;
+
+public class FirstPageController  implements Initializable{
 
     public Button signinBT;
     public Button signUpBT;
     @FXML
     private Button exitBT;
-
-    @FXML
-    private Button startBT;
 
 
     public void signIn(ActionEvent event) throws IOException {
@@ -30,5 +32,17 @@ public class FirstPageController  {
 
     public void exit(ActionEvent event) {
         System.exit(0);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (player == null) {
+            try {
+                SettingPageController.setSound("Music/startGame.mp3");
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+            player.setCycleCount(MediaPlayer.INDEFINITE);
+        }
     }
 }
