@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 public class ShieldRaider extends Raider {
     public ShieldRaider() {
        setHealth(300);
-        setLoot(20);
+        setLoot(50);
         setSpeed(1d/22d);
         setDead(false);
         Image image1 = new Image(getClass().getResource("/Raiders/1.png").toExternalForm());

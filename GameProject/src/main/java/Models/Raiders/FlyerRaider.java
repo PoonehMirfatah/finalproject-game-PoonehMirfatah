@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 public class FlyerRaider extends Raider {
     public FlyerRaider() {
         setHealth(200);
-        setLoot(15);
+        setLoot(20);
         setSpeed(1d/20d);
         setDead(false);
         Image image1 = new Image(getClass().getResource("/Raiders/f1.png").toExternalForm());

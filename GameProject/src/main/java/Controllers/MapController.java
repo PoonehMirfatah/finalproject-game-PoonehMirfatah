@@ -58,7 +58,7 @@ public class MapController {
     //public static  boolean firstAttack = true;
     public void freezeTransitions() {
         for (PathTransition pathTransition : map.getPathTransitions()) {
-            PauseTransition pauseTransition = new PauseTransition(Duration.seconds(5));
+            PauseTransition pauseTransition = new PauseTransition(Duration.seconds(3));
             pauseTransition.setOnFinished(event2 -> pathTransition.play());
 
             PauseTransition stopTransition = new PauseTransition(Duration.seconds(0.1));
@@ -73,7 +73,7 @@ public class MapController {
 
     public void freezeTimelines() {
         for (Timeline timeline : map.getTimelines()) {
-            PauseTransition pauseTransition = new PauseTransition(Duration.seconds(5));
+            PauseTransition pauseTransition = new PauseTransition(Duration.seconds(3));
             pauseTransition.setOnFinished(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -264,7 +264,7 @@ public class MapController {
                 try {
                     Main.setRoot(PageController.stage,"HomePage.fxml",722,622);
                     SettingPageController.setSound("Music/startGame.mp3");
-                    player.setCycleCount(MediaPlayer.INDEFINITE);
+                    SettingPageController.player.setCycleCount(MediaPlayer.INDEFINITE);
 
                 } catch (IOException | URISyntaxException e) {
                     throw new RuntimeException(e);
