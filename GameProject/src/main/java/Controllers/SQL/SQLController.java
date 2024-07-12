@@ -26,7 +26,7 @@ public class SQLController {
 
     }
 
-    public static void loadPlayer(String userName,String password) throws SQLException {
+    public static boolean loadPlayer(String userName,String password) throws SQLException {
         String sqlCmd = String.format("Select * from player WHERE UserName='%s' AND Password='%s'",userName,password);
         SQLConnection sql = new SQLConnection();
         ResultSet rs = sql.executeQuery(sqlCmd);
@@ -37,6 +37,9 @@ public class SQLController {
             player.setDiamonds(Integer.parseInt(rs.getString("Diamonds")));
             PlayerController.setPlayer(player);
             System.out.println(PlayerController.getPlayer().getUserName());
+            return true;
+        }else{
+            return false;
         }
     }
     public static void insertSpell(String spellName, int count) throws Exception {

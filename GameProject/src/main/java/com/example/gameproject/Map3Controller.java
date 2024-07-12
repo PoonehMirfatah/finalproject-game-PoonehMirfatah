@@ -236,14 +236,14 @@ public class Map3Controller implements Initializable {
         Position DP3 = new Position(damagePoint3.getLayoutX(), damagePoint3.getLayoutY());
         Position DP4 = new Position(damagePoint4.getLayoutX(), damagePoint4.getLayoutY());
 
-        map1 = new Map(towersPosition, path, end, attackWaves, 500, 20,3);
+        map1 = new Map(towersPosition, path, end, attackWaves, 600, 20,3);
 
         map1.getDamagePoints().add(DP1);
         map1.getDamagePoints().add(DP2);
         map1.getDamagePoints().add(DP3);
         map1.getDamagePoints().add(DP4);
 
-        PlayerController.getPlayer().setCoins(500);
+        PlayerController.getPlayer().setCoins(600);
         PlayerController.getPlayer().setHealth(20);
         MapController.setMap(map1);
         heartLB.setText(String.format("%s/20", PlayerController.getPlayer().getHealth()));

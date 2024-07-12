@@ -24,15 +24,11 @@ public class LoginPageController  {
     public void signIn(ActionEvent event) throws SQLException, IOException {
         String username = usernameTF.getText();
         String password = passwordTF.getText();
-        try {
-            SQLController.loadPlayer(username, password);
-        } catch (Exception e) {
-            PageController.showAlert("Error", e.getMessage(), "", Alert.AlertType.ERROR);
-        }
-        if (PlayerController.getPlayer()==null) {
-            PageController.showAlert("Error", "User Not Found!", "", Alert.AlertType.ERROR);
-            return;
-        }
+
+            if (!SQLController.loadPlayer(username, password)) {
+                PageController.showAlert("Error", "User Not Found!", "", Alert.AlertType.ERROR);
+                return;
+            }
         PageController.setstage(event, "HomePage.fxml");
     }
     public void backToFirstPage(MouseEvent event) throws IOException {

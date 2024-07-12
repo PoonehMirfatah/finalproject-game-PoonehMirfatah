@@ -423,7 +423,7 @@ public class Map1Controller implements Initializable {
             currentRaider.setvBox(vBox);
             vboxesList.add(vBox);
             MapController.getMap().getAliveRaiders().add(currentRaider);
-            int index=i;
+
             int raiderHealth = currentRaider.getHealth();
             pauseTransition.setOnFinished(e -> {
                 PathTransition pathTransition = setPathForNextRaider(path, currentRaider, vBox, raiderHealth);
@@ -470,7 +470,6 @@ public class Map1Controller implements Initializable {
     }
     public void attackTimeLine(Raider currentRaider, VBox vBox, PathTransition pathTransition, int health) {
         Timeline attackTimeline=new Timeline();
-
         attackTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             if (isFinished) {
                 return;
@@ -501,6 +500,7 @@ public class Map1Controller implements Initializable {
 
                     }
                 }
+
                 if(currentRaider.getHealth()<=0){
                     removeRaider(currentRaider, vBox, pathTransition);
                     MapController.map.getAliveRaiders().remove(currentRaider);

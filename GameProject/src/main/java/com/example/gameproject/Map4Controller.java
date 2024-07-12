@@ -246,7 +246,7 @@ public class Map4Controller implements Initializable {
             Position DP3 = new Position(damagePoint3.getLayoutX(), damagePoint3.getLayoutY());
             Position DP4 = new Position(damagePoint4.getLayoutX(), damagePoint4.getLayoutY());
 
-            map1 = new Map(towersPosition, path, end, attackWaves, 500, 20,4);
+            map1 = new Map(towersPosition, path, end, attackWaves, 700, 20,4);
 
             map1.getDamagePoints().add(DP1);
             map1.getDamagePoints().add(DP2);

@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+import static com.example.gameproject.SettingPageController.player;
 import static com.example.gameproject.SettingPageController.setSound;
 
 public class MapController {
@@ -239,7 +240,9 @@ public class MapController {
                 alert.setOnHidden((event)->{
                     try {
                         Main.setRoot(PageController.stage,"HomePage.fxml",722,622);
-                        SettingPageController.setSound("Music/gamemusic.mp3");
+                        SettingPageController.setSound("Music/startGame.mp3");
+                        SettingPageController.player.setCycleCount(MediaPlayer.INDEFINITE);
+
                     } catch (IOException | URISyntaxException e) {
                         throw new RuntimeException(e);
                     }
@@ -260,7 +263,9 @@ public class MapController {
             alert.setOnHidden((event -> {
                 try {
                     Main.setRoot(PageController.stage,"HomePage.fxml",722,622);
-                    SettingPageController.setSound("Music/gamemusic.mp3");
+                    SettingPageController.setSound("Music/startGame.mp3");
+                    player.setCycleCount(MediaPlayer.INDEFINITE);
+
                 } catch (IOException | URISyntaxException e) {
                     throw new RuntimeException(e);
                 }
