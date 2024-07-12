@@ -420,7 +420,6 @@ public class Map1Controller implements Initializable {
             VBox vBox=MapController.getInstance().addRaiderVbox(currentWave,i);
             PauseTransition pauseTransition = new PauseTransition(Duration.millis(delay));
             Raider currentRaider = currentWave.getRaiders().get(i);
-            currentRaider.setvBox(vBox);
             vboxesList.add(vBox);
             MapController.getMap().getAliveRaiders().add(currentRaider);
 

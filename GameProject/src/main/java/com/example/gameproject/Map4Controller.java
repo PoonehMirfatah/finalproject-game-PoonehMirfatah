@@ -482,7 +482,6 @@ public class Map4Controller implements Initializable {
                 vboxesList.add(vBox);
                 PauseTransition pauseTransition = new PauseTransition(Duration.millis(delay));
                 Raider currentRaider = currentWave.getRaiders().get(i);
-                currentRaider.setvBox(vBox);
                 MapController.getMap().getAliveRaiders().add(currentRaider);
                 int index=i;
                 int raiderHealth = currentRaider.getHealth();

@@ -55,10 +55,9 @@ public class MapController {
         MapController.map = map;
     }
 
-    //public static  boolean firstAttack = true;
     public void freezeTransitions() {
         for (PathTransition pathTransition : map.getPathTransitions()) {
-            PauseTransition pauseTransition = new PauseTransition(Duration.seconds(3));
+            PauseTransition pauseTransition = new PauseTransition(Duration.seconds(4));
             pauseTransition.setOnFinished(event2 -> pathTransition.play());
 
             PauseTransition stopTransition = new PauseTransition(Duration.seconds(0.1));
@@ -73,7 +72,7 @@ public class MapController {
 
     public void freezeTimelines() {
         for (Timeline timeline : map.getTimelines()) {
-            PauseTransition pauseTransition = new PauseTransition(Duration.seconds(3));
+            PauseTransition pauseTransition = new PauseTransition(Duration.seconds(4));
             pauseTransition.setOnFinished(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
